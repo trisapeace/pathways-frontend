@@ -1,0 +1,4 @@
+*.js
+!index.js
+!example.js
+!production.js

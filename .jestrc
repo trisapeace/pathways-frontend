@@ -1,0 +1,16 @@
+{
+  "modulePaths": [
+    "<rootDir>/src/js/",
+    "<rootDir>/src/libs/"
+  ],
+  "collectCoverageFrom": [
+    "src/js/**/*.js",
+    "!**/vendor/**",
+    "!**/__mocks__/**",
+    "!**/__tests__/**",
+    "!integration_tests/**"
+  ],
+  "moduleNameMapper": {
+    "^config$": "<rootDir>/config/test.js"
+  }
+}
