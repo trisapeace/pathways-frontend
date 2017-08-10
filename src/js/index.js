@@ -1,5 +1,8 @@
-require('index.scss');
 require('roboto-npm-webfont');
+
+require('leaflet/dist/leaflet.css');
+
+require('index.scss');
 
 import React from 'react';
 import ReactDOM from 'react-dom';

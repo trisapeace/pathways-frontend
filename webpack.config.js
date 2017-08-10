@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const Path = require('path');
+const path = require('path');
 const URL = require('url');
 const process = require('process');
 const HtmlPlugin = require('html-webpack-plugin');
@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
-const configPath = Path.join(__dirname, 'config');
+const configPath = path.join(__dirname, 'config');
 const config = require(configPath);
 
 const extractCSSPlugin = new ExtractTextPlugin({
@@ -21,19 +21,22 @@ module.exports = {
         main: [
             'babel-polyfill',
             'manifest.json',
-            Path.resolve(__dirname, 'src', 'js', 'index.js')
+            path.resolve(__dirname, 'src', 'js', 'index.js')
         ]
     },
     output: {
         filename: '[name].bundle.[chunkhash].js',
-        path: Path.resolve(__dirname, 'out'),
+        path: path.resolve(__dirname, 'out'),
         publicPath: '/'
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                exclude: [/node_modules/, /external/],
+                exclude: [
+                    path.resolve(__dirname, 'node_modules'),
+                    path.resolve(__dirname, 'external')
+                ],
                 use: ['babel-loader', 'eslint-loader']
             },
             {
@@ -53,7 +56,7 @@ module.exports = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        name: '[name].[hash].[ext]'
+                        name: '[path][name].[ext]?[hash]'
                     }
                 }
             },
@@ -62,7 +65,7 @@ module.exports = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        name: '[name].[hash].[ext]',
+                        name: '[path][name].[ext]?[hash]',
                     }
                 }
             },
@@ -85,15 +88,14 @@ module.exports = {
     },
     resolve: {
         modules: [
-            Path.resolve(__dirname, 'src', 'js'),
-            Path.resolve(__dirname, 'src', 'scss'),
-            Path.resolve(__dirname, 'src', 'libs'),
+            path.resolve(__dirname, 'src', 'js'),
+            path.resolve(__dirname, 'src', 'scss'),
+            path.resolve(__dirname, 'src', 'libs'),
             "node_modules"
         ],
         alias: {
             config: configPath,
-            "manifest.json": Path.join(__dirname, 'src', 'manifest.json'),
-            "material-design-icons": "material-design-icons/iconfont/material-icons.css"
+            "manifest.json": path.join(__dirname, 'src', 'manifest.json')
         }
     },
     plugins: [
@@ -114,11 +116,14 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(NODE_ENV || 'development')
         }),
-        new CopyWebpackPlugin([{from: '.htaccess', context: 'src'}]),
+        new CopyWebpackPlugin([
+            {from: 'static'},
+            {from: '.htaccess', context: 'src'}
+        ]),
         extractCSSPlugin
     ],
     devServer: {
-        contentBase: Path.resolve(__dirname, "out"),
+        contentBase: path.resolve(__dirname, "out"),
         inline: true,
         historyApiFallback: true,
         stats: {colors: true}
