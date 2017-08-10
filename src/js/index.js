@@ -1,4 +1,5 @@
 require('index.scss');
+require('roboto-npm-webfont');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
