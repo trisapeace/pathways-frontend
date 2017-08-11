@@ -5,10 +5,14 @@ import {Link} from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 
 export default class WelcomeView extends React.Component {
+    static viewOptions = {
+        title: "Welcome",
+        parent: null
+    };
+
     render() {
         return (
             <div className="content">
-                <h2>Welcome</h2>
                 <p>TODO: Everything else.</p>
                 <RaisedButton
                     label="Services"

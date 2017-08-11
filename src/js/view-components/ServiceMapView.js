@@ -4,6 +4,11 @@ import Leaflet from 'leaflet';
 import {Map, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 
 export default class ServiceMapView extends React.Component {
+    static viewOptions = {
+        title: "Services",
+        parent: '/'
+    };
+
     constructor() {
         super();
         this._markerIcon = Leaflet.icon({
@@ -37,7 +42,6 @@ export default class ServiceMapView extends React.Component {
 
         return (
             <div className="content">
-                <h2>Service Map</h2>
                 <p>TODO: Show human services loaded from the API.</p>
                 <Map center={position} zoom={zoom}>
                     <TileLayer

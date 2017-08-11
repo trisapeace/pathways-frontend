@@ -1,8 +1,7 @@
 import React from 'react';
 
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Switch} from 'react-router-dom';
 
-import AppBar from 'material-ui/AppBar';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -25,22 +24,27 @@ export default class Pathways extends React.Component {
     constructor() {
         super();
         this._routes = createRoutes();
+        this._headerRoutes = createRoutes('header');
         this._muiTheme = getMuiTheme();
     }
 
     render() {
         return (
             <MuiThemeProvider muiTheme={this._muiTheme}>
-                <div>
-                    <header className="header">
-                        <AppBar title="Pathways" />
-                    </header>
-                    <section className="main">
-                        <BrowserRouter>
-                            {this._routes}
-                        </BrowserRouter>
-                    </section>
-                </div>
+                <BrowserRouter>
+                    <div>
+                        <header className="header">
+                            <Switch>
+                                {this._headerRoutes}
+                            </Switch>
+                        </header>
+                        <section className="main">
+                            <Switch>
+                                {this._routes}
+                            </Switch>
+                        </section>
+                    </div>
+                </BrowserRouter>
             </MuiThemeProvider>
         );
     }
