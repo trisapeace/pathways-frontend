@@ -4,12 +4,9 @@ import {Link} from 'react-router-dom';
 
 import RaisedButton from 'material-ui/RaisedButton';
 
-export default class WelcomeView extends React.Component {
-    static viewOptions = {
-        title: "Welcome",
-        parent: null
-    };
+import SimpleAppView from 'ui-components/SimpleAppView';
 
+class WelcomeView_Main extends React.Component {
     render() {
         return (
             <div className="content">
@@ -21,5 +18,15 @@ export default class WelcomeView extends React.Component {
                 />
             </div>
         );
+    }
+}
+
+export default class WelcomeView extends SimpleAppView {
+    constructor() {
+        super({
+            title: "Welcome",
+            parent: null,
+            mainComponent: WelcomeView_Main
+        });
     }
 }

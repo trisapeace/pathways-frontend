@@ -3,12 +3,9 @@ import React from 'react';
 import Leaflet from 'leaflet';
 import {Map, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 
-export default class ServiceMapView extends React.Component {
-    static viewOptions = {
-        title: "Services",
-        parent: '/'
-    };
+import SimpleAppView from 'ui-components/SimpleAppView';
 
+class ServiceMapView_Main extends React.Component {
     constructor() {
         super();
         this._markerIcon = Leaflet.icon({
@@ -52,5 +49,15 @@ export default class ServiceMapView extends React.Component {
                 </Map>
             </div>
         );
+    }
+}
+
+export default class ServiceMapView extends SimpleAppView {
+    constructor() {
+        super({
+            title: "Services",
+            parent: '/',
+            mainComponent: ServiceMapView_Main
+        });
     }
 }

@@ -23,7 +23,7 @@ export default class Pathways extends React.Component {
      */
     constructor() {
         super();
-        this._routes = createRoutes();
+        this._mainRoutes = createRoutes('main');
         this._headerRoutes = createRoutes('header');
         this._muiTheme = getMuiTheme();
     }
@@ -40,7 +40,7 @@ export default class Pathways extends React.Component {
                         </header>
                         <section className="main">
                             <Switch>
-                                {this._routes}
+                                {this._mainRoutes}
                             </Switch>
                         </section>
                     </div>
