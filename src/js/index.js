@@ -1,4 +1,4 @@
-require('roboto-npm-webfont');
+require('typeface-roboto');
 
 require('leaflet/dist/leaflet.css');
 

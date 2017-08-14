@@ -2,7 +2,8 @@ import React from 'react';
 
 import {BrowserRouter, Switch} from 'react-router-dom';
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import createPalette from 'material-ui/styles/palette';
+import createMuiTheme from 'material-ui/styles/theme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import {createRoutes} from 'routes';
@@ -16,6 +17,10 @@ import {createRoutes} from 'routes';
  *       disconnected from Router.
  */
 
+const theme = createMuiTheme({
+    palette: createPalette({}),
+});
+
 export default class Pathways extends React.Component {
     /**
      * Base application component. Should contain a top-level component picked
@@ -25,12 +30,11 @@ export default class Pathways extends React.Component {
         super();
         this._mainRoutes = createRoutes('main');
         this._headerRoutes = createRoutes('header');
-        this._muiTheme = getMuiTheme();
     }
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={this._muiTheme}>
+            <MuiThemeProvider muiTheme={theme}>
                 <BrowserRouter>
                     <div>
                         <header className="header">

@@ -1,6 +1,11 @@
 import React from 'react';
 
 import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+
+import ArrowBack from 'material-ui-icons/ArrowBack';
 
 import AppView from 'ui-components/AppView';
 
@@ -9,13 +14,7 @@ import AppView from 'ui-components/AppView';
 // Expected options: title, parent, mainComponent.
 
 export default class SimpleAppView extends AppView {
-    constructor(options={}) {
-        const {mainComponent, ...otherOptions} = options;
-
-        super(otherOptions);
-
-        this.mainComponent = mainComponent;
-    }
+    get mainComponent() { return this.options.mainComponent; }
 
     renderMain(props) {
         const MainComponent = this.mainComponent;
@@ -28,6 +27,41 @@ export default class SimpleAppView extends AppView {
 
     renderHeader(props) {
         void(props);
-        return <AppBar title={this.title} />
+
+        // const appBarProps = {
+        //     title: this.title
+        // };
+
+        // if (this.parent) {
+        //     appBarProps.iconElementLeft = <IconButton><ArrowBack /></IconButton>
+        //     appBarProps.onLeftIconButtonTouchTap = this._onBackTouchTapCb.bind(this);
+        // }
+
+        const backButton = this.parent ? (
+            <IconButton color="contrast" aria-label="Back" onTouchTap={this._onBackTouchTapCb.bind(this)}>
+                <ArrowBack />
+            </IconButton>
+        ) : null;
+
+        return (
+            <AppBar position="static">
+                <Toolbar>
+                    {backButton}
+                    <Typography type="title" color="inherit">{this.title}</Typography>
+                </Toolbar>
+            </AppBar>
+        );
+    }
+
+    _onBackTouchTapCb() {
+        const {router} = this.context;
+        if (this.parent) {
+            router.history.push(this.parent);
+        }
     }
 }
+
+SimpleAppView.defaultOptions = {
+    ...AppView.defaultOptions,
+    mainComponent: null
+};

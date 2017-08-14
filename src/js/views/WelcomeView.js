@@ -1,21 +1,20 @@
 import React from 'react';
 
-import {Link} from 'react-router-dom';
+import Typography from 'material-ui/Typography';
 
-import RaisedButton from 'material-ui/RaisedButton';
-
+import LinkButton from 'ui-components/LinkButton';
 import SimpleAppView from 'ui-components/SimpleAppView';
 
 class WelcomeView_Main extends React.Component {
     render() {
         return (
             <div className="content">
-                <p>TODO: Everything else.</p>
-                <RaisedButton
-                    label="Services"
-                    primary={true}
-                    containerElement={<Link to="/services" />}
-                />
+                <Typography type="body1" component="p">
+                    TODO: Everything else.
+                </Typography>
+                <LinkButton raised color="primary" to="/services">
+                    Services
+                </LinkButton>
             </div>
         );
     }

@@ -3,6 +3,8 @@ import React from 'react';
 import Leaflet from 'leaflet';
 import {Map, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 
+import Typography from 'material-ui/Typography';
+
 import SimpleAppView from 'ui-components/SimpleAppView';
 
 class ServiceMapView_Main extends React.Component {
@@ -39,7 +41,9 @@ class ServiceMapView_Main extends React.Component {
 
         return (
             <div className="content">
-                <p>TODO: Show human services loaded from the API.</p>
+                <Typography type="body1" component="p">
+                    TODO: Show human services loaded from the API.
+                </Typography>
                 <Map center={position} zoom={zoom}>
                     <TileLayer
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

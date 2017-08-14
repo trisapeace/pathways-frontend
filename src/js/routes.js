@@ -1,9 +1,9 @@
 import React from 'react';
 import {Route} from 'react-router-dom'
 
-import DispatchView from 'view-components/DispatchView';
-import ServiceMapView from 'view-components/ServiceMapView';
-import WelcomeView from 'view-components/WelcomeView';
+import DispatchView from 'views/DispatchView';
+import ServiceMapView from 'views/ServiceMapView';
+import WelcomeView from 'views/WelcomeView';
 
 export const createRoutes = (frame) => {
     return (

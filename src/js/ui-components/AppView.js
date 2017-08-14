@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 
 export default class AppView extends React.Component {
     constructor(options={}) {
-        const {title, parent} = options;
-
         super();
 
-        this.title = title;
-        this.parent = parent;
+        this.options = Object.assign({}, this.constructor.defaultOptions, options);
 
         this._renderFns = {
             main: this.renderMain.bind(this),
             header: this.renderHeader.bind(this)
         };
     }
+
+    get title() { return this.options.title; }
+    get parent() { return this.options.parent; }
 
     static routeRenderFn(frame) {
         return (props) => <this frame={frame} {...props} />;
@@ -42,6 +42,15 @@ export default class AppView extends React.Component {
     }
 }
 
+AppView.defaultOptions = {
+    title: null,
+    parent: null
+};
+
+AppView.contextTypes = {
+    router: PropTypes.object.isRequired
+};
+
 AppView.propTypes = {
     frame: PropTypes.string
-}
+};
