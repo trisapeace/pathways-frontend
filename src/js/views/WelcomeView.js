@@ -9,7 +9,7 @@ class WelcomeView_Main extends React.Component {
     render() {
         return (
             <div className="content">
-                <Typography type="body1" component="p">
+                <Typography type="body1" component="p" gutterBottom={true}>
                     TODO: Everything else.
                 </Typography>
                 <LinkButton raised color="primary" to="/services">

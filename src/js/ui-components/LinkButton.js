@@ -24,15 +24,17 @@ export default class LinkButton extends React.PureComponent {
     }
 }
 
+LinkButton.muiName = 'Button';
+
+LinkButton.contextTypes = {
+    router: PropTypes.object.isRequired
+};
+
 LinkButton.propTypes = {
     ...Button.propTypes,
-    to: PropTypes.oneOf([
+    to: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object
     ]),
     replace: PropTypes.bool
 };
-
-LinkButton.contextTypes = {
-    router: PropTypes.object.isRequired
-}

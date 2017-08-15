@@ -41,7 +41,7 @@ class ServiceMapView_Main extends React.Component {
 
         return (
             <div className="content">
-                <Typography type="body1" component="p">
+                <Typography type="body1" component="p" gutterBottom={true}>
                     TODO: Show human services loaded from the API.
                 </Typography>
                 <Map center={position} zoom={zoom}>

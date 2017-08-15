@@ -28,15 +28,6 @@ export default class SimpleAppView extends AppView {
     renderHeader(props) {
         void(props);
 
-        // const appBarProps = {
-        //     title: this.title
-        // };
-
-        // if (this.parent) {
-        //     appBarProps.iconElementLeft = <IconButton><ArrowBack /></IconButton>
-        //     appBarProps.onLeftIconButtonTouchTap = this._onBackTouchTapCb.bind(this);
-        // }
-
         const backButton = this.parent ? (
             <IconButton color="contrast" aria-label="Back" onTouchTap={this._onBackTouchTapCb.bind(this)}>
                 <ArrowBack />

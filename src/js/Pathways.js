@@ -34,14 +34,12 @@ export default class Pathways extends React.Component {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={theme}>
+            <MuiThemeProvider theme={theme}>
                 <BrowserRouter>
                     <div>
-                        <header className="header">
-                            <Switch>
-                                {this._headerRoutes}
-                            </Switch>
-                        </header>
+                        <Switch>
+                            {this._headerRoutes}
+                        </Switch>
                         <section className="main">
                             <Switch>
                                 {this._mainRoutes}
