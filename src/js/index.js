@@ -7,6 +7,8 @@ require('index.scss');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Provider} from 'mobx-react';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Pathways from 'Pathways';
@@ -23,6 +25,8 @@ window.PATHWAYS = {
 console.info(`Pathways Web Frontend`, window.PATHWAYS);
 
 ReactDOM.render(
-  <Pathways />,
-  document.getElementById('root')
+    <Provider {...stores}>
+        <Pathways />
+    </Provider>,
+    document.getElementById('root')
 );
