@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
 
 import Leaflet from 'leaflet';
-import {FeatureGroup, Map, Marker, Popup, TileLayer, Tooltip} from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
+import {Map, Marker, Popup, TileLayer, Tooltip} from 'react-leaflet';
 
 import Typography from 'material-ui/Typography';
 import {LinearProgress} from 'material-ui/Progress';
@@ -39,9 +40,6 @@ class ServiceMapView_Main extends React.Component {
     render() {
         const {apiStore} = this.props;
 
-        const position = [49.2827, -123.1207];
-        const zoom = 13;
-
         let mapElem;
 
         if (apiStore.isReady && !apiStore.isLoading) {
@@ -73,17 +71,19 @@ class ServiceMapView_Main extends React.Component {
                 }
             }
 
-            console.log("PLOTTED SERVICES", apiStore.allServices.length, markers.length);
+            const position = [49.2827, -123.1207];
+            const zoom = 13;
+            const maxZoom = 15;
 
             mapElem = (
-                <Map center={position} zoom={zoom}>
+                <Map center={position} zoom={zoom} maxZoom={maxZoom}>
                     <TileLayer
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                       url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
-                    <FeatureGroup>
+                    <MarkerClusterGroup wrapperOptions={{enableDefaultStyle: true}}>
                         {markers}
-                    </FeatureGroup>
+                    </MarkerClusterGroup>
                 </Map>
             );
         } else {
