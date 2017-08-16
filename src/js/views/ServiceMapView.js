@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
 
 import Leaflet from 'leaflet';
-import {Map, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
+import {FeatureGroup, Map, Marker, Popup, TileLayer, Tooltip} from 'react-leaflet';
 
 import Typography from 'material-ui/Typography';
 import {LinearProgress} from 'material-ui/Progress';
@@ -44,28 +44,36 @@ class ServiceMapView_Main extends React.Component {
 
         let mapElem;
 
-        if (!apiStore.isLoading) {
+        if (apiStore.isReady && !apiStore.isLoading) {
             const markers = [];
 
             for (const service of apiStore.allServices) {
-                if (service && service.id) markers.push(
-                    <Marker key={`marker-service-${service.id}`} position={[service.latitude, service.longitude]} icon={this._markerIcon}>
-                        <Tooltip>
-                            <span>{service.name}</span>
-                        </Tooltip>
-                        <Popup>
-                            <div>
-                                <Typography type="body2" gutterBottom={true}>
-                                    {service.name}
-                                </Typography>
-                                <Typography type="body1" component="p">
-                                    {service.description}
-                                </Typography>
-                            </div>
-                        </Popup>
-                    </Marker>
-                );
+                if (service.latitude && service.longitude) {
+                    const markerProps = {
+                        position: Leaflet.latLng(service.latitude, service.longitude),
+                        icon: this._markerIcon
+                    };
+                    markers.push(
+                        <Marker key={`marker-service-${service.id}`} {...markerProps}>
+                            <Tooltip>
+                                <span>{service.name}</span>
+                            </Tooltip>
+                            <Popup>
+                                <div>
+                                    <Typography type="body2" gutterBottom={true}>
+                                        {service.name}
+                                    </Typography>
+                                    <Typography type="body1" component="p">
+                                        {service.description}
+                                    </Typography>
+                                </div>
+                            </Popup>
+                        </Marker>
+                    );
+                }
             }
+
+            console.log("PLOTTED SERVICES", apiStore.allServices.length, markers.length);
 
             mapElem = (
                 <Map center={position} zoom={zoom}>
@@ -73,7 +81,9 @@ class ServiceMapView_Main extends React.Component {
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                       url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
-                    {markers}
+                    <FeatureGroup>
+                        {markers}
+                    </FeatureGroup>
                 </Map>
             );
         } else {
