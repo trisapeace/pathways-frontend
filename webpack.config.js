@@ -9,7 +9,14 @@ const Visualizer = require('webpack-visualizer-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
 const configPath = path.join(__dirname, 'config');
-const config = require(configPath);
+
+try {
+    const config = require(configPath);
+} catch (error) {
+    console.error("Error loading configuration:", error.message);
+    console.info(`Make sure you have created config/${NODE_ENV || 'development'}.js`)
+    process.exit(1);
+}
 
 const extractCSSPlugin = new ExtractTextPlugin({
     filename: '[name].bundle.[contenthash].css',
