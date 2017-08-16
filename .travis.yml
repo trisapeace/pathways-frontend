@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- node
+install:
+- npm install
+script:
+- npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: nby0ZMA+xVXEYEisZEBQ8OOec+nh100JqmLErJSsAnSUEC5hqSphM6OKbIitEn61pYZrjCyWTzRwN5p5D2ryX3qOizY64lgBwoeOgF6gFLtqdQCwl4LShjQR6g3tQtXLc4HQFBzVmdSZB8ulrVOiU5Oj9X7b31jBOH+AEsQ0/QUHQ/3fBgxAPs/6bFHFzcTI/fyGrr5xsJKgkD4hmT9hLf/ckNGNSs4JK70x/UBVu2bQR+LMptOMVBPjsfAE6P3W6WqUAKYJoBjxGi3t4My8fcVR4JVKcp+WXSJv3U4M6Z3NEUs2o4VxqzGTlnGR5q8BJZdHrGHRbJ3/xn2BJ5bihpRXH7cdcvYopzHwUxGM8K/mBQylwadImjaAegQQ+oSmz/XvNsuaNDbNcGLmQUBxUxmHzsuVHTAIuJY8xaYtNCs9eMnezWY14apafAkDO2HQvmpOj/c88o8kT9XUjM2kY6Iv2RWdH9HuxScj0zuRfXYW11tOwgTw13yZM/7Dz/XsxcBajkUflRVUh0mXfOugS9rkzbPLAmUghOY9QXZsELLwEnLElSAK5JYnnlt3v7Wg6IKNfHm2Ur8EeblD7AOvX/wHCNGhmxSiY+eUUgsuZtAKWK/gZ7cbIEZkKCXp7QdyGxICylQvj5Ejgvvh5tirgp0yjof9hUzAhjjoqN3Y0sc=
+  app: pathways-frontend
+  on:
+    repo: pg-irc/pathways-frontend
+    all_branches: true

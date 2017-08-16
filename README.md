@@ -1,9 +1,12 @@
 Pathways Web Frontend
+[![Build Status](https://travis-ci.org/pg-irc/pathways-frontend.svg?branch=master)](https://travis-ci.org/pg-irc/pathways-frontend)
 ==========
 
 Web interface for the Pathways application, which helps people to find human services according to their needs. This is a single-page application written with React. It fetches data from [the backend API](https://github.com/pg-irc/pathways-backend).
 
  * Github project: <https://github.com/pg-irc/pathways-frontend>
+
+**Find the live website [here](https://pathways-frontend.herokuapp.com)**
 
 Build environment
 -----
