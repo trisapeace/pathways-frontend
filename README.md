@@ -14,26 +14,31 @@ Install package dependencies:
 
      yarn install
 
-To create a development build, you must include runtime configuration:
-
-    cp config/example.js config/development.js
-    open config/development.js
-
 Development
 -----
 
-To launch a test server, use the provided "start" script:
+To create a development build, you must add a configuration file that says how to access the API:
+
+    cp config/env.example.js config/development.js
+    open config/development.js
+
+Then, use the provided "start" script to launch a server with the frontend application:
 
     yarn run start
 
 This script uses [webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html). As long as it is running, you can access the application at <http://localhost:8080>. It will rebuild automatically as you work.
 
-The application's code is located in the "src" directory. Please maintain consistent formatting, and use the [editorconfig](http://editorconfig.org/) file at the root of the repository.
+The application's code is located in the "src" directory. Please maintain consistent formatting, and make sure your editor uses settings from the [editorconfig](http://editorconfig.org/) file at the root of the repository.
 
-Deployment
+Release
 -----
 
-To create a production build, use the provided "release" script:
+To create a production build, add another configuration file that says how to access the production version of the API:
+
+    cp config/env.example.js config/production.js
+    open config/production.js
+
+Then, use the provided "release" script:
 
     yarn run release
 

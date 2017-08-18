@@ -1,7 +1,8 @@
 module.exports = {
     api: {
         protocol: 'https',
+        hostname: 'pathways-backend.herokuapp.com',
         port: 443,
-        hostname: 'pathways-backend.herokuapp.com'
+        auth: ''
     }
 };

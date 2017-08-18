@@ -7,14 +7,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 
-const NODE_ENV = process.env.NODE_ENV;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 const configPath = path.join(__dirname, 'config');
 
 try {
     const config = require(configPath);
 } catch (error) {
     console.error("Error loading configuration:", error.message);
-    console.info(`Make sure you have created config/${NODE_ENV || 'development'}.js`)
+    console.info(`Make sure you have created config/${NODE_ENV}.js`)
     process.exit(1);
 }
 
@@ -121,7 +121,7 @@ module.exports = {
             }
         }),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(NODE_ENV || 'development')
+            'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
         }),
         new CopyWebpackPlugin([
             {from: 'static'},
@@ -141,6 +141,7 @@ module.exports = {
 const bundleStatistics = new Visualizer({
     filename: './bundle-stats.html'
 });
+
 if (NODE_ENV !== 'production') {
     module.exports.plugins.push(bundleStatistics);
 }
