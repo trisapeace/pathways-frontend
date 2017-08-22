@@ -12,4 +12,3 @@ deploy:
   app: pathways-frontend
   on:
     repo: pg-irc/pathways-frontend
-    all_branches: true
