@@ -5,6 +5,8 @@ install:
 - npm install
 script:
 - npm test
+# TODO: This doesn't work but lets make it work!
+# before_deploy: cp config/env.example.js config/production.js
 deploy:
   provider: heroku
   api_key:
