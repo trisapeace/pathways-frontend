@@ -1,3 +1,4 @@
 *.js
 !index.js
 !env.example.js
+!production.js
