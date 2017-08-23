@@ -14,5 +14,3 @@ deploy:
   app: pathways-frontend
   on:
     repo: pg-irc/pathways-frontend
-notifications:
-  slack: peacegeeks:5vsKNY6nV4sqnQ71uoSkPlxD
