@@ -36,15 +36,17 @@ export default class Pathways extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <BrowserRouter>
-                    <div>
-                        <Switch>
-                            {this._headerRoutes}
-                        </Switch>
-                        <section className="main">
+                    <div className="pathways-container">
+                        <div className="pathways-container-header">
+                            <Switch>
+                                {this._headerRoutes}
+                            </Switch>
+                        </div>
+                        <div className="pathways-container-main">
                             <Switch>
                                 {this._mainRoutes}
                             </Switch>
-                        </section>
+                        </div>
                     </div>
                 </BrowserRouter>
             </MuiThemeProvider>
