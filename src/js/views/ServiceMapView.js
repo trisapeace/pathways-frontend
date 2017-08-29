@@ -6,10 +6,13 @@ import {inject, observer} from 'mobx-react';
 
 import Leaflet from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
-import {Map, Marker, Popup, TileLayer, Tooltip} from 'react-leaflet';
+import {Map, Marker, Pane, Popup, TileLayer, Tooltip} from 'react-leaflet';
 
-import Typography from 'material-ui/Typography';
 import Card from 'material-ui/Card';
+import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import FilterListIcon from 'material-ui-icons/FilterList';
 import {LinearProgress} from 'material-ui/Progress';
 
 import SimpleAppView from 'ui-components/SimpleAppView';
@@ -46,7 +49,6 @@ class ServiceMapView_Main extends React.Component {
         const {apiStore} = this.props;
 
         const isLoading = !apiStore.isReady || apiStore.isLoading;
-        const loadingElem = (isLoading) ? <LinearProgress /> : null;
 
         const markers = [];
 
@@ -80,34 +82,92 @@ class ServiceMapView_Main extends React.Component {
         const zoom = 13;
         const maxZoom = 15;
 
-        const mapElem = (
-            <Map center={position} zoom={zoom} maxZoom={maxZoom}>
-                <TileLayer
-                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                  url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                />
-                <MarkerClusterGroup wrapperOptions={{enableDefaultStyle: true}}>
-                    {markers}
-                </MarkerClusterGroup>
-            </Map>
-        );
-
-        // TODO: We should place attribution inside service-map-overlay
-
         return (
             <div className="service-map-view">
-                {mapElem}
-                <Card className="service-map-overlay" elevation={2}>
-                    <Typography type="body1" component="p">
-                        Summarize selected map filters here
-                    </Typography>
-                    {loadingElem}
-                </Card>
+                <Map center={position} zoom={zoom} maxZoom={maxZoom} attributionControl={false}>
+                    <TileLayer
+                        attribution={`&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`}
+                        url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+                    />
+                    <MarkerClusterGroup wrapperOptions={{enableDefaultStyle: true}}>
+                        {markers}
+                    </MarkerClusterGroup>
+                    <ServiceFiltersPane loading={isLoading} />
+                </Map>
             </div>
         );
     }
 }
 
+class ServiceFiltersPane extends React.Component {
+    static contextTypes = {
+        map: PropTypes.object.isRequired
+    };
+
+    static propTypes = {
+        loading: PropTypes.bool
+    };
+
+    componentWillMount() {
+        const {map} = this.context;
+        map.on('layeradd layerremove', this._onLayersChangedCb.bind(this));
+    }
+
+    render() {
+        const {loading} = this.props;
+        const {map} = this.context;
+
+        const loadingElem = (loading) ? <LinearProgress /> : null;
+
+        const attributions = [];
+
+        map.eachLayer(
+            (layer) => {
+                const attribution = layer.getAttribution();
+                if (attribution) {
+                    attributions.push(attribution);
+                }
+            }
+        );
+
+        return (
+            <Pane className="service-map-filters-pane">
+                <Card className="service-map-overlay" elevation={2}>
+                    <Grid container direction="column">
+                        <Grid item container direction="row" align="center" justify="space-between">
+                            <Grid item>
+                                <Typography type="body1" component="p">
+                                    Summarize selected map filters here.
+                                </Typography>
+                            </Grid>
+                            <Grid item align="flex-end">
+                                <IconButton aria-label="Filter">
+                                    <FilterListIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                        <Grid item>
+                            <Typography type="caption" component="p">
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: attributions.join(', ')
+                                    }}
+                                />
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            {loadingElem}
+                        </Grid>
+                    </Grid>
+                </Card>
+            </Pane>
+        );
+    }
+
+    _onLayersChangedCb() {
+        this.setState({_changed: true});
+    }
+}
 
 export default class ServiceMapView extends SimpleAppView {
     constructor() {
