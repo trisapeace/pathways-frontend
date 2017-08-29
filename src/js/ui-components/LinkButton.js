@@ -5,6 +5,21 @@ import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 
 export default class LinkButton extends React.PureComponent {
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
+    static propTypes = {
+        ...Button.propTypes,
+        to: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.object
+        ]),
+        replace: PropTypes.bool
+    };
+
+    static muiName = 'Button';
+
     render() {
         const {to, replace, ...props} = this.props;
         void(to);
@@ -23,18 +38,3 @@ export default class LinkButton extends React.PureComponent {
         }
     }
 }
-
-LinkButton.muiName = 'Button';
-
-LinkButton.contextTypes = {
-    router: PropTypes.object.isRequired
-};
-
-LinkButton.propTypes = {
-    ...Button.propTypes,
-    to: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object
-    ]),
-    replace: PropTypes.bool
-};

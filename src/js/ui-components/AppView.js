@@ -3,6 +3,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class AppView extends React.Component {
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
+    static propTypes = {
+        frame: PropTypes.string,
+        location: PropTypes.object,
+        computedMatch: PropTypes.object
+    };
+
+    static defaultOptions = {
+        title: null,
+        parent: null
+    };
+
     constructor(options={}) {
         super();
 
@@ -41,16 +56,3 @@ export default class AppView extends React.Component {
         return this._renderFns[frame];
     }
 }
-
-AppView.defaultOptions = {
-    title: null,
-    parent: null
-};
-
-AppView.contextTypes = {
-    router: PropTypes.object.isRequired
-};
-
-AppView.propTypes = {
-    frame: PropTypes.string
-};

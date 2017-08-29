@@ -14,6 +14,11 @@ import AppView from 'ui-components/AppView';
 // Expected options: title, parent, mainComponent.
 
 export default class SimpleAppView extends AppView {
+    static defaultOptions = {
+        ...AppView.defaultOptions,
+        mainComponent: null
+    };
+
     get mainComponent() { return this.options.mainComponent; }
 
     renderMain(props) {
@@ -51,8 +56,3 @@ export default class SimpleAppView extends AppView {
         }
     }
 }
-
-SimpleAppView.defaultOptions = {
-    ...AppView.defaultOptions,
-    mainComponent: null
-};

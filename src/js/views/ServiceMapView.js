@@ -17,6 +17,10 @@ import SimpleAppView from 'ui-components/SimpleAppView';
 @inject('apiStore')
 @observer
 class ServiceMapView_Main extends React.Component {
+    static propTypes = {
+        apiStore: PropTypes.object.isRequired
+    };
+
     constructor() {
         super();
         this._markerIcon = Leaflet.icon({
@@ -104,9 +108,6 @@ class ServiceMapView_Main extends React.Component {
     }
 }
 
-ServiceMapView_Main.wrappedComponent.propTypes = {
-    apiStore: PropTypes.object.isRequired
-};
 
 export default class ServiceMapView extends SimpleAppView {
     constructor() {
