@@ -8,14 +8,12 @@ import Leaflet from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import {Map, Marker, Pane, Popup, TileLayer, Tooltip} from 'react-leaflet';
 
-import Card from 'material-ui/Card';
-import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import FilterListIcon from 'material-ui-icons/FilterList';
-import {LinearProgress} from 'material-ui/Progress';
 
 import SimpleAppView from 'ui-components/SimpleAppView';
+
+import ServiceFiltersCard from 'components/ServiceFiltersCard';
+import ServiceFiltersDialog from 'components/ServiceFiltersDialog';
 
 @inject('apiStore')
 @observer
@@ -26,6 +24,9 @@ class ServiceMapView_Main extends React.Component {
 
     constructor() {
         super();
+        this.state = {
+            isFiltersDialogOpen: false
+        };
         this._markerIcon = Leaflet.icon({
             iconUrl: '/images/marker-icon.png',
             iconRetinaUrl: '/images/marker-icon-2x.png',
@@ -92,80 +93,24 @@ class ServiceMapView_Main extends React.Component {
                     <MarkerClusterGroup wrapperOptions={{enableDefaultStyle: true}}>
                         {markers}
                     </MarkerClusterGroup>
-                    <ServiceFiltersPane loading={isLoading} />
+                    <Pane className="service-map-filters-pane">
+                        <ServiceFiltersCard loading={isLoading} onEditOpen={this._onEditOpen.bind(this)} />
+                    </Pane>
                 </Map>
+                <ServiceFiltersDialog
+                    open={this.state.isFiltersDialogOpen}
+                    onRequestClose={this._onEditClose.bind(this)}
+                />
             </div>
         );
     }
-}
 
-class ServiceFiltersPane extends React.Component {
-    static contextTypes = {
-        map: PropTypes.object.isRequired
-    };
-
-    static propTypes = {
-        loading: PropTypes.bool
-    };
-
-    componentWillMount() {
-        const {map} = this.context;
-        map.on('layeradd layerremove', this._onLayersChangedCb.bind(this));
+    _onEditOpen() {
+        this.setState({isFiltersDialogOpen: true});
     }
 
-    render() {
-        const {loading} = this.props;
-        const {map} = this.context;
-
-        const loadingElem = (loading) ? <LinearProgress /> : null;
-
-        const attributions = [];
-
-        map.eachLayer(
-            (layer) => {
-                const attribution = layer.getAttribution();
-                if (attribution) {
-                    attributions.push(attribution);
-                }
-            }
-        );
-
-        return (
-            <Pane className="service-map-filters-pane">
-                <Card className="service-map-overlay" elevation={2}>
-                    <Grid container direction="column">
-                        <Grid item container direction="row" align="center" justify="space-between">
-                            <Grid item>
-                                <Typography type="body1" component="p">
-                                    Summarize selected map filters here.
-                                </Typography>
-                            </Grid>
-                            <Grid item align="flex-end">
-                                <IconButton aria-label="Filter">
-                                    <FilterListIcon />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Typography type="caption" component="p">
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: attributions.join(', ')
-                                    }}
-                                />
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            {loadingElem}
-                        </Grid>
-                    </Grid>
-                </Card>
-            </Pane>
-        );
-    }
-
-    _onLayersChangedCb() {
-        this.setState({_changed: true});
+    _onEditClose() {
+        this.setState({isFiltersDialogOpen: false});
     }
 }
 

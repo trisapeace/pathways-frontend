@@ -52,5 +52,9 @@ body {
         a, button {
             pointer-events: auto;
         }
+
+        a {
+            color: inherit;
+        }
     }
 }
