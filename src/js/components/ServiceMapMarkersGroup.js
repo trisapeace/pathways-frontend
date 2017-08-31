@@ -29,6 +29,10 @@ export default class ServiceMapMarkersGroup extends React.Component {
         });
     }
 
+    shouldComponentUpdate(...params) {
+        return shouldComponentUpdate(this, ...params);
+    }
+
     render() {
         const {services} = this.props;
 
