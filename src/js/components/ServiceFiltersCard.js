@@ -2,6 +2,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import {inject, observer} from 'mobx-react';
+
 import Card from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -9,14 +11,16 @@ import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui-icons/Edit';
 import {LinearProgress} from 'material-ui/Progress';
 
+@inject('apiStore')
+@observer
 export default class ServiceFiltersCard extends React.Component {
     static contextTypes = {
         map: PropTypes.object.isRequired
     };
 
     static propTypes = {
-        onEditOpen: PropTypes.func,
-        loading: PropTypes.bool
+        apiStore: PropTypes.object.isRequired,
+        onEditOpen: PropTypes.func
     };
 
     componentWillMount() {
@@ -25,10 +29,12 @@ export default class ServiceFiltersCard extends React.Component {
     }
 
     render() {
-        const {loading} = this.props;
+        const {apiStore} = this.props;
         const {map} = this.context;
 
-        const loadingElem = (loading) ? <LinearProgress /> : null;
+        const isLoading = !apiStore.isReady || apiStore.isLoading;
+
+        const loadingElem = (isLoading) ? <LinearProgress /> : null;
 
         const mapNotice = [];
 
