@@ -22,19 +22,21 @@ class ServiceMapView_Main extends React.Component {
     constructor() {
         super();
         this.state = {
+            searchData: null,
             isFiltersDialogOpen: false
         };
     }
 
     componentWillMount() {
-        // const {apiStore} = this.props;
-        // if (!apiStore.isReady) {
-        //     apiStore.loadServices();
-        // }
+        const {apiStore} = this.props;
+        if (!apiStore.isReady) {
+            apiStore.loadServices();
+        }
     }
 
     render() {
         const {apiStore} = this.props;
+        const {searchData} = this.state;
 
         const isLoading = !apiStore.isReady || apiStore.isLoading;
 
@@ -42,12 +44,17 @@ class ServiceMapView_Main extends React.Component {
             <div className="service-map-view">
                 <ServiceMap attributionControl={false}>
                     <Pane className="service-map-filters-pane">
-                        <ServiceFiltersCard loading={isLoading} onEditOpen={this._onEditOpen.bind(this)} />
+                        <ServiceFiltersCard
+                            loading={isLoading}
+                            onEditOpen={this._onEditOpen.bind(this)}
+                        />
                     </Pane>
                 </ServiceMap>
                 <ServiceFiltersDialog
+                    data={searchData}
                     open={this.state.isFiltersDialogOpen}
-                    onRequestClose={this._onEditClose.bind(this)}
+                    onDataChange={this._onEditDataChange.bind(this)}
+                    onRequestClose={this._onEditRequestClose.bind(this)}
                 />
             </div>
         );
@@ -57,7 +64,11 @@ class ServiceMapView_Main extends React.Component {
         this.setState({isFiltersDialogOpen: true});
     }
 
-    _onEditClose() {
+    _onEditDataChange(data) {
+        this.setState({searchData: data});
+    }
+
+    _onEditRequestClose() {
         this.setState({isFiltersDialogOpen: false});
     }
 }

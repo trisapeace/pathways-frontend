@@ -14,17 +14,19 @@ import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dia
 export default class ServiceFiltersDialog extends React.Component {
     static propTypes = {
         apiStore: PropTypes.object.isRequired,
+        data: PropTypes.object,
+        onDataChange: PropTypes.func,
         onRequestClose: PropTypes.func
     };
 
     render() {
-        const {apiStore} = this.props;
+        const {apiStore, data, onDataChange, onRequestClose, ...other} = this.props;
 
         return (
-            <Dialog maxWidth="md" {...this.props}>
+            <Dialog maxWidth="md" {...other}>
                 <DialogTitle>Search</DialogTitle>
                 <DialogContent>
-                    <Form schema={apiStore.searchSchema} onSubmit={this._onFormSubmit.bind(this)}>
+                    <Form schema={apiStore.searchSchema} formData={data} onSubmit={this._onFormSubmit.bind(this)}>
                         <button ref={(elem) => {this._submitButton = elem}} hidden={true} />
                     </Form>
                 </DialogContent>
@@ -41,8 +43,8 @@ export default class ServiceFiltersDialog extends React.Component {
     }
 
     _onFormSubmit({formData}) {
-        console.log("Form submitted", formData);
         this._onRequestClose();
+        this._onDataChange(formData);
     }
 
     _onOkClick() {
@@ -51,6 +53,10 @@ export default class ServiceFiltersDialog extends React.Component {
 
     _onCancelClick() {
         this._onRequestClose();
+    }
+
+    _onDataChange(data) {
+        this.props.onDataChange(data);
     }
 
     _onRequestClose() {
