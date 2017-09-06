@@ -3,6 +3,8 @@ import {action, computed, observable} from 'mobx';
 import {Store, Record} from 'mobx-jsonapi-store';
 import {config as jsonapiConfig} from 'mobx-jsonapi-store';
 
+import apiSearchTemplate from 'util/api-mock/search/template.json';
+
 import config from 'config';
 
 // For some reason the person who made this module thinks it makes perfect
@@ -46,6 +48,13 @@ export default class APIStore {
 
     constructor() {
         this._apiStore = new JSONAPIStore();
+    }
+
+    @computed get searchSchema() {
+        return {
+            type: 'object',
+            properties: apiSearchTemplate
+        }
     }
 
     async loadServices() {
