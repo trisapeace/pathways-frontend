@@ -10,13 +10,9 @@ import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import {LinearProgress} from 'material-ui/Progress';
-import {withStyles} from 'material-ui/styles';
-
-import styles from 'styles';
 
 @inject('apiStore')
 @observer
-@withStyles(styles)
 export default class ServiceFiltersCard extends React.Component {
     static contextTypes = {
         map: PropTypes.object.isRequired
@@ -24,8 +20,8 @@ export default class ServiceFiltersCard extends React.Component {
 
     static propTypes = {
         apiStore: PropTypes.object.isRequired,
-        onEditOpen: PropTypes.func,
-        classes: PropTypes.object.isRequired
+        data: PropTypes.object.isRequired,
+        onEditOpen: PropTypes.func
     };
 
     componentWillMount() {
@@ -35,7 +31,7 @@ export default class ServiceFiltersCard extends React.Component {
 
     render() {
         const {map} = this.context;
-        const {apiStore, classes} = this.props;
+        const {apiStore, data} = this.props;
 
         const isLoading = !apiStore.isReady || apiStore.isLoading;
 
@@ -57,6 +53,12 @@ export default class ServiceFiltersCard extends React.Component {
         );
         mapNotice.push(attributions.join(', '));
 
+        const filters = Object.entries(data || {}).filter(
+            ([key, value]) => Boolean(value)
+        ).map(
+            ([key, value]) => `${key}: "${value}"`
+        );
+
         return (
             <Card className="service-map-overlay" elevation={2}>
                 <Grid container direction="column">
@@ -64,7 +66,7 @@ export default class ServiceFiltersCard extends React.Component {
                         <Grid container direction="row" align="center" justify="space-between">
                             <Grid item>
                                 <Typography type="body1" component="p">
-                                    Summarize selected map filters here.
+                                    {filters.length > 0 ? filters.join(', ') : "No filters selected."}
                                 </Typography>
                             </Grid>
                             <Grid item>

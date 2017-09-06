@@ -45,6 +45,7 @@ class ServiceMapView_Main extends React.Component {
                 <ServiceMap attributionControl={false}>
                     <Pane className="service-map-filters-pane">
                         <ServiceFiltersCard
+                            data={searchData}
                             loading={isLoading}
                             onEditOpen={this._onEditOpen.bind(this)}
                         />
