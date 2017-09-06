@@ -2,9 +2,7 @@ import React from 'react';
 
 import {BrowserRouter, Switch} from 'react-router-dom';
 
-import createPalette from 'material-ui/styles/palette';
-import createMuiTheme from 'material-ui/styles/theme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 
 import {createRoutes} from 'routes';
 
@@ -18,7 +16,6 @@ import {createRoutes} from 'routes';
  */
 
 const theme = createMuiTheme({
-    palette: createPalette({}),
 });
 
 export default class Pathways extends React.Component {

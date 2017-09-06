@@ -1,13 +1,18 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import {withStyles} from 'material-ui/styles';
 
 import ArrowBack from 'material-ui-icons/ArrowBack';
 
 import AppView from 'ui-components/AppView';
+
+import styles from 'styles';
 
 // An AppView that is rendered with an AppBar component, which includes the
 // view's title, and an "up" navigation button if its parent is set.
@@ -31,19 +36,38 @@ export default class SimpleAppView extends AppView {
     }
 
     renderHeader(props) {
-        void(props);
+        return <SimpleAppViewHeader parent={this.parent} title={this.title} />
+    }
+}
 
-        const backButton = this.parent ? (
-            <IconButton color="contrast" aria-label="Back" onTouchTap={this._onBackTouchTapCb.bind(this)}>
+@withStyles(styles)
+class SimpleAppViewHeader extends React.PureComponent {
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+        parent: PropTypes.object.isRequired,
+        title: PropTypes.string.isRequired
+    };
+
+    render() {
+        const {classes, parent, title} = this.props;
+
+        const backButton = parent ? (
+            <IconButton className={classes.menuButton} color="contrast" aria-label="Back" onTouchTap={this._onBackTouchTapCb.bind(this)}>
                 <ArrowBack />
             </IconButton>
         ) : null;
 
+        const hasButton = backButton !== null;
+
         return (
             <AppBar position="static">
-                <Toolbar>
+                <Toolbar disableGutters={hasButton}>
                     {backButton}
-                    <Typography type="title" color="inherit">{this.title}</Typography>
+                    <Typography type="title" color="inherit" className={classes.flex}>{title}</Typography>
                 </Toolbar>
             </AppBar>
         );
@@ -51,8 +75,10 @@ export default class SimpleAppView extends AppView {
 
     _onBackTouchTapCb() {
         const {router} = this.context;
-        if (this.parent) {
-            router.history.push(this.parent);
+        const {parent} = this.props;
+
+        if (parent) {
+            router.history.push(parent);
         }
     }
 }

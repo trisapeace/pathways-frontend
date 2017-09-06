@@ -8,7 +8,6 @@ import Form from "react-jsonschema-form";
 
 import Button from 'material-ui/Button';
 import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
-import Typography from 'material-ui/Typography';
 
 @inject('apiStore')
 @observer

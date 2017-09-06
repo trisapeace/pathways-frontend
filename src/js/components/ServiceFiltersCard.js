@@ -5,14 +5,18 @@ import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
 
 import Card from 'material-ui/Card';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui-icons/Edit';
+import Grid from 'material-ui/Grid';
+import IconButton from 'material-ui/IconButton';
+import Typography from 'material-ui/Typography';
 import {LinearProgress} from 'material-ui/Progress';
+import {withStyles} from 'material-ui/styles';
+
+import styles from 'styles';
 
 @inject('apiStore')
 @observer
+@withStyles(styles)
 export default class ServiceFiltersCard extends React.Component {
     static contextTypes = {
         map: PropTypes.object.isRequired
@@ -20,7 +24,8 @@ export default class ServiceFiltersCard extends React.Component {
 
     static propTypes = {
         apiStore: PropTypes.object.isRequired,
-        onEditOpen: PropTypes.func
+        onEditOpen: PropTypes.func,
+        classes: PropTypes.object.isRequired
     };
 
     componentWillMount() {
@@ -29,8 +34,8 @@ export default class ServiceFiltersCard extends React.Component {
     }
 
     render() {
-        const {apiStore} = this.props;
         const {map} = this.context;
+        const {apiStore, classes} = this.props;
 
         const isLoading = !apiStore.isReady || apiStore.isLoading;
 
