@@ -1,7 +1,7 @@
-import APIStore from 'stores/remote/APIStore';
+import LocationsStore from 'stores/remote/LocationsStore';
 
-const apiStore = new APIStore();
+const locationsStore = new LocationsStore();
 
 export default {
-    apiStore
+    locationsStore
 };

@@ -15,7 +15,7 @@ import {withStyles} from 'material-ui/styles';
 
 import styles from 'styles';
 
-@inject('apiStore')
+@inject('locationsStore')
 @observer
 @withStyles(styles)
 export default class ServiceFiltersCard extends React.Component {
@@ -24,7 +24,7 @@ export default class ServiceFiltersCard extends React.Component {
     };
 
     static propTypes = {
-        apiStore: PropTypes.object.isRequired,
+        locationsStore: PropTypes.object.isRequired,
         classes: PropTypes.object.isRequired,
         data: PropTypes.object,
         onDataChange: PropTypes.func,
@@ -38,9 +38,9 @@ export default class ServiceFiltersCard extends React.Component {
 
     render() {
         const {map} = this.context;
-        const {apiStore, classes, data} = this.props;
+        const {locationsStore, classes, data} = this.props;
 
-        const isLoading = !apiStore.isReady || apiStore.isLoading;
+        const isLoading = locationsStore.isRequest('fetching');
 
         const loadingElem = (isLoading) ? <LinearProgress /> : null;
 

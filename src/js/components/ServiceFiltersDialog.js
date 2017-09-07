@@ -9,27 +9,26 @@ import Form from "react-jsonschema-form";
 import Button from 'material-ui/Button';
 import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
 
-@inject('apiStore')
+@inject('locationsStore')
 @observer
 export default class ServiceFiltersDialog extends React.Component {
     static propTypes = {
-        apiStore: PropTypes.object.isRequired,
+        locationsStore: PropTypes.object.isRequired,
         data: PropTypes.object,
         onDataChange: PropTypes.func,
         onRequestClose: PropTypes.func
     };
 
     render() {
-        const {apiStore, data, onDataChange, onRequestClose, ...other} = this.props;
+        const {locationsStore, data, onDataChange, ...other} = this.props;
 
         void(onDataChange);
-        void(onRequestClose);
 
         return (
             <Dialog maxWidth="md" {...other}>
                 <DialogTitle>Search</DialogTitle>
                 <DialogContent>
-                    <Form schema={apiStore.searchSchema} formData={data} onSubmit={this._onFormSubmit.bind(this)}>
+                    <Form schema={locationsStore.searchSchema} formData={data} onSubmit={this._onFormSubmit.bind(this)}>
                         <button ref={(elem) => {this._submitButton = elem}} hidden={true} />
                     </Form>
                 </DialogContent>

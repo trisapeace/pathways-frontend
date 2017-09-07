@@ -8,21 +8,21 @@ import {Map, TileLayer} from 'react-leaflet';
 
 import ServiceMapMarkersGroup from 'components/ServiceMapMarkersGroup';
 
-@inject('apiStore')
+@inject('locationsStore')
 @observer
 export default class ServiceMap extends React.Component {
     static propTypes = {
-        apiStore: PropTypes.object.isRequired,
+        locationsStore: PropTypes.object.isRequired,
         children: PropTypes.object
     };
 
     render() {
-        const {apiStore, children, ...other} = this.props;
+        const {locationsStore, children, ...other} = this.props;
 
         const position = [49.2827, -123.1207];
         const zoom = 13;
         const maxZoom = 15;
-        const allServices = apiStore.allServices;
+        const allLocations = locationsStore.toArray();
 
         return (
             <Map center={position} zoom={zoom} maxZoom={maxZoom} {...other}>
@@ -30,7 +30,7 @@ export default class ServiceMap extends React.Component {
                     attribution={`&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`}
                     url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
-                <ServiceMapMarkersGroup services={allServices} />
+                <ServiceMapMarkersGroup locations={allLocations} />
                 {children}
             </Map>
         );

@@ -10,9 +10,9 @@ import Typography from 'material-ui/Typography';
 
 import shouldComponentUpdate from "util/shouldComponentUpdate";
 
-export default class ServiceMapMarkersGroup extends React.Component {
+export default class LocationMapMarkersGroup extends React.Component {
     static propTypes = {
-        services: PropTypes.array.isRequired
+        locations: PropTypes.array.isRequired
     };
 
     constructor() {
@@ -34,28 +34,28 @@ export default class ServiceMapMarkersGroup extends React.Component {
     }
 
     render() {
-        const {services} = this.props;
+        const {locations} = this.props;
 
         const markers = [];
 
-        for (const service of services) {
-            if (service.latitude && service.longitude) {
+        for (const location of locations) {
+            if (location.latLng) {
                 const markerProps = {
-                    position: Leaflet.latLng(service.latitude, service.longitude),
+                    position: Leaflet.latLng(location.latLng),
                     icon: this._markerIcon
                 };
                 markers.push(
-                    <Marker key={`marker-service-${service.id}`} {...markerProps}>
+                    <Marker key={`marker-location-${location.id}`} {...markerProps}>
                         <Tooltip>
-                            <span>{service.name}</span>
+                            <span>{location.name}</span>
                         </Tooltip>
                         <Popup>
                             <div>
                                 <Typography type="body2" gutterBottom={true}>
-                                    {service.name}
+                                    {location.name}
                                 </Typography>
                                 <Typography type="body1" component="p">
-                                    {service.description}
+                                    {location.description}
                                 </Typography>
                             </div>
                         </Popup>

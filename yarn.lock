@@ -1798,7 +1798,7 @@ deep-equal@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
 
-deep-extend@~0.4.0:
+deep-extend@^0.4.1, deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
 
@@ -2470,6 +2470,12 @@ fbjs@^0.8.1, fbjs@^0.8.14, fbjs@^0.8.4, fbjs@^0.8.6, fbjs@^0.8.9:
     promise "^7.1.1"
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
+
+fetch-ponyfill@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/fetch-ponyfill/-/fetch-ponyfill-4.1.0.tgz#ae3ce5f732c645eab87e4ae8793414709b239893"
+  dependencies:
+    node-fetch "~1.7.1"
 
 figures@^2.0.0:
   version "2.0.0"
@@ -4170,21 +4176,25 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-mobx-collection-store@^2.0.0-beta.4:
-  version "2.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/mobx-collection-store/-/mobx-collection-store-2.0.0-beta.4.tgz#cc11855068d7929732aff6922d84a3a57a1f131c"
-
-mobx-jsonapi-store@4.0.0-beta.3:
-  version "4.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/mobx-jsonapi-store/-/mobx-jsonapi-store-4.0.0-beta.3.tgz#fa2f89526e4cae83daae856d5779c86b90e8d2b6"
-  dependencies:
-    mobx-collection-store "^2.0.0-beta.4"
-
 mobx-react@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.2.2.tgz#db9cc3cafefbd830d0584c1149af5aae67829201"
   dependencies:
     hoist-non-react-statics "^1.2.0"
+
+mobx-rest-fetch-adapter@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/mobx-rest-fetch-adapter/-/mobx-rest-fetch-adapter-0.1.2.tgz#5d64f7c30b500f54862bbc4dfaaac52c573ed22b"
+  dependencies:
+    deep-extend "^0.4.1"
+    fetch-ponyfill "^4.0.0"
+    qs "^6.4.0"
+
+mobx-rest@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/mobx-rest/-/mobx-rest-2.2.1.tgz#454d8c84dba6d299843b8d6a7df2e3766d84bbde"
+  dependencies:
+    lodash "^4.17.4"
 
 mobx@^3.2.2:
   version "3.2.2"
@@ -4239,7 +4249,7 @@ node-dir@^0.1.10:
   dependencies:
     minimatch "^3.0.2"
 
-node-fetch@^1.0.1:
+node-fetch@^1.0.1, node-fetch@~1.7.1:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.2.tgz#c54e9aac57e432875233525f3c891c4159ffefd7"
   dependencies:
@@ -5050,7 +5060,7 @@ q@^1.1.2:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.0.tgz#dd01bac9d06d30e6f219aecb8253ee9ebdc308f1"
 
-qs@6.5.0:
+qs@6.5.0, qs@^6.4.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.0.tgz#8d04954d364def3efc55b5a0793e1e2c8b1e6e49"
 
