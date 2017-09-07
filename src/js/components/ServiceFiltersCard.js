@@ -5,14 +5,19 @@ import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
 
 import Card from 'material-ui/Card';
+import Chip from 'material-ui/Chip';
 import EditIcon from 'material-ui-icons/Edit';
 import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import {LinearProgress} from 'material-ui/Progress';
+import {withStyles} from 'material-ui/styles';
+
+import styles from 'styles';
 
 @inject('apiStore')
 @observer
+@withStyles(styles)
 export default class ServiceFiltersCard extends React.Component {
     static contextTypes = {
         map: PropTypes.object.isRequired
@@ -20,6 +25,7 @@ export default class ServiceFiltersCard extends React.Component {
 
     static propTypes = {
         apiStore: PropTypes.object.isRequired,
+        classes: PropTypes.object.isRequired,
         data: PropTypes.object.isRequired,
         onEditOpen: PropTypes.func
     };
@@ -31,7 +37,7 @@ export default class ServiceFiltersCard extends React.Component {
 
     render() {
         const {map} = this.context;
-        const {apiStore, data} = this.props;
+        const {apiStore, classes, data} = this.props;
 
         const isLoading = !apiStore.isReady || apiStore.isLoading;
 
@@ -53,11 +59,27 @@ export default class ServiceFiltersCard extends React.Component {
         );
         mapNotice.push(attributions.join(', '));
 
-        const filters = Object.entries(data || {}).filter(
-            ([key, value]) => Boolean(value)
+        const filterElems = Object.entries(data || {}).filter(
+            ([key, value]) => Boolean(key && value)
         ).map(
-            ([key, value]) => `${key}: "${value}"`
+            ([key, value]) => (
+                <Chip
+                    key={`filter-chip-${key}`}
+                    className={classes.chip}
+                    label={<span><strong>{key}:</strong> {value}</span>}
+                />
+            )
         );
+
+        const filtersContainer = (filterElems.length > 0) ? (
+            <div className={classes.chipWrapper}>
+                {filterElems}
+            </div>
+        ) : (
+            <Typography type="body1" component="p">
+                No filters selected.
+            </Typography>
+        )
 
         return (
             <Card className="service-map-overlay" elevation={2}>
@@ -65,9 +87,7 @@ export default class ServiceFiltersCard extends React.Component {
                     <Grid item>
                         <Grid container direction="row" align="center" justify="space-between">
                             <Grid item>
-                                <Typography type="body1" component="p">
-                                    {filters.length > 0 ? filters.join(', ') : "No filters selected."}
-                                </Typography>
+                                {filtersContainer}
                             </Grid>
                             <Grid item>
                                 <IconButton aria-label="Filter" onClick={this._onEditClick.bind(this)}>

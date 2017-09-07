@@ -28,10 +28,10 @@ class ServiceMapView_Main extends React.Component {
     }
 
     componentWillMount() {
-        const {apiStore} = this.props;
-        if (!apiStore.isReady) {
-            apiStore.loadServices();
-        }
+        // const {apiStore} = this.props;
+        // if (!apiStore.isReady) {
+        //     apiStore.loadServices();
+        // }
     }
 
     render() {

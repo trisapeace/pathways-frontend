@@ -15,6 +15,15 @@ const styles = theme => ({
     menuButton: {
         marginLeft: 12,
         marginRight: 20
+    },
+    chipWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        margin: -4
+    },
+    chip: {
+        margin: 4
     }
 });
 

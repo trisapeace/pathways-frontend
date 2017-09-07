@@ -36,6 +36,7 @@ export default class SimpleAppView extends AppView {
     }
 
     renderHeader(props) {
+        void(props);
         return <SimpleAppViewHeader parent={this.parent} title={this.title} />
     }
 }

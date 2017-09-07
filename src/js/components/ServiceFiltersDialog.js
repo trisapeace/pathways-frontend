@@ -22,6 +22,9 @@ export default class ServiceFiltersDialog extends React.Component {
     render() {
         const {apiStore, data, onDataChange, onRequestClose, ...other} = this.props;
 
+        void(onDataChange);
+        void(onRequestClose);
+
         return (
             <Dialog maxWidth="md" {...other}>
                 <DialogTitle>Search</DialogTitle>
