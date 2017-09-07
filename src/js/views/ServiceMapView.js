@@ -47,6 +47,7 @@ class ServiceMapView_Main extends React.Component {
                         <ServiceFiltersCard
                             data={searchData}
                             loading={isLoading}
+                            onDataChange={this._onEditDataChange.bind(this)}
                             onEditOpen={this._onEditOpen.bind(this)}
                         />
                     </Pane>

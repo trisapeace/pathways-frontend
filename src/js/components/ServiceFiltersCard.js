@@ -26,13 +26,14 @@ export default class ServiceFiltersCard extends React.Component {
     static propTypes = {
         apiStore: PropTypes.object.isRequired,
         classes: PropTypes.object.isRequired,
-        data: PropTypes.object.isRequired,
+        data: PropTypes.object,
+        onDataChange: PropTypes.func,
         onEditOpen: PropTypes.func
     };
 
     componentWillMount() {
         const {map} = this.context;
-        map.on('layeradd layerremove', this._onLayersChange.bind(this));
+        map.on('layeradd layerremove', this._onMapLayersChange.bind(this));
     }
 
     render() {
@@ -67,6 +68,7 @@ export default class ServiceFiltersCard extends React.Component {
                     key={`filter-chip-${key}`}
                     className={classes.chip}
                     label={<span><strong>{key}:</strong> {value}</span>}
+                    onRequestDelete={this._onFilterChipDelete.bind(this, key)}
                 />
             )
         );
@@ -90,7 +92,7 @@ export default class ServiceFiltersCard extends React.Component {
                                 {filtersContainer}
                             </Grid>
                             <Grid item>
-                                <IconButton aria-label="Filter" onClick={this._onEditClick.bind(this)}>
+                                <IconButton aria-label="Filter" onClick={this._onEditButtonClick.bind(this)}>
                                     <EditIcon />
                                 </IconButton>
                             </Grid>
@@ -113,11 +115,25 @@ export default class ServiceFiltersCard extends React.Component {
         );
     }
 
-    _onEditClick() {
-        this.props.onEditOpen();
+    _onMapLayersChange() {
+        this.setState({_changed: true});
     }
 
-    _onLayersChange() {
-        this.setState({_changed: true});
+    _onEditButtonClick() {
+        this._onEditOpen();
+    }
+
+    _onFilterChipDelete(filter) {
+        const data = {...this.props.data};
+        data[filter] = undefined;
+        this._onDataChange(data);
+    }
+
+    _onDataChange(data) {
+        this.props.onDataChange(data);
+    }
+
+    _onEditOpen() {
+        this.props.onEditOpen();
     }
 }
