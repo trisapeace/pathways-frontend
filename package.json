@@ -2,7 +2,7 @@
   "name": "pathways-frontend",
   "version": "0.1.0",
   "engines": {
-    "node": "8.2.1"
+    "node": ">=6.11.2"
   },
   "private": true,
   "dependencies": {
