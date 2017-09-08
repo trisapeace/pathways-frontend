@@ -1,3 +1,6 @@
+require('paper-card/paper-card.html');
+require('paper-icon-button/paper-icon-button.html');
+
 import React from 'react';
 
 import PropTypes from 'prop-types';
@@ -11,13 +14,9 @@ import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import {LinearProgress} from 'material-ui/Progress';
-import {withStyles} from 'material-ui/styles';
-
-import styles from 'styles';
 
 @inject('locationsStore')
 @observer
-@withStyles(styles)
 export default class ServiceFiltersCard extends React.Component {
     static contextTypes = {
         map: PropTypes.object.isRequired
@@ -25,7 +24,6 @@ export default class ServiceFiltersCard extends React.Component {
 
     static propTypes = {
         locationsStore: PropTypes.object.isRequired,
-        classes: PropTypes.object.isRequired,
         data: PropTypes.object,
         onDataChange: PropTypes.func,
         onEditOpen: PropTypes.func
@@ -38,7 +36,7 @@ export default class ServiceFiltersCard extends React.Component {
 
     render() {
         const {map} = this.context;
-        const {locationsStore, classes, data} = this.props;
+        const {locationsStore, data} = this.props;
 
         const isLoading = locationsStore.isRequest('fetching');
 
@@ -66,7 +64,6 @@ export default class ServiceFiltersCard extends React.Component {
             ([key, value]) => (
                 <Chip
                     key={`filter-chip-${key}`}
-                    className={classes.chip}
                     label={<span><strong>{key}:</strong> {value}</span>}
                     onRequestDelete={this._onFilterChipDelete.bind(this, key)}
                 />
@@ -74,7 +71,7 @@ export default class ServiceFiltersCard extends React.Component {
         );
 
         const filtersContainer = (filterElems.length > 0) ? (
-            <div className={classes.chipWrapper}>
+            <div>
                 {filterElems}
             </div>
         ) : (
@@ -84,7 +81,7 @@ export default class ServiceFiltersCard extends React.Component {
         )
 
         return (
-            <Card className="service-map-overlay" elevation={2}>
+            <paper-card className="service-map-overlay">
                 <Grid container direction="column">
                     <Grid item>
                         <Grid container direction="row" align="center" justify="space-between">
@@ -111,7 +108,7 @@ export default class ServiceFiltersCard extends React.Component {
                         {loadingElem}
                     </Grid>
                 </Grid>
-            </Card>
+            </paper-card>
         );
     }
 

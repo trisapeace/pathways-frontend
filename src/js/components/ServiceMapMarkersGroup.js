@@ -6,8 +6,6 @@ import Leaflet from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import {Marker, Popup, Tooltip} from 'react-leaflet';
 
-import Typography from 'material-ui/Typography';
-
 import shouldComponentUpdate from "util/shouldComponentUpdate";
 
 export default class LocationMapMarkersGroup extends React.Component {
@@ -51,12 +49,8 @@ export default class LocationMapMarkersGroup extends React.Component {
                         </Tooltip>
                         <Popup>
                             <div>
-                                <Typography type="body2" gutterBottom={true}>
-                                    {location.name}
-                                </Typography>
-                                <Typography type="body1" component="p">
-                                    {location.description}
-                                </Typography>
+                                <p><strong>{location.name}</strong></p>
+                                <p>{location.description}</p>
                             </div>
                         </Popup>
                     </Marker>

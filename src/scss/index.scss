@@ -3,31 +3,20 @@ body {
     padding: 0;
 }
 
-.pathways-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    min-height: 100vh;
+app-toolbar {
+    background-color: #4285f4;
+    color: #fff;
+}
 
-    .pathways-container-header {
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        flex-grow: 0;
-        flex-shrink: 1;
-    }
-
-    .pathways-container-main {
-        position: relative;
-        z-index: 1;
-        flex-grow: 1;
-        flex-shrink: 0;
+paper-button {
+    &.indigo {
+        background-color: var(--paper-indigo-500);
+        color: white;
     }
 }
 
 .service-map-view {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
 

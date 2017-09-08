@@ -41,6 +41,7 @@ module.exports = {
                 test: /\.js$/,
                 exclude: [
                     path.resolve(__dirname, 'node_modules'),
+                    path.resolve(__dirname, 'bower_components'),
                     path.resolve(__dirname, 'external')
                 ],
                 use: ['babel-loader', 'eslint-loader']
@@ -54,7 +55,9 @@ module.exports = {
                             name: 'manifest.json',
                         }
                     },
-                    'web-app-manifest-loader'
+                    {
+                        loader: 'web-app-manifest-loader'
+                    }
                 ]
             },
             {
@@ -82,13 +85,23 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: extractCSSPlugin.extract([
-                    {loader: 'css-loader', options: {
-                        sourceMap: true
-                    }},
-                    {loader: 'sass-loader', options: {
-                        sourceMap: true
-                    }}
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
                 ])
+            },
+            {
+                test: /\.html$/,
+                use: ['polymer-webpack-loader']
             }
         ]
     },
@@ -97,7 +110,8 @@ module.exports = {
             path.resolve(__dirname, 'src', 'js'),
             path.resolve(__dirname, 'src', 'scss'),
             path.resolve(__dirname, 'src', 'libs'),
-            "node_modules"
+            path.resolve(__dirname, 'bower_components'),
+            path.resolve(__dirname, 'node_modules')
         ],
         alias: {
             config: configPath,

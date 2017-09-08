@@ -28,10 +28,10 @@ class ServiceMapView_Main extends React.Component {
     }
 
     componentWillMount() {
-        const {locationsStore} = this.props;
-        if (locationsStore.isEmpty()) {
-            locationsStore.fetch();
-        }
+        // const {locationsStore} = this.props;
+        // if (locationsStore.isEmpty()) {
+        //     locationsStore.fetch();
+        // }
     }
 
     render() {

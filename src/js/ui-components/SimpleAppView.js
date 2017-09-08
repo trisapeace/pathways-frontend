@@ -1,24 +1,20 @@
+require('app-layout/app-header/app-header.html');
+require('app-layout/app-toolbar/app-toolbar.html');
+require('paper-icon-button/paper-icon-button.html');
+
 import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import {withStyles} from 'material-ui/styles';
-
-import ArrowBack from 'material-ui-icons/ArrowBack';
-
 import AppView from 'ui-components/AppView';
 
-import styles from 'styles';
-
-// An AppView that is rendered with an AppBar component, which includes the
-// view's title, and an "up" navigation button if its parent is set.
-// Expected options: title, parent, mainComponent.
-
 export default class SimpleAppView extends AppView {
+    /**
+     * An AppView that is rendered with an AppBar component, which includes
+     * the view's title, and an "up" navigation button if its parent is set.
+     * Expected options: title, parent, mainComponent.
+     */
+
     static defaultOptions = {
         ...AppView.defaultOptions,
         mainComponent: null
@@ -41,40 +37,34 @@ export default class SimpleAppView extends AppView {
     }
 }
 
-@withStyles(styles)
 class SimpleAppViewHeader extends React.PureComponent {
     static contextTypes = {
         router: PropTypes.object.isRequired
     };
 
     static propTypes = {
-        classes: PropTypes.object.isRequired,
         parent: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired
     };
 
     render() {
-        const {classes, parent, title} = this.props;
+        const {parent, title} = this.props;
 
         const backButton = parent ? (
-            <IconButton className={classes.menuButton} color="contrast" aria-label="Back" onTouchTap={this._onBackTouchTapCb.bind(this)}>
-                <ArrowBack />
-            </IconButton>
+            <paper-icon-button icon="arrow-back" onClick={this._onBackClick.bind(this)} />
         ) : null;
 
-        const hasButton = backButton !== null;
-
         return (
-            <AppBar position="static">
-                <Toolbar disableGutters={hasButton}>
+            <app-header slot="header" reveals>
+                <app-toolbar>
                     {backButton}
-                    <Typography type="title" color="inherit" className={classes.flex}>{title}</Typography>
-                </Toolbar>
-            </AppBar>
+                    <div main-title>{title}</div>
+                </app-toolbar>
+            </app-header>
         );
     }
 
-    _onBackTouchTapCb() {
+    _onBackClick() {
         const {router} = this.context;
         const {parent} = this.props;
 

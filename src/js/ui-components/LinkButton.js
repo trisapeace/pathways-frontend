@@ -1,8 +1,8 @@
+require('paper-button/paper-button.html');
+
 import React from 'react';
 
 import PropTypes from 'prop-types';
-
-import Button from 'material-ui/Button';
 
 export default class LinkButton extends React.PureComponent {
     static contextTypes = {
@@ -10,7 +10,6 @@ export default class LinkButton extends React.PureComponent {
     };
 
     static propTypes = {
-        ...Button.propTypes,
         to: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.object
@@ -18,16 +17,14 @@ export default class LinkButton extends React.PureComponent {
         replace: PropTypes.bool
     };
 
-    static muiName = 'Button';
-
     render() {
         const {to, replace, ...props} = this.props;
         void(to);
         void(replace);
-        return <Button {...props} onTouchTap={this._onTouchTapCb.bind(this)} />
+        return <paper-button {...props} onClick={this._onButtonClick.bind(this)} />
     }
 
-    _onTouchTapCb() {
+    _onButtonClick() {
         const {router} = this.context;
         const {to, replace} = this.props;replace
 

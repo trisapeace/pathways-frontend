@@ -1,6 +1,8 @@
+require('app-layout/app-header-layout/app-header-layout.html');
+
 import React from 'react';
 
-import {BrowserRouter, Switch} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 
@@ -33,18 +35,10 @@ export default class Pathways extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <BrowserRouter>
-                    <div className="pathways-container">
-                        <div className="pathways-container-header">
-                            <Switch>
-                                {this._headerRoutes}
-                            </Switch>
-                        </div>
-                        <div className="pathways-container-main">
-                            <Switch>
-                                {this._mainRoutes}
-                            </Switch>
-                        </div>
-                    </div>
+                    <app-header-layout fullbleed>
+                        {this._headerRoutes}
+                        {this._mainRoutes}
+                    </app-header-layout>
                 </BrowserRouter>
             </MuiThemeProvider>
         );
