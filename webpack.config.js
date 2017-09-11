@@ -140,7 +140,10 @@ module.exports = {
             {from: 'static'},
             {from: '.htaccess', context: 'src'}
         ]),
-        extractCSSPlugin
+        extractCSSPlugin,
+        // Fix a warning with webcomponentsjs
+        // <https://github.com/webcomponents/webcomponentsjs/issues/794>
+        new webpack.IgnorePlugin(/vertx/)
     ],
     devServer: {
         contentBase: path.resolve(__dirname, "out"),

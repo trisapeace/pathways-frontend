@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 import {inject, observer} from 'mobx-react';
 
-import Card from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 import EditIcon from 'material-ui-icons/Edit';
 import Grid from 'material-ui/Grid';

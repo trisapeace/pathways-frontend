@@ -2,8 +2,6 @@ require('iron-icon/iron-icon.html');
 
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
 import LinkButton from 'ui-components/LinkButton';
 import SimpleAppView from 'ui-components/SimpleAppView';
 
