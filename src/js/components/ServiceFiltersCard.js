@@ -34,7 +34,7 @@ export default class ServiceFiltersCard extends React.Component {
 
         const isLoading = locationsStore.isRequest('fetching');
 
-        const loadingElem = <paper-progress indeterminate />;
+        const loadingElem = isLoading ? <paper-progress indeterminate /> : null;
 
         const mapNotice = [];
 

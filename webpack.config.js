@@ -40,11 +40,19 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: [
-                    path.resolve(__dirname, 'node_modules'),
                     path.resolve(__dirname, 'bower_components'),
-                    path.resolve(__dirname, 'external')
+                    path.resolve(__dirname, 'node_modules'),
                 ],
                 use: ['babel-loader', 'eslint-loader']
+            },
+            {
+                test: /\.js$/,
+                include: [
+                    path.resolve(__dirname, 'bower_components'),
+                    path.resolve(__dirname, 'node_modules', 'react-polymer'),
+                    path.resolve(__dirname, 'node_modules', 'polymer-webpack-loader')
+                ],
+                use: ['babel-loader']
             },
             {
                 test: /manifest\.json$/,
@@ -101,7 +109,7 @@ module.exports = {
             },
             {
                 test: /\.html$/,
-                use: ['polymer-webpack-loader']
+                use: ['babel-loader', 'polymer-webpack-loader']
             }
         ]
     },
@@ -129,7 +137,7 @@ module.exports = {
             name: 'vendor',
             minChunks: function (module) {
                 if (module.context) {
-                    return module.context.indexOf('node_modules') !== -1 || module.context.indexOf('external') !== -1;
+                    return module.context.indexOf('node_modules') !== -1;
                 }
             }
         }),
