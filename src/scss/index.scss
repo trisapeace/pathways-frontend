@@ -1,11 +1,33 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 14px;
+    background-color: #fafafa;
 }
 
 app-toolbar {
     background-color: #4285f4;
     color: #fff;
+
+    paper-icon-button + [main-title] {
+        margin-left: 8px;
+    }
+
+    [main-title] {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 600px) {
+        /* Mobile styles for toolbar
+         * <https://github.com/PolymerElements/app-layout/issues/169>
+         */
+
+        height: 56px;
+        padding: 0 8px;
+    }
 }
 
 paper-button {
@@ -34,16 +56,48 @@ paper-button {
         bottom: 0;
         left: 0;
         margin: 16px 24px;
-        padding: 16px 24px;
         background-color: rgba(#fff, 0.9);
         pointer-events: none;
 
-        a, button, [role=button] {
+        /* TODO: Put everything here inside container components.
+         *       Remove custom margins.
+         */
+
+        .filters-container {
+            display: block;
+            margin-bottom: 8px;
+
+            paper-chip {
+                margin: 4px 4px 4px 0;
+            }
+
+            paper-icon-button {
+                margin-left: 4px;
+                color: var(--paper-grey-700);
+            }
+        }
+
+        paper-chip, a, button, [role=button] {
             pointer-events: auto;
         }
 
-        a {
-            color: inherit;
+        small {
+            font-size: 1em;
+            line-height: 1.4;
+            color: var(--paper-grey-600);
+
+            a {
+                color: inherit;
+                font-weight: normal;
+            }
+        }
+
+        paper-progress {
+            display: block;
+            margin-top: 12px;
+            width: 100%;
+            --paper-progress-active-color: var(--paper-light-blue-500);
+            --paper-progress-secondary-color: var(--paper-light-blue-100);
         }
     }
 }

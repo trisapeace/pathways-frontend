@@ -1,18 +1,13 @@
 require('paper-card/paper-card.html');
+require('paper-chip/paper-chip.html');
 require('paper-icon-button/paper-icon-button.html');
+require('paper-progress/paper-progress.html');
 
 import React from 'react';
 
 import PropTypes from 'prop-types';
 
 import {inject, observer} from 'mobx-react';
-
-import Chip from 'material-ui/Chip';
-import EditIcon from 'material-ui-icons/Edit';
-import Grid from 'material-ui/Grid';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
-import {LinearProgress} from 'material-ui/Progress';
 
 @inject('locationsStore')
 @observer
@@ -39,7 +34,7 @@ export default class ServiceFiltersCard extends React.Component {
 
         const isLoading = locationsStore.isRequest('fetching');
 
-        const loadingElem = (isLoading) ? <LinearProgress /> : null;
+        const loadingElem = <paper-progress indeterminate />;
 
         const mapNotice = [];
 
@@ -57,56 +52,49 @@ export default class ServiceFiltersCard extends React.Component {
         );
         mapNotice.push(attributions.join(', '));
 
+        /* TODO: We need our own controlled version of paper-chip */
+
         const filterElems = Object.entries(data || {}).filter(
             ([key, value]) => Boolean(key && value)
         ).map(
             ([key, value]) => (
-                <Chip
-                    key={`filter-chip-${key}`}
-                    label={<span><strong>{key}:</strong> {value}</span>}
-                    onRequestDelete={this._onFilterChipDelete.bind(this, key)}
-                />
+                <paper-chip key={`filter-chip-${key}`} animate={true} multi-line={true} removable={true}>
+                    <div slot="label" className="label">
+                        {key}
+                    </div>
+                    <div slot="caption" className="caption">
+                        {value}
+                    </div>
+                </paper-chip>
             )
         );
 
-        const filtersContainer = (filterElems.length > 0) ? (
-            <div>
+        const selectedFilters = (filterElems.length > 0) ? (
+            <span>
                 {filterElems}
-            </div>
+            </span>
         ) : (
-            <Typography type="body1" component="p">
+            <span>
                 No filters selected.
-            </Typography>
+            </span>
         )
 
         return (
             <paper-card className="service-map-overlay">
-                <Grid container direction="column">
-                    <Grid item>
-                        <Grid container direction="row" align="center" justify="space-between">
-                            <Grid item>
-                                {filtersContainer}
-                            </Grid>
-                            <Grid item>
-                                <IconButton aria-label="Filter" onClick={this._onEditButtonClick.bind(this)}>
-                                    <EditIcon />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Typography type="caption" component="p">
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: mapNotice.join(' | ')
-                                }}
-                            />
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        {loadingElem}
-                    </Grid>
-                </Grid>
+                <div className="card-content">
+                    <div className="filters-container">
+                        {selectedFilters}
+                        <paper-icon-button icon="editor:mode-edit" onClick={this._onEditButtonClick.bind(this)} />
+                    </div>
+                    <div>
+                        <small
+                            dangerouslySetInnerHTML={{
+                                __html: mapNotice.join(' | ')
+                            }}
+                        />
+                    </div>
+                    {loadingElem}
+                </div>
             </paper-card>
         );
     }

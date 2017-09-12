@@ -4,8 +4,6 @@ import React from 'react';
 
 import {BrowserRouter} from 'react-router-dom';
 
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-
 import {createRoutes} from 'routes';
 
 /*
@@ -16,9 +14,6 @@ import {createRoutes} from 'routes';
  *       independent of route changes, so we probably want a mechanism that is
  *       disconnected from Router.
  */
-
-const theme = createMuiTheme({
-});
 
 export default class Pathways extends React.Component {
     /**
@@ -33,14 +28,12 @@ export default class Pathways extends React.Component {
 
     render() {
         return (
-            <MuiThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <app-header-layout fullbleed>
-                        {this._headerRoutes}
-                        {this._mainRoutes}
-                    </app-header-layout>
-                </BrowserRouter>
-            </MuiThemeProvider>
+            <BrowserRouter>
+                <app-header-layout fullbleed>
+                    {this._headerRoutes}
+                    {this._mainRoutes}
+                </app-header-layout>
+            </BrowserRouter>
         );
     }
 }
