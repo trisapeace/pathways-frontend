@@ -1,8 +1,3 @@
-require('paper-card/paper-card.html');
-require('paper-chip/paper-chip.html');
-require('paper-icon-button/paper-icon-button.html');
-require('paper-progress/paper-progress.html');
-
 import React from 'react';
 
 import PropTypes from 'prop-types';

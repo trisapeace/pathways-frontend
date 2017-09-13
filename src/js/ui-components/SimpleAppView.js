@@ -1,7 +1,3 @@
-require('app-layout/app-header/app-header.html');
-require('app-layout/app-toolbar/app-toolbar.html');
-require('paper-icon-button/paper-icon-button.html');
-
 import React from 'react';
 
 import PropTypes from 'prop-types';

@@ -27,6 +27,7 @@ module.exports = {
         main: [
             'babel-polyfill',
             'manifest.json',
+            path.resolve(__dirname, 'src', 'js', 'globals.js'),
             path.resolve(__dirname, 'src', 'js', 'index.js')
         ]
     },
@@ -137,7 +138,7 @@ module.exports = {
             name: 'vendor',
             minChunks: function (module) {
                 if (module.context) {
-                    return module.context.indexOf('node_modules') !== -1;
+                    return module.context.includes('node_modules') || module.context.includes('bower_components');
                 }
             }
         }),

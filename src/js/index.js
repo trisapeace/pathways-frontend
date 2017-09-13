@@ -1,22 +1,9 @@
-require('webcomponentsjs/webcomponents-lite.js');
-
-require('index.scss');
-
-require('font-roboto/roboto.html');
-
-require('iron-icons/editor-icons.html');
-require('iron-icons/iron-icons.html');
-require('neon-animation/web-animations.html');
-require('neon-animation/neon-animations.html');
-require('paper-dialog/paper-dialog.html');
-require('paper-styles/paper-styles.html');
-
 import URL from 'url';
-
-import reactPolymer from 'react-polymer';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import reactPolymer from 'react-polymer';
 
 import {Provider} from 'mobx-react';
 
