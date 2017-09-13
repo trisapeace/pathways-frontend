@@ -54,7 +54,7 @@ class ServiceMapView_Main extends React.Component {
                 </ServiceMap>
                 <ServiceFiltersDialog
                     data={searchData}
-                    open={this.state.isFiltersDialogOpen}
+                    isOpen={this.state.isFiltersDialogOpen}
                     onDataChange={this._onEditDataChange.bind(this)}
                     onRequestClose={this._onEditRequestClose.bind(this)}
                 />

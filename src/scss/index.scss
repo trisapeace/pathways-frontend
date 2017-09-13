@@ -1,3 +1,5 @@
+@import '~leaflet/dist/leaflet.css';
+
 body {
     margin: 0;
     padding: 0;
@@ -56,8 +58,9 @@ paper-button {
         bottom: 0;
         left: 0;
         margin: 16px 24px;
-        background-color: rgba(#fff, 0.9);
         pointer-events: none;
+
+        --paper-card-background-color: rgba(#fff, 0.95);
 
         /* TODO: Put everything here inside container components.
          *       Remove custom margins.

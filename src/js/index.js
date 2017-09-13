@@ -1,11 +1,14 @@
 require('webcomponentsjs/webcomponents-lite.js');
 
-require('leaflet/dist/leaflet.css');
 require('index.scss');
 
 require('font-roboto/roboto.html');
+
 require('iron-icons/editor-icons.html');
 require('iron-icons/iron-icons.html');
+require('neon-animation/web-animations.html');
+require('neon-animation/neon-animations.html');
+require('paper-dialog/paper-dialog.html');
 require('paper-styles/paper-styles.html');
 
 import URL from 'url';
@@ -27,6 +30,11 @@ import stores from 'stores';
 reactPolymer.registerAttribute('main');
 reactPolymer.registerAttribute('main-title');
 reactPolymer.registerAttribute('slot');
+
+reactPolymer.registerEvent('tap', 'onTap');
+reactPolymer.registerEvent('iron-overlay-canceled', 'onOverlayCancel');
+reactPolymer.registerEvent('iron-overlay-closed', 'onOverlayClose');
+reactPolymer.registerEvent('iron-overlay-opened', 'onOverlayOpen');
 
 apiClient(adapter, {
     apiPath: URL.format({...config.api})

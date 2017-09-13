@@ -26,7 +26,7 @@ export default class LinkButton extends React.PureComponent {
 
     _onButtonClick() {
         const {router} = this.context;
-        const {to, replace} = this.props;replace
+        const {to, replace} = this.props;
 
         if (replace) {
             router.history.replace(to);
