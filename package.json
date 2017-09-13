@@ -11,8 +11,6 @@
     "bower": "^1.8.0",
     "leaflet": "^1.0.0",
     "leaflet.markercluster": "^1.0.6",
-    "material-ui": "next",
-    "material-ui-icons": "next",
     "mobx": "^3.2.2",
     "mobx-react": "^4.2.2",
     "mobx-rest": "^2.2.1",
@@ -26,9 +24,9 @@
     "react-leaflet": "^1.5.0",
     "react-leaflet-markercluster": "^1.1.6",
     "react-polymer": "^4.1.0",
+    "react-portal": "^3.1.0",
     "react-router-dom": "^4.1.2",
-    "react-tap-event-plugin": "^2.0.1",
-    "typeface-roboto": "^0.0.35"
+    "react-tap-event-plugin": "^2.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
