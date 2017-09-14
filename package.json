@@ -63,7 +63,7 @@
     "lint": "eslint --ignore-pattern=\"*__tests__*\" src",
     "start": "webpack-dev-server",
     "build": "webpack -d --progress --colors --config ./webpack.config.js",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
-    "release": "NODE_ENV=production webpack -p --progress --colors --config ./webpack.config.js"
+    "heroku-postbuild": "webpack --config ./webpack.config.js --progress",
+    "release": "NODE_ENV=production webpack --progress --colors --config ./webpack.config.js"
   }
 }

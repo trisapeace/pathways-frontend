@@ -5,6 +5,11 @@
 
 require('index.scss');
 
+/*
+ * TODO: This might blow up in browsers that don't support es6. May need to do
+ *       something clever with Webpack to keep this one out of the js bundle.
+ */
+
 if (window.customElements) {
     require('webcomponentsjs/custom-elements-es5-adapter.js');
 }
