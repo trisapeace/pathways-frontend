@@ -1,8 +1,13 @@
 /*
  * Global imports required for styles, external scripts, and web components.
+ * Assumes the web components polyfill has been loaded as a prerequisite.
  */
 
 require('index.scss');
+
+if (window.customElements) {
+    require('webcomponentsjs/custom-elements-es5-adapter.js');
+}
 
 require('webcomponentsjs/webcomponents-lite.js');
 

@@ -39,8 +39,8 @@ class SimpleAppViewHeader extends React.PureComponent {
     };
 
     static propTypes = {
-        parent: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired
+        parent: PropTypes.string,
+        title: PropTypes.string
     };
 
     render() {

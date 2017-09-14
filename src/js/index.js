@@ -33,9 +33,18 @@ window.PATHWAYS = {
 
 console.info(`Pathways Web Frontend`, window.PATHWAYS);
 
-ReactDOM.render(
-    <Provider {...stores}>
-        <Pathways />
-    </Provider>,
-    document.getElementById('root')
-);
+function main() {
+    ReactDOM.render(
+        <Provider {...stores}>
+            <Pathways />
+        </Provider>,
+        document.getElementById('root')
+    );
+}
+
+function _onWebComponentsReady() {
+    document.removeEventListener('WebComponentsReady', _onWebComponentsReady, false);
+    main();
+}
+
+document.addEventListener('WebComponentsReady', _onWebComponentsReady);

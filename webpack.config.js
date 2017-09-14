@@ -4,7 +4,6 @@ const process = require('process');
 const HtmlPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const Visualizer = require('webpack-visualizer-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const configPath = path.join(__dirname, 'config');
@@ -49,11 +48,35 @@ module.exports = {
             {
                 test: /\.js$/,
                 include: [
-                    path.resolve(__dirname, 'bower_components'),
                     path.resolve(__dirname, 'node_modules', 'react-polymer'),
                     path.resolve(__dirname, 'node_modules', 'polymer-webpack-loader')
                 ],
                 use: ['babel-loader']
+            },
+            {
+                test: /\.html$/,
+                use: ['babel-loader', 'polymer-webpack-loader']
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: extractCSSPlugin.extract([
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ])
             },
             {
                 test: /manifest\.json$/,
@@ -86,31 +109,6 @@ module.exports = {
                         name: '[path][name].[ext]?[hash]',
                     }
                 }
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.scss$/,
-                use: extractCSSPlugin.extract([
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ])
-            },
-            {
-                test: /\.html$/,
-                use: ['babel-loader', 'polymer-webpack-loader']
             }
         ]
     },
@@ -118,7 +116,6 @@ module.exports = {
         modules: [
             path.resolve(__dirname, 'src', 'js'),
             path.resolve(__dirname, 'src', 'scss'),
-            path.resolve(__dirname, 'src', 'libs'),
             path.resolve(__dirname, 'bower_components'),
             path.resolve(__dirname, 'node_modules')
         ],
@@ -146,8 +143,13 @@ module.exports = {
             'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
         }),
         new CopyWebpackPlugin([
-            {from: 'static'},
-            {from: '.htaccess', context: 'src'}
+            {
+                from: 'static'
+            },
+            {
+                from: '.htaccess',
+                context: 'src'
+            }
         ]),
         extractCSSPlugin,
         // Fix a warning with webcomponentsjs
@@ -162,11 +164,3 @@ module.exports = {
     },
     devtool: 'sourcemap'
 };
-
-const bundleStatistics = new Visualizer({
-    filename: './bundle-stats.html'
-});
-
-if (NODE_ENV !== 'production') {
-    module.exports.plugins.push(bundleStatistics);
-}
