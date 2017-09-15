@@ -26,6 +26,8 @@ require('paper-styles/paper-styles.html');
 require('neon-animation/web-animations.html');
 require('neon-animation/neon-animations.html');
 
-require('paper-chip/paper-chip.html');
+const reactPolymer = require('react-polymer');
 
-require('react-polymer');
+reactPolymer.registerAttribute('main');
+reactPolymer.registerAttribute('main-title');
+reactPolymer.registerAttribute('slot');

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
 
 import {PaperCard} from 'polymer/paper-card';
+import {PaperChip} from 'polymer/paper-chip';
 import {PaperIconButton} from 'polymer/paper-icon-button';
 import {PaperProgress} from 'polymer/paper-progress';
 
@@ -51,20 +52,18 @@ export default class ServiceFiltersCard extends React.Component {
         );
         mapNotice.push(attributions.join(', '));
 
-        /* TODO: We need our own controlled version of paper-chip */
-
         const filterElems = Object.entries(data || {}).filter(
             ([key, value]) => Boolean(key && value)
         ).map(
             ([key, value]) => (
-                <paper-chip key={`filter-chip-${key}`} animate={true} multi-line={true} removable={true}>
+                <PaperChip key={`filter-chip-${key}`} animate={true} multi-line={true} removable={true} onRemove={this._onFilterChipRemove.bind(this, key)}>
                     <div slot="label" className="label">
                         {key}
                     </div>
                     <div slot="caption" className="caption">
                         {value}
                     </div>
-                </paper-chip>
+                </PaperChip>
             )
         );
 
@@ -106,7 +105,7 @@ export default class ServiceFiltersCard extends React.Component {
         this._onEditOpen();
     }
 
-    _onFilterChipDelete(filter) {
+    _onFilterChipRemove(filter) {
         const data = {...this.props.data};
         data[filter] = undefined;
         this._onDataChange(data);

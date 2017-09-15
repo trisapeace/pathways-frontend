@@ -6,35 +6,53 @@ import PropTypes from 'prop-types';
 
 import reactPolymer from 'react-polymer';
 
-reactPolymer.registerEvent('iron-overlay-canceled', 'onIronOverlayCancel');
-reactPolymer.registerEvent('iron-overlay-closed', 'onIronOverlayClose');
-reactPolymer.registerEvent('iron-overlay-opened', 'onIronOverlayOpen');
+// TODO: Implement event passing with componentDidMount / etc. using a generic
+//       higher-order component.
 
 export class PaperDialog extends React.PureComponent {
     static propTypes = {
-        opened: PropTypes.bool,
         onCancel: PropTypes.func,
         onClose: PropTypes.func,
         onOpen: PropTypes.func
     };
 
+    constructor() {
+        super();
+        this._onCancelFn = this._onCancel.bind(this);
+        this._onCloseFn = this._onClose.bind(this);
+        this._onOpenFn = this._onOpen.bind(this);
+    }
+
+    componentDidMount() {
+        // Prevent the paper-dialog from opening or closing on its own.
+        this._elem.addEventListener("iron-overlay-canceled", this._onCancelFn);
+        this._elem.addEventListener("iron-overlay-closed", this._onCloseFn);
+        this._elem.addEventListener("iron-overlay-opened", this._onOpenFn);
+    }
+
+    componentWillUnmount() {
+        this._elem.removeEventListener("iron-overlay-canceled", this._onCancelFn);
+        this._elem.removeEventListener("iron-overlay-closed", this._onCloseFn);
+        this._elem.removeEventListener("iron-overlay-opened", this._onOpnFn);
+    }
+
     render() {
-        const {onCancel, onClose, onOpen, ...other} = this.props;
+        return <paper-dialog ref={(elem) => this._elem = elem} {...this.props} />
+    }
 
-        const extra = {
-            onIronOverlayCancel: onCancel,
-            onIronOverlayClose: onClose,
-            onIronOverlayOpen: onOpen
-        };
+    _onCancel(e) {
+        e.preventDefault();
+        if (this.props.onCancel) this.props.onCancel(e);
+    }
 
-        if (isFinite(this.props.opened)) {
-            // If "opened" is set, prevent the paper-dialog from closing on
-            // its own.
-            extra.onIronOverlayClose = _preventDefault(onClose);
-            extra.onIronOverlayOpen = _preventDefault(onOpen);
-        }
+    _onClose(e) {
+        e.preventDefault();
+        if (this.props.onClose) this.props.onClose(e);
+    }
 
-        return <paper-dialog {...other} {...extra} />
+    _onOpen(e) {
+        e.preventDefault();
+        if (this.props.onOpen) this.props.onOpen(e);
     }
 }
 

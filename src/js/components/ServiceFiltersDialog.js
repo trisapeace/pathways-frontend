@@ -28,7 +28,7 @@ export default class ServiceFiltersDialog extends React.Component {
 
         return (
             <Portal isOpened={true}>
-                <PaperDialog opened={isOpen} onClose={onRequestClose} with-backdrop={true}>
+                <PaperDialog opened={isOpen} with-backdrop={true} onClose={onRequestClose}>
                     <h2>Search</h2>
                     <PaperDialogScrollable>
                         <Form schema={locationsStore.searchSchema} formData={data} onSubmit={this._onFormSubmit.bind(this)}>
