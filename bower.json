@@ -10,6 +10,7 @@
     "polymer": "2.0.2",
     "paper-styles": "^2.0.0",
     "paper-chip": "fabbricadigitale/paper-chip#^0.11.1",
-    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0"
+    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
+    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^2.1.0"
   }
 }

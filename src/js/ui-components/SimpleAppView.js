@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 import AppView from 'ui-components/AppView';
 
+import {AppHeader, AppToolbar} from 'polymer/app-layout';
+import {PaperIconButton} from 'polymer/paper-icon-button';
+
 export default class SimpleAppView extends AppView {
     /**
      * An AppView that is rendered with an AppBar component, which includes
@@ -47,16 +50,16 @@ class SimpleAppViewHeader extends React.PureComponent {
         const {parent, title} = this.props;
 
         const backButton = parent ? (
-            <paper-icon-button icon="arrow-back" onClick={this._onBackClick.bind(this)} />
+            <PaperIconButton icon="arrow-back" onClick={this._onBackClick.bind(this)} />
         ) : null;
 
         return (
-            <app-header slot="header" reveals>
-                <app-toolbar>
+            <AppHeader slot="header" reveals>
+                <AppToolbar>
                     {backButton}
                     <div main-title>{title}</div>
-                </app-toolbar>
-            </app-header>
+                </AppToolbar>
+            </AppHeader>
         );
     }
 

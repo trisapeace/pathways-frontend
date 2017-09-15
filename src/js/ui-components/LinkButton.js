@@ -2,6 +2,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import {PaperButton} from 'polymer/paper-button';
+
 export default class LinkButton extends React.PureComponent {
     static contextTypes = {
         router: PropTypes.object.isRequired
@@ -19,7 +21,7 @@ export default class LinkButton extends React.PureComponent {
         const {to, replace, ...props} = this.props;
         void(to);
         void(replace);
-        return <paper-button {...props} onClick={this._onButtonClick.bind(this)} />
+        return <PaperButton {...props} onClick={this._onButtonClick.bind(this)} />
     }
 
     _onButtonClick() {

@@ -18,11 +18,6 @@ reactPolymer.registerAttribute('main');
 reactPolymer.registerAttribute('main-title');
 reactPolymer.registerAttribute('slot');
 
-reactPolymer.registerEvent('tap', 'onTap');
-reactPolymer.registerEvent('iron-overlay-canceled', 'onOverlayCancel');
-reactPolymer.registerEvent('iron-overlay-closed', 'onOverlayClose');
-reactPolymer.registerEvent('iron-overlay-opened', 'onOverlayOpen');
-
 apiClient(adapter, {
     apiPath: URL.format({...config.api})
 });

@@ -4,9 +4,13 @@ import PropTypes from 'prop-types';
 
 import {inject, observer} from 'mobx-react';
 
-import Form from "react-jsonschema-form";
+import Form from 'react-jsonschema-form';
 
 import Portal from 'react-portal';
+
+import {PaperButton} from 'polymer/paper-button';
+import {PaperDialog} from 'polymer/paper-dialog';
+import {PaperDialogScrollable} from 'polymer/paper-dialog-scrollable';
 
 @inject('locationsStore')
 @observer
@@ -20,22 +24,22 @@ export default class ServiceFiltersDialog extends React.Component {
     };
 
     render() {
-        const {locationsStore, data, isOpen} = this.props;
+        const {locationsStore, data, isOpen, onRequestClose} = this.props;
 
         return (
             <Portal isOpened={true}>
-                <paper-dialog opened={isOpen} with-backdrop={true} onOverlayClose={this._onOverlayClose.bind(this)}>
+                <PaperDialog opened={isOpen} onClose={onRequestClose} with-backdrop={true}>
                     <h2>Search</h2>
-                    <paper-dialog-scrollable>
+                    <PaperDialogScrollable>
                         <Form schema={locationsStore.searchSchema} formData={data} onSubmit={this._onFormSubmit.bind(this)}>
                             <button ref={(elem) => {this._submitButton = elem}} hidden={true} />
                         </Form>
-                    </paper-dialog-scrollable>
+                    </PaperDialogScrollable>
                     <div className="buttons">
-                        <paper-button dialog-dismiss>Cancel</paper-button>
-                        <paper-button dialog-confirm onClick={this._onOkClick.bind(this)}>Accept</paper-button>
+                        <PaperButton dialog-dismiss>Cancel</PaperButton>
+                        <PaperButton dialog-confirm onClick={this._onOkClick.bind(this)}>Accept</PaperButton>
                     </div>
-                </paper-dialog>
+                </PaperDialog>
             </Portal>
         );
     }
@@ -52,10 +56,5 @@ export default class ServiceFiltersDialog extends React.Component {
 
     _onDataChange(data) {
         this.props.onDataChange(data);
-    }
-
-    _onOverlayClose(e) {
-        e.preventDefault();
-        this.props.onRequestClose();
     }
 }

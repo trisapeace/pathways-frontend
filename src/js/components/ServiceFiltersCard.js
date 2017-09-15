@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 
 import {inject, observer} from 'mobx-react';
 
+import {PaperCard} from 'polymer/paper-card';
+import {PaperIconButton} from 'polymer/paper-icon-button';
+import {PaperProgress} from 'polymer/paper-progress';
+
 @inject('locationsStore')
 @observer
 export default class ServiceFiltersCard extends React.Component {
@@ -29,7 +33,7 @@ export default class ServiceFiltersCard extends React.Component {
 
         const isLoading = locationsStore.isRequest('fetching');
 
-        const loadingElem = isLoading ? <paper-progress indeterminate /> : null;
+        const loadingElem = isLoading ? <PaperProgress indeterminate /> : null;
 
         const mapNotice = [];
 
@@ -75,11 +79,11 @@ export default class ServiceFiltersCard extends React.Component {
         )
 
         return (
-            <paper-card className="service-map-overlay">
+            <PaperCard className="service-map-overlay">
                 <div className="card-content">
                     <div className="filters-container">
                         {selectedFilters}
-                        <paper-icon-button icon="editor:mode-edit" onClick={this._onEditButtonClick.bind(this)} />
+                        <PaperIconButton icon="editor:mode-edit" onClick={this._onEditButtonClick.bind(this)} />
                     </div>
                     <div>
                         <small
@@ -90,7 +94,7 @@ export default class ServiceFiltersCard extends React.Component {
                     </div>
                     {loadingElem}
                 </div>
-            </paper-card>
+            </PaperCard>
         );
     }
 

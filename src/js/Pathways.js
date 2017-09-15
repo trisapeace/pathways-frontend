@@ -6,6 +6,8 @@ import {BrowserRouter} from 'react-router-dom';
 
 import {createRoutes} from 'routes';
 
+import {AppHeaderLayout} from 'polymer/app-layout';
+
 /*
  * TODO: Keep track of the current top-level route. We should be able to find
  *       out what its page title is, what its parent route is like with
@@ -29,10 +31,10 @@ export default class Pathways extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <app-header-layout fullbleed>
+                <AppHeaderLayout fullbleed>
                     {this._headerRoutes}
                     {this._mainRoutes}
-                </app-header-layout>
+                </AppHeaderLayout>
             </BrowserRouter>
         );
     }
