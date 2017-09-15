@@ -4,8 +4,6 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import reactPolymer from 'react-polymer';
-
 export class PaperChip extends React.PureComponent {
     static propTypes = {
         onRemove: PropTypes.func

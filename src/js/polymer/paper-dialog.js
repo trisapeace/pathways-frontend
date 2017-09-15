@@ -4,8 +4,6 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import reactPolymer from 'react-polymer';
-
 // TODO: Implement event passing with componentDidMount / etc. using a generic
 //       higher-order component.
 
@@ -54,11 +52,4 @@ export class PaperDialog extends React.PureComponent {
         e.preventDefault();
         if (this.props.onOpen) this.props.onOpen(e);
     }
-}
-
-function _preventDefault(cb) {
-    return (e) => {
-        e.preventDefault();
-        if (cb) return cb(e);
-    };
 }
