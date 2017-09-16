@@ -1,10 +1,12 @@
+require('app-layout/app-header-layout/app-header-layout.html');
+
 import React from 'react';
 
-import {BrowserRouter, Switch} from 'react-router-dom';
-
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import {BrowserRouter} from 'react-router-dom';
 
 import {createRoutes} from 'routes';
+
+import {AppHeaderLayout} from 'polymer/app-layout';
 
 /*
  * TODO: Keep track of the current top-level route. We should be able to find
@@ -14,9 +16,6 @@ import {createRoutes} from 'routes';
  *       independent of route changes, so we probably want a mechanism that is
  *       disconnected from Router.
  */
-
-const theme = createMuiTheme({
-});
 
 export default class Pathways extends React.Component {
     /**
@@ -31,22 +30,12 @@ export default class Pathways extends React.Component {
 
     render() {
         return (
-            <MuiThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <div className="pathways-container">
-                        <div className="pathways-container-header">
-                            <Switch>
-                                {this._headerRoutes}
-                            </Switch>
-                        </div>
-                        <div className="pathways-container-main">
-                            <Switch>
-                                {this._mainRoutes}
-                            </Switch>
-                        </div>
-                    </div>
-                </BrowserRouter>
-            </MuiThemeProvider>
+            <BrowserRouter>
+                <AppHeaderLayout fullbleed>
+                    {this._headerRoutes}
+                    {this._mainRoutes}
+                </AppHeaderLayout>
+            </BrowserRouter>
         );
     }
 }

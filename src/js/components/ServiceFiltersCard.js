@@ -4,20 +4,13 @@ import PropTypes from 'prop-types';
 
 import {inject, observer} from 'mobx-react';
 
-import Card from 'material-ui/Card';
-import Chip from 'material-ui/Chip';
-import EditIcon from 'material-ui-icons/Edit';
-import Grid from 'material-ui/Grid';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
-import {LinearProgress} from 'material-ui/Progress';
-import {withStyles} from 'material-ui/styles';
-
-import styles from 'styles';
+import {PaperCard} from 'polymer/paper-card';
+import {PaperChip} from 'polymer/paper-chip';
+import {PaperIconButton} from 'polymer/paper-icon-button';
+import {PaperProgress} from 'polymer/paper-progress';
 
 @inject('locationsStore')
 @observer
-@withStyles(styles)
 export default class ServiceFiltersCard extends React.Component {
     static contextTypes = {
         map: PropTypes.object.isRequired
@@ -25,7 +18,6 @@ export default class ServiceFiltersCard extends React.Component {
 
     static propTypes = {
         locationsStore: PropTypes.object.isRequired,
-        classes: PropTypes.object.isRequired,
         data: PropTypes.object,
         onDataChange: PropTypes.func,
         onEditOpen: PropTypes.func
@@ -38,11 +30,11 @@ export default class ServiceFiltersCard extends React.Component {
 
     render() {
         const {map} = this.context;
-        const {locationsStore, classes, data} = this.props;
+        const {locationsStore, data} = this.props;
 
         const isLoading = locationsStore.isRequest('fetching');
 
-        const loadingElem = (isLoading) ? <LinearProgress /> : null;
+        const loadingElem = isLoading ? <PaperProgress indeterminate /> : null;
 
         const mapNotice = [];
 
@@ -64,54 +56,44 @@ export default class ServiceFiltersCard extends React.Component {
             ([key, value]) => Boolean(key && value)
         ).map(
             ([key, value]) => (
-                <Chip
-                    key={`filter-chip-${key}`}
-                    className={classes.chip}
-                    label={<span><strong>{key}:</strong> {value}</span>}
-                    onRequestDelete={this._onFilterChipDelete.bind(this, key)}
-                />
+                <PaperChip key={`filter-chip-${key}`} animate={true} multi-line={true} removable={true} onRemove={this._onFilterChipRemove.bind(this, key)}>
+                    <div slot="label" className="label">
+                        {key}
+                    </div>
+                    <div slot="caption" className="caption">
+                        {value}
+                    </div>
+                </PaperChip>
             )
         );
 
-        const filtersContainer = (filterElems.length > 0) ? (
-            <div className={classes.chipWrapper}>
+        const selectedFilters = (filterElems.length > 0) ? (
+            <span>
                 {filterElems}
-            </div>
+            </span>
         ) : (
-            <Typography type="body1" component="p">
+            <span>
                 No filters selected.
-            </Typography>
+            </span>
         )
 
         return (
-            <Card className="service-map-overlay" elevation={2}>
-                <Grid container direction="column">
-                    <Grid item>
-                        <Grid container direction="row" align="center" justify="space-between">
-                            <Grid item>
-                                {filtersContainer}
-                            </Grid>
-                            <Grid item>
-                                <IconButton aria-label="Filter" onClick={this._onEditButtonClick.bind(this)}>
-                                    <EditIcon />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Typography type="caption" component="p">
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: mapNotice.join(' | ')
-                                }}
-                            />
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        {loadingElem}
-                    </Grid>
-                </Grid>
-            </Card>
+            <PaperCard className="service-map-overlay">
+                <div className="card-content">
+                    <div className="filters-container">
+                        {selectedFilters}
+                        <PaperIconButton icon="editor:mode-edit" onClick={this._onEditButtonClick.bind(this)} />
+                    </div>
+                    <div>
+                        <small
+                            dangerouslySetInnerHTML={{
+                                __html: mapNotice.join(' | ')
+                            }}
+                        />
+                    </div>
+                    {loadingElem}
+                </div>
+            </PaperCard>
         );
     }
 
@@ -123,7 +105,7 @@ export default class ServiceFiltersCard extends React.Component {
         this._onEditOpen();
     }
 
-    _onFilterChipDelete(filter) {
+    _onFilterChipRemove(filter) {
         const data = {...this.props.data};
         data[filter] = undefined;
         this._onDataChange(data);

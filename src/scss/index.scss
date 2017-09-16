@@ -1,38 +1,52 @@
+@import '~leaflet/dist/leaflet.css';
+
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 14px;
+    background-color: #fafafa;
 }
 
-.pathways-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    min-height: 100vh;
+app-toolbar {
+    background-color: #4285f4;
+    color: #fff;
 
-    .pathways-container-header {
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        flex-grow: 0;
-        flex-shrink: 1;
+    paper-icon-button + [main-title] {
+        margin-left: 8px;
     }
 
-    .pathways-container-main {
-        position: relative;
-        z-index: 1;
-        flex-grow: 1;
-        flex-shrink: 0;
+    [main-title] {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 600px) {
+        /* Mobile styles for toolbar
+         * <https://github.com/PolymerElements/app-layout/issues/169>
+         */
+
+        height: 56px;
+        padding: 0 8px;
+    }
+}
+
+paper-button {
+    &.indigo {
+        background-color: var(--paper-indigo-500);
+        color: white;
     }
 }
 
 .service-map-view {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
+    flex-grow: 1;
 
     .leaflet-container {
-        position: relative;
+        position: absolute;
         width: 100%;
         height: 100%;
         z-index: 1;
@@ -45,16 +59,49 @@ body {
         bottom: 0;
         left: 0;
         margin: 16px 24px;
-        padding: 16px 24px;
-        background-color: rgba(#fff, 0.9);
         pointer-events: none;
 
-        a, button, [role=button] {
+        --paper-card-background-color: rgba(#fff, 0.95);
+
+        /* TODO: Put everything here inside container components.
+         *       Remove custom margins.
+         */
+
+        .filters-container {
+            display: block;
+            margin-bottom: 8px;
+
+            paper-chip {
+                margin: 4px 4px 4px 0;
+            }
+
+            paper-icon-button {
+                margin-left: 4px;
+                color: var(--paper-grey-700);
+            }
+        }
+
+        paper-chip, a, button, [role=button] {
             pointer-events: auto;
         }
 
-        a {
-            color: inherit;
+        small {
+            font-size: 1em;
+            line-height: 1.4;
+            color: var(--paper-grey-600);
+
+            a {
+                color: inherit;
+                font-weight: normal;
+            }
+        }
+
+        paper-progress {
+            display: block;
+            margin-top: 12px;
+            width: 100%;
+            --paper-progress-active-color: var(--paper-light-blue-500);
+            --paper-progress-secondary-color: var(--paper-light-blue-100);
         }
     }
 }

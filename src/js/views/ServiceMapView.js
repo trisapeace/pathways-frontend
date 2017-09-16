@@ -28,10 +28,10 @@ class ServiceMapView_Main extends React.Component {
     }
 
     componentWillMount() {
-        const {locationsStore} = this.props;
-        if (locationsStore.isEmpty()) {
-            locationsStore.fetch();
-        }
+        // const {locationsStore} = this.props;
+        // if (locationsStore.isEmpty()) {
+        //     locationsStore.fetch();
+        // }
     }
 
     render() {
@@ -54,7 +54,7 @@ class ServiceMapView_Main extends React.Component {
                 </ServiceMap>
                 <ServiceFiltersDialog
                     data={searchData}
-                    open={this.state.isFiltersDialogOpen}
+                    isOpen={this.state.isFiltersDialogOpen}
                     onDataChange={this._onEditDataChange.bind(this)}
                     onRequestClose={this._onEditRequestClose.bind(this)}
                 />

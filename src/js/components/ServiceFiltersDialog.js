@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 
 import {inject, observer} from 'mobx-react';
 
-import Form from "react-jsonschema-form";
+import Form from 'react-jsonschema-form';
 
-import Button from 'material-ui/Button';
-import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
+import Portal from 'react-portal';
+
+import {PaperButton} from 'polymer/paper-button';
+import {PaperDialog} from 'polymer/paper-dialog';
+import {PaperDialogScrollable} from 'polymer/paper-dialog-scrollable';
 
 @inject('locationsStore')
 @observer
@@ -15,53 +18,43 @@ export default class ServiceFiltersDialog extends React.Component {
     static propTypes = {
         locationsStore: PropTypes.object.isRequired,
         data: PropTypes.object,
+        isOpen: PropTypes.bool,
         onDataChange: PropTypes.func,
         onRequestClose: PropTypes.func
     };
 
     render() {
-        const {locationsStore, data, onDataChange, ...other} = this.props;
-
-        void(onDataChange);
+        const {locationsStore, data, isOpen, onRequestClose} = this.props;
 
         return (
-            <Dialog maxWidth="md" {...other}>
-                <DialogTitle>Search</DialogTitle>
-                <DialogContent>
-                    <Form schema={locationsStore.searchSchema} formData={data} onSubmit={this._onFormSubmit.bind(this)}>
-                        <button ref={(elem) => {this._submitButton = elem}} hidden={true} />
-                    </Form>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this._onCancelClick.bind(this)} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={this._onOkClick.bind(this)} color="primary">
-                        Ok
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <Portal isOpened={true}>
+                <PaperDialog opened={isOpen} with-backdrop={true} onClose={onRequestClose}>
+                    <h2>Search</h2>
+                    <PaperDialogScrollable>
+                        <Form schema={locationsStore.searchSchema} formData={data} onSubmit={this._onFormSubmit.bind(this)}>
+                            <button ref={(elem) => {this._submitButton = elem}} hidden={true} />
+                        </Form>
+                    </PaperDialogScrollable>
+                    <div className="buttons">
+                        <PaperButton dialog-dismiss>Cancel</PaperButton>
+                        <PaperButton dialog-confirm onClick={this._onOkClick.bind(this)}>Accept</PaperButton>
+                    </div>
+                </PaperDialog>
+            </Portal>
         );
     }
 
     _onFormSubmit({formData}) {
-        this._onRequestClose();
+        this.props.onRequestClose();
         this._onDataChange(formData);
     }
 
-    _onOkClick() {
+    _onOkClick(e) {
+        e.preventDefault();
         this._submitButton.click();
-    }
-
-    _onCancelClick() {
-        this._onRequestClose();
     }
 
     _onDataChange(data) {
         this.props.onDataChange(data);
-    }
-
-    _onRequestClose() {
-        this.props.onRequestClose();
     }
 }
