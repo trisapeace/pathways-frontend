@@ -5,12 +5,12 @@ import DispatchView from 'views/DispatchView';
 import ServiceMapView from 'views/ServiceMapView';
 import WelcomeView from 'views/WelcomeView';
 
-export const createRoutes = (frame) => {
+export const createRoutes = () => {
     return (
         <Switch>
             <Route exact path="/" component={DispatchView} />,
-            <Route path="/welcome" render={WelcomeView.routeRenderFn(frame)} />,
-            <Route path="/services" render={ServiceMapView.routeRenderFn(frame)} />
+            <Route path="/welcome" component={WelcomeView} />,
+            <Route path="/services" component={ServiceMapView} />
         </Switch>
     );
 }

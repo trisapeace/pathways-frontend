@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 export default class AppView extends React.Component {
     static contextTypes = {
+        frame: PropTypes.string,
         router: PropTypes.object.isRequired
     };
 
     static propTypes = {
-        frame: PropTypes.string,
         location: PropTypes.object,
         computedMatch: PropTypes.object
     };
@@ -32,14 +32,10 @@ export default class AppView extends React.Component {
     get title() { return this.options.title; }
     get parent() { return this.options.parent; }
 
-    static routeRenderFn(frame) {
-        return (props) => <this frame={frame} {...props} />;
-    }
-
     render() {
-        const {frame, ...props} = this.props;
+        const {frame} = this.context;
         const renderFn = this._getRenderFn(frame);
-        return renderFn(props);
+        return renderFn(this.props);
     }
 
     renderMain(props) {
