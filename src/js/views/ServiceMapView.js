@@ -80,7 +80,8 @@ export default class ServiceMapView extends SimpleAppView {
         super({
             title: "Services",
             parent: '/',
-            mainComponent: ServiceMapView_Main
+            mainComponent: ServiceMapView_Main,
+            className: 'pathways-view--fullscreen'
         });
     }
 }

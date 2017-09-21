@@ -7,6 +7,9 @@ import AppView from 'ui-components/AppView';
 import {AppHeader, AppToolbar} from 'polymer/app-layout';
 import {PaperIconButton} from 'polymer/paper-icon-button';
 
+// TODO: In a dialog, wrap contents in <PaperDialogScrollable>.
+// TODO: In a dialog, the Back button should trigger dialog close.
+
 export default class SimpleAppView extends AppView {
     /**
      * An AppView that is rendered with an AppBar component, which includes
@@ -32,11 +35,22 @@ export default class SimpleAppView extends AppView {
 
     renderHeader(props) {
         void(props);
-        return <SimpleAppViewHeader parent={this.parent} title={this.title} />
+        return (
+            <AppHeader slot="header">
+                <SimpleAppViewToolbar parent={this.parent} title={this.title} />
+            </AppHeader>
+        );
+    }
+
+    renderDialogHeader(props) {
+        void(props);
+        return (
+            <SimpleAppViewToolbar parent={this.parent} title={this.title} />
+        );
     }
 }
 
-class SimpleAppViewHeader extends React.PureComponent {
+class SimpleAppViewToolbar extends React.PureComponent {
     static contextTypes = {
         router: PropTypes.object.isRequired
     };
@@ -54,12 +68,10 @@ class SimpleAppViewHeader extends React.PureComponent {
         ) : null;
 
         return (
-            <AppHeader slot="header" reveals>
-                <AppToolbar>
-                    {backButton}
-                    <div main-title>{title}</div>
-                </AppToolbar>
-            </AppHeader>
+            <AppToolbar>
+                {backButton}
+                <div main-title>{title}</div>
+            </AppToolbar>
         );
     }
 

@@ -2,17 +2,16 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import {inject, observer} from 'mobx-react';
-
-import Form from 'react-jsonschema-form';
-
 import Portal from 'react-portal';
 
-import {PaperButton} from 'polymer/paper-button';
+import {AppHeaderLayout} from 'polymer/app-layout';
 import {PaperDialog} from 'polymer/paper-dialog';
-import {PaperDialogScrollable} from 'polymer/paper-dialog-scrollable';
 
 import AppViewFrame from 'ui-components/AppViewFrame';
+
+// FIXME: When this contains a leaflet map, we need to call
+//        leafletMap.invalidateSize() after it is revealed. Something
+//        appears to be happening in the wrong order.
 
 export default class AppViewDialog extends React.Component {
     static propTypes = {
@@ -22,15 +21,21 @@ export default class AppViewDialog extends React.Component {
     };
 
     render() {
-        const {path, appViewProps, isOpen, onRequestClose} = this.props;
+        const {appView, isOpen, onRequestClose} = this.props;
+
+        const paperDialogProps = {
+            className: "app-view-dialog",
+            opened: isOpen,
+            onClose: onRequestClose,
+            "entry-animation": "slide-from-bottom-animation",
+            "exit-animation": "slide-down-animation"
+        };
 
         return (
             <Portal isOpened={true}>
-                <PaperDialog opened={isOpen} onClose={onRequestClose}>
-                    <AppViewFrame frame="header" appView={appView} />
-                    <PaperDialogScrollable>
-                        <AppViewFrame frame="main" appView={appView} />
-                    </PaperDialogScrollable>
+                <PaperDialog {...paperDialogProps}>
+                    <AppViewFrame frame="header:dialog" appView={appView} />
+                    <AppViewFrame frame="main:dialog" appView={appView} />
                 </PaperDialog>
             </Portal>
         );

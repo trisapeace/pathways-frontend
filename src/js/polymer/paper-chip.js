@@ -4,7 +4,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-export class PaperChip extends React.PureComponent {
+export class PaperChip extends React.Component {
     static propTypes = {
         onRemove: PropTypes.func
     };

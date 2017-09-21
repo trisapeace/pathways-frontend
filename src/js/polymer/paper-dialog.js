@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 // TODO: Implement event passing with componentDidMount / etc. using a generic
 //       higher-order component.
 
-export class PaperDialog extends React.PureComponent {
+export class PaperDialog extends React.Component {
     static propTypes = {
         onCancel: PropTypes.func,
         onClose: PropTypes.func,
@@ -39,8 +39,8 @@ export class PaperDialog extends React.PureComponent {
     }
 
     _onCancel(e) {
-        e.preventDefault();
-        if (this.props.onCancel) this.props.onCancel(e);
+        // e.preventDefault();
+        // if (this.props.onCancel) this.props.onCancel(e);
     }
 
     _onClose(e) {

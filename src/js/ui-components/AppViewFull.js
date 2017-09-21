@@ -1,4 +1,5 @@
 import React from 'react';
+import {Route, Switch} from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
@@ -16,8 +17,8 @@ export default class AppViewFull extends React.Component {
 
         return (
             <AppHeaderLayout fullbleed>
-                <AppViewFrame frame="header" appView={appView} />
-                <AppViewFrame frame="main" appView={appView} />
+                <AppViewFrame frame="header:full" appView={appView} />
+                <AppViewFrame frame="main:full" appView={appView} />
             </AppHeaderLayout>
         );
     }

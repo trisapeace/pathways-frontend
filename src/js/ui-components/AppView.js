@@ -24,8 +24,9 @@ export default class AppView extends React.Component {
         this.options = Object.assign({}, this.constructor.defaultOptions, options);
 
         this._renderFns = {
-            main: this.renderMain.bind(this),
-            header: this.renderHeader.bind(this)
+            'main': this.renderMain.bind(this),
+            'header:full': this.renderHeader.bind(this),
+            'header:dialog': this.renderDialogHeader.bind(this)
         };
     }
 
@@ -48,7 +49,19 @@ export default class AppView extends React.Component {
         throw Error("Not implemented");
     }
 
-    _getRenderFn(frame='main') {
-        return this._renderFns[frame];
+    renderDialogHeader(props) {
+        void(props);
+        throw Error("Not implemented");
+    }
+
+    _getRenderFn(frame='main:full') {
+        const [frameBase, frameContext] = frame.split(':');
+        if (this._renderFns.hasOwnProperty(frame)) {
+            return this._renderFns[frame];
+        } else if (this._renderFns.hasOwnProperty(frameBase)) {
+            return this._renderFns[frameBase];
+        } else {
+            throw Error("Not implemented");
+        }
     }
 }

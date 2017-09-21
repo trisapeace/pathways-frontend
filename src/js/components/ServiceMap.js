@@ -25,7 +25,7 @@ export default class ServiceMap extends React.Component {
         const allLocations = locationsStore.toArray();
 
         return (
-            <Map center={position} zoom={zoom} maxZoom={maxZoom} {...other}>
+            <Map ref={(elem) => this._map = elem} center={position} zoom={zoom} maxZoom={maxZoom} {...other}>
                 <TileLayer
                     attribution={`&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`}
                     url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"

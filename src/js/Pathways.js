@@ -2,7 +2,7 @@ import React from 'react';
 
 import {BrowserRouter} from 'react-router-dom';
 
-import {createRoutes} from 'routes';
+import routes from 'routes';
 
 import AppViewFull from 'ui-components/AppViewFull';
 
@@ -12,15 +12,10 @@ export default class Pathways extends React.Component {
      * via react-router, UI chrome, and any number of overlay components.
      */
 
-    constructor() {
-        super();
-        this._routes = createRoutes();
-    }
-
     render() {
         return (
             <BrowserRouter>
-                <AppViewFull appView={this._routes} />
+                <AppViewFull appView={routes} />
             </BrowserRouter>
         );
     }
