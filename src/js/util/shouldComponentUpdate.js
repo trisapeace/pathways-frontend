@@ -1,14 +1,16 @@
 import shallowCompare from "react-addons-shallow-compare";
 
+const DEBUG = process.env.NODE_ENV === 'development';
+
 export default function shouldComponentUpdate(component, nextProps, nextState, nextContext) {
     const shouldUpdate = shallowCompare(component, nextProps, nextState, nextContext);
-    if (shouldUpdate) {
+    if (DEBUG && shouldUpdate) {
         const differences = {
             props: shallowDiff(component.props, nextProps),
             state: shallowDiff(component.state, nextState),
             context: shallowDiff(component.state, nextContext)
         };
-        console.info(`${component.constructor.name} should update?`, shouldUpdate, differences);
+        console.debug(`${component.constructor.name} should update?`, shouldUpdate, differences);
     }
     return shouldUpdate;
 }
