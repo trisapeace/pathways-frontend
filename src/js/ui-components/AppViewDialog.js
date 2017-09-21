@@ -8,10 +8,6 @@ import {PaperDialog} from 'polymer/paper-dialog';
 
 import AppViewFrame from 'ui-components/AppViewFrame';
 
-// FIXME: When this contains a leaflet map, we need to call
-//        leafletMap.invalidateSize() after it is revealed. Something
-//        appears to be happening in the wrong order.
-
 export default class AppViewDialog extends React.Component {
     static propTypes = {
         appView: PropTypes.node.isRequired,
@@ -26,8 +22,11 @@ export default class AppViewDialog extends React.Component {
             className: "app-view-dialog",
             opened: isOpen,
             onClose: onRequestClose,
+            onOpenStart: this._onOpenStart.bind(this),
             "entry-animation": "slide-from-bottom-animation",
-            "exit-animation": "slide-down-animation"
+            "exit-animation": "slide-down-animation",
+            // modal: true,
+            "with-backdrop": true
         };
 
         return (
@@ -38,5 +37,11 @@ export default class AppViewDialog extends React.Component {
                 </PaperDialog>
             </Portal>
         );
+    }
+
+    _onOpenStart(e) {
+        // Fire a resize event when the dialog opens - initial render has a
+        // container of size 0.
+        window.dispatchEvent(new Event('resize'));
     }
 }
