@@ -56,6 +56,7 @@ export default class AppView extends React.Component {
 
     _getRenderFn(frame='main:full') {
         const [frameBase, frameContext] = frame.split(':');
+        void(frameContext);
         if (this._renderFns.hasOwnProperty(frame)) {
             return this._renderFns[frame];
         } else if (this._renderFns.hasOwnProperty(frameBase)) {

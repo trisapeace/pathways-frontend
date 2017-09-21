@@ -39,8 +39,7 @@ export class PaperDialog extends React.Component {
     }
 
     _onCancel(e) {
-        // e.preventDefault();
-        // if (this.props.onCancel) this.props.onCancel(e);
+        if (this.props.onCancel) this.props.onCancel(e);
     }
 
     _onClose(e) {

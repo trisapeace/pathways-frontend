@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import Portal from 'react-portal';
 
-import {AppHeaderLayout} from 'polymer/app-layout';
 import {PaperDialog} from 'polymer/paper-dialog';
 
 import AppViewFrame from 'ui-components/AppViewFrame';
