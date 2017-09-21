@@ -20,7 +20,7 @@
         "strict": 0,
         "no-var": "warn",
         "no-unused-vars": ["warn", {"caughtErrors": "none"}],
-        "no-console": ["warn", {"allow": ["log", "info", "warn", "error"]}],
+        "no-console": ["warn", {"allow": ["debug", "info", "log", "warn", "error"]}],
         "no-fallthrough": ["error", {"commentPattern": "(break[\\s\\w]*omitted|falls?\\s?through)"}],
         "react/display-name": "off"
     },

@@ -39,8 +39,8 @@ export default class AppViewDialog extends React.Component {
         );
     }
 
-    _onOpenStart(e) {
-        // Fire a resize event when the dialog opens - initial render has a
+    _onOpenStart() {
+        // Fire a resize event when the dialog opens. Initial render has a
         // container of size 0.
         window.dispatchEvent(new Event('resize'));
     }
