@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import Portal from 'react-portal';
 
-import {PaperDialog} from 'polymer/paper-dialog';
+import WithContext from 'util/WithContext';
 
-import AppViewFrame from 'ui-components/AppViewFrame';
+import {PaperDialog} from 'polymer/paper-dialog';
 
 export default class AppViewDialog extends React.Component {
     static propTypes = {
@@ -29,11 +29,16 @@ export default class AppViewDialog extends React.Component {
             "with-backdrop": true
         };
 
+        const appViewContext = {
+            frame: 'dialog'
+        };
+
         return (
             <Portal isOpened={true}>
                 <PaperDialog {...paperDialogProps}>
-                    <AppViewFrame frame="header:dialog" appView={appView} />
-                    <AppViewFrame frame="main:dialog" appView={appView} />
+                    <WithContext context={appViewContext}>
+                        {appView}
+                    </WithContext>
                 </PaperDialog>
             </Portal>
         );
@@ -41,7 +46,13 @@ export default class AppViewDialog extends React.Component {
 
     _onOpenStart() {
         // Fire a resize event when the dialog opens. Initial render has a
-        // container of size 0.
-        window.dispatchEvent(new Event('resize'));
+        // container of size 0, so a map contained in the dialog ends up
+        // rendering wrong. This event fires before the dialog is drawn, so we
+        // need to delay the resize event slightly.
+        // FIXME: We should find an event that fires at the right time.
+        window.setTimeout(
+            () => window.dispatchEvent(new Event('resize')),
+            10
+        );
     }
 }

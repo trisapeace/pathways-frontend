@@ -2,9 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import {AppHeaderLayout} from 'polymer/app-layout';
-
-import AppViewFrame from 'ui-components/AppViewFrame';
+import WithContext from 'util/WithContext';
 
 export default class AppViewFull extends React.Component {
     static propTypes = {
@@ -14,11 +12,16 @@ export default class AppViewFull extends React.Component {
     render() {
         const {appView} = this.props;
 
+        const appViewContext = {
+            frame: 'full'
+        };
+
         return (
-            <AppHeaderLayout fullbleed>
-                <AppViewFrame frame="header:full" appView={appView} />
-                <AppViewFrame frame="main:full" appView={appView} />
-            </AppHeaderLayout>
+            <div className="app-view-full">
+                <WithContext context={appViewContext}>
+                    {appView}
+                </WithContext>
+            </div>
         );
     }
 }

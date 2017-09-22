@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import AppView from 'ui-components/AppView';
 
-import {AppHeader, AppToolbar} from 'polymer/app-layout';
+import {AppHeader, AppHeaderLayout, AppToolbar} from 'polymer/app-layout';
 import {PaperIconButton} from 'polymer/paper-icon-button';
 
 // TODO: In a dialog, wrap contents in <PaperDialogScrollable>.
@@ -24,28 +24,27 @@ export default class SimpleAppView extends AppView {
 
     get mainComponent() { return this.options.mainComponent; }
 
-    renderMain(props) {
+    renderFull(props) {
         const MainComponent = this.mainComponent;
-        if (MainComponent) {
-            return <MainComponent {...props} />;
-        } else {
-            return null;
-        }
-    }
 
-    renderHeader(props) {
-        void(props);
         return (
-            <AppHeader slot="header">
-                <SimpleAppViewToolbar parent={this.parent} title={this.title} />
-            </AppHeader>
+            <AppHeaderLayout className="app-view" fullbleed>
+                <AppHeader slot="header">
+                    <SimpleAppViewToolbar parent={this.parent} title={this.title} />
+                </AppHeader>
+                <MainComponent {...props} />
+            </AppHeaderLayout>
         );
     }
 
-    renderDialogHeader(props) {
-        void(props);
+    renderDialog(props) {
+        const MainComponent = this.mainComponent;
+
         return (
-            <SimpleAppViewToolbar parent={this.parent} title={this.title} />
+            <div className="app-view">
+                <SimpleAppViewToolbar title={this.title} />
+                <MainComponent {...props} />
+            </div>
         );
     }
 }

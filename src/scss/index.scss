@@ -43,8 +43,6 @@ paper-dialog.app-view-dialog {
     margin: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
 
     > :first-child {
         margin-top: 0;
@@ -54,17 +52,23 @@ paper-dialog.app-view-dialog {
         margin-bottom: 0;
     }
 
-    app-toolbar {
-        flex-shrink: 0;
-    }
-
-    .service-map-view {
-        position: relative;
-        margin-top: 0;
-        flex-grow: 1;
+    .app-view {
+        width: 100%;
+        height: 100%;
         margin: 0;
         display: flex;
         padding: 0;
+        flex-direction: column;
+
+        app-toolbar {
+            flex-shrink: 0;
+        }
+
+        .service-map-view {
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+        }
     }
 }
 
