@@ -2,9 +2,17 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+// TODO: Handle history modification (via router) inside AppViewContainer classes.
+//       This will allow us to use different routing models with different
+//       containers.
+
+// TODO: Add a "params" propType that we can use instead of "location" and
+//       "computedMatch".
+
 export default class AppView extends React.Component {
     static contextTypes = {
-        frame: PropTypes.string,
+        container: PropTypes.object,
+        containerType: PropTypes.string,
         router: PropTypes.object.isRequired
     };
 
@@ -33,8 +41,8 @@ export default class AppView extends React.Component {
     get parent() { return this.options.parent; }
 
     render() {
-        const {frame} = this.context;
-        const renderFn = this._getRenderFn(frame);
+        const {containerType} = this.context;
+        const renderFn = this._getRenderFn(containerType);
         return renderFn(this.props);
     }
 
@@ -48,13 +56,9 @@ export default class AppView extends React.Component {
         throw Error("Not implemented");
     }
 
-    _getRenderFn(frame='full') {
-        const [frameBase, frameContext] = frame.split(':');
-        void(frameContext);
-        if (this._renderFns.hasOwnProperty(frame)) {
-            return this._renderFns[frame];
-        } else if (this._renderFns.hasOwnProperty(frameBase)) {
-            return this._renderFns[frameBase];
+    _getRenderFn(containerType='full') {
+        if (this._renderFns.hasOwnProperty(containerType)) {
+            return this._renderFns[containerType];
         } else {
             throw Error("Not implemented");
         }

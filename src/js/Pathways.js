@@ -4,7 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 import routes from 'routes';
 
-import AppViewFull from 'ui-components/AppViewFull';
+import AppViewContainer_Full from 'ui-components/AppViewContainer_Full';
 
 export default class Pathways extends React.Component {
     /**
@@ -15,7 +15,7 @@ export default class Pathways extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <AppViewFull appView={routes} />
+                <AppViewContainer_Full appView={routes} />
             </BrowserRouter>
         );
     }

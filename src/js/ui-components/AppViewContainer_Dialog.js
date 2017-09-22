@@ -4,16 +4,28 @@ import PropTypes from 'prop-types';
 
 import Portal from 'react-portal';
 
-import WithContext from 'util/WithContext';
-
 import {PaperDialog} from 'polymer/paper-dialog';
 
-export default class AppViewDialog extends React.Component {
+import AppViewContainer from 'ui-components/AppViewContainer';
+
+export default class AppViewContainer_Dialog extends AppViewContainer {
     static propTypes = {
         appView: PropTypes.node.isRequired,
         isOpen: PropTypes.bool,
         onRequestClose: PropTypes.func
     };
+
+    static childContextTypes = {
+        container: PropTypes.object,
+        containerType: PropTypes.string
+    };
+
+    getChildContext() {
+        return {
+            container: this,
+            containerType: 'dialog'
+        };
+    }
 
     render() {
         const {appView, isOpen, onRequestClose} = this.props;
@@ -25,20 +37,13 @@ export default class AppViewDialog extends React.Component {
             onOpenStart: this._onOpenStart.bind(this),
             "entry-animation": "slide-from-bottom-animation",
             "exit-animation": "slide-down-animation",
-            // modal: true,
-            "with-backdrop": true
-        };
-
-        const appViewContext = {
-            frame: 'dialog'
+            "modal": true
         };
 
         return (
             <Portal isOpened={true}>
                 <PaperDialog {...paperDialogProps}>
-                    <WithContext context={appViewContext}>
-                        {appView}
-                    </WithContext>
+                    {appView}
                 </PaperDialog>
             </Portal>
         );
@@ -54,5 +59,10 @@ export default class AppViewDialog extends React.Component {
             () => window.dispatchEvent(new Event('resize')),
             10
         );
+    }
+
+    dialogClose() {
+        const {onRequestClose} = this.props;
+        if (onRequestClose) onRequestClose();
     }
 }

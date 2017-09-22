@@ -2,11 +2,9 @@ require('iron-icon/iron-icon.html');
 
 import React from 'react';
 
-import {StaticRouter} from 'react-router-dom';
+import ServiceMapView from 'views/ServiceMapView';
 
-import routes from 'routes';
-
-import AppViewDialog from 'ui-components/AppViewDialog';
+import AppViewContainer_Dialog from 'ui-components/AppViewContainer_Dialog';
 import LinkButton from 'ui-components/LinkButton';
 import SimpleAppView from 'ui-components/SimpleAppView';
 
@@ -21,12 +19,12 @@ class WelcomeView_Main extends React.Component {
     }
 
     render() {
-        const context = {};
-
         const servicesDialog = (
-            <StaticRouter location="/services" context={context}>
-                <AppViewDialog appView={routes} isOpen={this.state.isDialogOpen} onRequestClose={this._onDialogRequestClose.bind(this)} />
-            </StaticRouter>
+            <AppViewContainer_Dialog
+                appView={<ServiceMapView />}
+                isOpen={this.state.isDialogOpen}
+                onRequestClose={this._onDialogRequestClose.bind(this)}
+            />
         );
 
         return (

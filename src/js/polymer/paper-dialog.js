@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // TODO: Implement event passing with componentDidMount / etc. using a generic
-//       higher-order component.
+//       higher-order component (#5).
 
 export class PaperDialog extends React.Component {
     static propTypes = {
