@@ -16,13 +16,14 @@ import ServiceMap from 'components/ServiceMap';
 @observer
 class ServiceMapView_Main extends React.Component {
     static propTypes = {
-        locationsStore: PropTypes.object.isRequired
+        initialSearch: PropTypes.object,
+        locationsStore: PropTypes.object.isRequired,
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            searchData: null,
+            search: props.initialSearch || null,
             isFiltersDialogOpen: false
         };
     }
@@ -34,9 +35,15 @@ class ServiceMapView_Main extends React.Component {
         // }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.initialSearch && !this.state.search) {
+            this.setState({search: nextProps.initialSearch});
+        }
+    }
+
     render() {
         const {locationsStore} = this.props;
-        const {searchData} = this.state;
+        const {search} = this.state;
 
         const isLoading = locationsStore.isRequest('fetching');
 
@@ -45,7 +52,7 @@ class ServiceMapView_Main extends React.Component {
                 <ServiceMap attributionControl={false}>
                     <Pane className="service-map-filters-pane">
                         <ServiceFiltersCard
-                            data={searchData}
+                            data={search}
                             loading={isLoading}
                             onDataChange={this._onEditDataChange.bind(this)}
                             onEditOpen={this._onEditOpen.bind(this)}
@@ -53,7 +60,7 @@ class ServiceMapView_Main extends React.Component {
                     </Pane>
                 </ServiceMap>
                 <ServiceFiltersDialog
-                    data={searchData}
+                    data={search}
                     isOpen={this.state.isFiltersDialogOpen}
                     onDataChange={this._onEditDataChange.bind(this)}
                     onRequestClose={this._onEditRequestClose.bind(this)}
@@ -67,7 +74,7 @@ class ServiceMapView_Main extends React.Component {
     }
 
     _onEditDataChange(data) {
-        this.setState({searchData: data});
+        this.setState({search: data});
     }
 
     _onEditRequestClose() {

@@ -21,7 +21,7 @@ class WelcomeView_Main extends React.Component {
     render() {
         const servicesDialog = (
             <AppViewContainer_Dialog
-                appView={<ServiceMapView />}
+                appView={<ServiceMapView initialSearch={{what: 'PASSPORTS'}} />}
                 isOpen={this.state.isDialogOpen}
                 onRequestClose={this._onDialogRequestClose.bind(this)}
             />
