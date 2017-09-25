@@ -37,7 +37,8 @@ export default class AppViewContainer_Dialog extends AppViewContainer {
             onOpenStart: this._onOpenStart.bind(this),
             "entry-animation": "slide-from-bottom-animation",
             "exit-animation": "slide-down-animation",
-            "modal": true
+            "no-cancel-on-outside-click": true,
+            "no-cancel-on-esc-key": true
         };
 
         return (
