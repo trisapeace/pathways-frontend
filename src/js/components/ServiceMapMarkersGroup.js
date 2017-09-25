@@ -13,8 +13,8 @@ export default class LocationMapMarkersGroup extends React.Component {
         locations: PropTypes.array.isRequired
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this._markerIcon = Leaflet.icon({
             iconUrl: '/images/marker-icon.png',
             iconRetinaUrl: '/images/marker-icon-2x.png',

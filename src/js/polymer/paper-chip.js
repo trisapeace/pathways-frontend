@@ -9,8 +9,8 @@ export class PaperChip extends React.Component {
         onRemove: PropTypes.func
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this._onRemoveFn = this._onRemove.bind(this);
     }
 

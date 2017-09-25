@@ -11,8 +11,8 @@ import SimpleAppView from 'ui-components/SimpleAppView';
 import {PaperButton} from 'polymer/paper-button';
 
 class WelcomeView_Main extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             isDialogOpen: false
         };
@@ -52,8 +52,9 @@ class WelcomeView_Main extends React.Component {
 }
 
 export default class WelcomeView extends SimpleAppView {
-    constructor() {
+    constructor(props) {
         super({
+            ...props,
             title: "Welcome",
             parent: null,
             mainComponent: WelcomeView_Main

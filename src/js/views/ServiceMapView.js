@@ -19,8 +19,8 @@ class ServiceMapView_Main extends React.Component {
         locationsStore: PropTypes.object.isRequired
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             searchData: null,
             isFiltersDialogOpen: false
@@ -76,8 +76,9 @@ class ServiceMapView_Main extends React.Component {
 }
 
 export default class ServiceMapView extends SimpleAppView {
-    constructor() {
+    constructor(props) {
         super({
+            ...props,
             title: "Services",
             parent: '/',
             mainComponent: ServiceMapView_Main,

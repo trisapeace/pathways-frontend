@@ -16,8 +16,8 @@ export class PaperDialog extends React.Component {
         onResize: PropTypes.func
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this._onCancelFn = this._onCancel.bind(this);
         this._onCloseFn = this._onClose.bind(this);
         this._onOpenFn = this._onOpen.bind(this);
