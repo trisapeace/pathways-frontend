@@ -31,7 +31,7 @@ export default class SimpleAppView extends AppView {
             <AppHeaderLayout className="app-view" fullbleed>
                 <AppHeader slot="header">
                     <SimpleAppViewToolbar
-                        hasParent={this.parent}
+                        hasParent={Boolean(this.parent)}
                         onBackClick={this._onBackClick.bind(this)}
                         title={this.title}
                     />
