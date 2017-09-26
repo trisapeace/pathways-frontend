@@ -1,5 +1,3 @@
-require('iron-icon/iron-icon.html');
-
 import React from 'react';
 
 import ServiceMapView from 'views/ServiceMapView';
@@ -9,6 +7,7 @@ import LinkButton from 'ui-components/LinkButton';
 import SimpleAppView from 'ui-components/SimpleAppView';
 
 import {PaperButton} from 'polymer/paper-button';
+import {PaperCard} from 'polymer/paper-card';
 
 class WelcomeView_Main extends React.Component {
     constructor(props) {
@@ -29,13 +28,20 @@ class WelcomeView_Main extends React.Component {
 
         return (
             <div>
-                <p>TODO: Everything else.</p>
-                <LinkButton to="/services" raised className="indigo">
-                    Services
-                </LinkButton>
-                <PaperButton onClick={this._onDialogOpenClick.bind(this)} raised>
-                    Services (Dialog)
-                </PaperButton>
+                <PaperCard>
+                    <div className="card-content">
+                        <p>TODO: Everything else.</p>
+                        <LinkButton to="/services" raised className="indigo">
+                            Services
+                        </LinkButton>
+                        <PaperButton onClick={this._onDialogOpenClick.bind(this)} raised>
+                            Services (Dialog)
+                        </PaperButton>
+                        <LinkButton to="/about">
+                            About
+                        </LinkButton>
+                    </div>
+                </PaperCard>
                 {servicesDialog}
             </div>
         );
