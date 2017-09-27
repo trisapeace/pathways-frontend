@@ -17,17 +17,13 @@ export default class SimplePageTransition extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.children !== this.props.children) {
+        if (nextProps.children && nextProps.children !== this.props.children) {
             this.setState({prevChildren: this.props.children});
         }
     }
 
     componentDidUpdate() {
-        if (this.state.prevChildren) {
-            this._elem.selectIndex(1);
-        } else {
-            this._elem.selectIndex(0);
-        }
+        this._elem.selectIndex(1);
     }
 
     render() {
@@ -36,22 +32,16 @@ export default class SimplePageTransition extends React.Component {
 
         const pageElems = [];
 
-        if (children) {
-            pageElems.push(
-                <NeonAnimatable key="current">{children}</NeonAnimatable>
-            );
-        }
+        pageElems.push(
+            <NeonAnimatable key="prev">{prevChildren}</NeonAnimatable>
+        );
 
-        if (prevChildren) {
-            pageElems.push(
-                <NeonAnimatable key="prev">{prevChildren}</NeonAnimatable>
-            );
-        }
-
-        console.log("Pages", pageElems);
+        pageElems.push(
+            <NeonAnimatable key="current">{children}</NeonAnimatable>
+        );
 
         return (
-            <NeonAnimatedPages ref={(elem) => this._elem = elem} {...other} selected={0} onAnimationFinished={this._onAnimationFinished.bind(this)}>
+            <NeonAnimatedPages ref={(elem) => this._elem = elem} {...other} selected={prevChildren ? 0 : 1} onAnimationFinished={this._onAnimationFinished.bind(this)}>
                 {pageElems}
             </NeonAnimatedPages>
         );

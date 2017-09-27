@@ -33,10 +33,17 @@ app-toolbar {
 }
 
 paper-button {
+    outline: none;
+
     &.indigo {
         background-color: var(--paper-indigo-500);
         color: white;
     }
+}
+
+.app-view-full {
+    position: relative;
+    min-height: 100vh;
 }
 
 paper-dialog.app-view-dialog {
