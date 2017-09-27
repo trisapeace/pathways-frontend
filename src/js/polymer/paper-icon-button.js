@@ -1,9 +1,9 @@
 require('paper-icon-button/paper-icon-button.html');
 
-import React from 'react';
+import PolymerComponent from 'polymer/PolymerComponent';
 
-export class PaperIconButton extends React.PureComponent {
-    render() {
-        return <paper-icon-button {...this.props} />;
-    }
+export class PaperIconButton extends PolymerComponent {
+    static options = {
+        element: "paper-icon-button"
+    };
 }

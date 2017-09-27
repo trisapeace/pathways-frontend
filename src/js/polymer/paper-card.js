@@ -1,9 +1,9 @@
 require('paper-card/paper-card.html');
 
-import React from 'react';
+import PolymerComponent from 'polymer/PolymerComponent';
 
-export class PaperCard extends React.Component {
-    render() {
-        return <paper-card {...this.props} />;
-    }
+export class PaperCard extends PolymerComponent {
+    static options = {
+        element: "paper-card"
+    };
 }

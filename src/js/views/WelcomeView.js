@@ -28,7 +28,7 @@ class WelcomeView_Main extends React.Component {
 
         return (
             <div>
-                <PaperCard>
+                <PaperCard className="full-card">
                     <div className="card-content">
                         <p>TODO: Everything else.</p>
                         <LinkButton to="/services" raised className="indigo">

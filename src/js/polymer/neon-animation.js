@@ -1,43 +1,30 @@
 require('neon-animation/neon-animatable.html');
 require('neon-animation/neon-animated-pages.html');
 
-import React from 'react';
-
 import PropTypes from 'prop-types';
 
-export class NeonAnimatable extends React.Component {
-    render() {
-        return <neon-animatable {...this.props} />;
-    }
+import PolymerComponent from 'polymer/PolymerComponent';
+
+export class NeonAnimatable extends PolymerComponent {
+    static options = {
+        element: "neon-animatable"
+    };
 }
 
-export class NeonAnimatedPages extends React.Component {
+export class NeonAnimatedPages extends PolymerComponent {
     static propTypes = {
+        ...PolymerComponent.propTypes,
         onAnimationFinished: PropTypes.func
     };
 
-    constructor(props) {
-        super(props);
-        this._onAnimationFinishedFn = this._onAnimationFinished.bind(this);
-    }
-
-    componentDidMount() {
-        this._elem.addEventListener("neon-animation-finish", this._onAnimationFinishedFn);
-    }
-
-    componentWillUnmount() {
-        this._elem.removeEventListener("neon-animation-finish", this._onAnimationFinishedFn);
-    }
-
-    render() {
-        return <neon-animated-pages ref={(elem) => this._elem = elem} {...this.props} />;
-    }
+    static options = {
+        element: "neon-animatable",
+        events: [
+            {event: 'neon-animation-finish', callback: 'onAnimationFinished'}
+        ]
+    };
 
     selectIndex(index) {
-        this._elem.selectIndex(index);
-    }
-
-    _onAnimationFinished(e) {
-        if (this.props.onAnimationFinished) this.props.onAnimationFinished(e);
+        this.elem.selectIndex(index);
     }
 }

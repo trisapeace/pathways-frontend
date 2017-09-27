@@ -8,9 +8,8 @@ class AboutView_Main extends React.Component {
     render() {
         return (
             <div>
-                <PaperCard>
+                <PaperCard className="full-card">
                     <div className="card-content">
-                        <h2>Something about Pathways</h2>
                         <p>
                             Mauris vehicula fringilla hendrerit. Nam quis lacus a
                             ipsum sollicitudin dapibus in et sem. Aliquam lacinia

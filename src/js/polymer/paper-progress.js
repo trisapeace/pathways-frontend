@@ -1,9 +1,9 @@
 require('paper-progress/paper-progress.html');
 
-import React from 'react';
+import PolymerComponent from 'polymer/PolymerComponent';
 
-export class PaperProgress extends React.PureComponent {
-    render() {
-        return <paper-progress {...this.props} />;
-    }
+export class PaperProgress extends PolymerComponent {
+    static options = {
+        element: "paper-progress"
+    };
 }

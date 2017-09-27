@@ -8,6 +8,7 @@
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "deep-equal": "^1.0.1",
+    "is-function": "^1.0.1",
     "leaflet": "^1.0.0",
     "leaflet.markercluster": "^1.0.6",
     "mobx": "^3.2.2",
