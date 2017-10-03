@@ -63,6 +63,8 @@
     "sass-loader": "^6.0.6",
     "scandir": "^0.1.2",
     "script-loader": "^0.7.0",
+    "sinon": "^4.0.0",
+    "sinon-chai": "^2.14.0",
     "style-loader": "^0.18.2",
     "web-app-manifest-loader": "^0.1.1",
     "webpack": "^3.5.1",
