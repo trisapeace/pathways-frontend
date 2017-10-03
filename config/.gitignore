@@ -2,3 +2,5 @@
 !index.js
 !env.example.js
 !production.js
+!test.js
+!coverage.js
