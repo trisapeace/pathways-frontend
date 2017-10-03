@@ -4,6 +4,8 @@ function config() {
             return 'production';
         case 'test':
             return 'test';
+        case 'coverage':
+            return 'coverage';
         default:
             return 'development';
     }

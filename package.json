@@ -48,13 +48,16 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
     "identity-obj-proxy": "^3.0.0",
+    "istanbul-instrumenter-loader": "^3.0.0",
     "jsdom": "^11.3.0",
+    "jsdom-global": "^3.0.2",
     "lodash.clonedeep": "^4.5.0",
     "lodash.merge": "^4.6.0",
     "mocha": "^3.5.3",
     "mocha-webpack": "^1.0.0-rc.1",
     "node-sass": "^4.5.3",
     "null-loader": "^0.1.1",
+    "nyc": "^11.2.1",
     "polymer-webpack-loader": "^2.0.0",
     "react-test-renderer": "^15.6.1",
     "sass-loader": "^6.0.6",
@@ -68,11 +71,19 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "test": "NODE_ENV=test mocha-webpack --webpack-config=\"./webpack.config.js\" \"src/**/test.js\" \"src/**/*.test.js\"",
+    "test": "NODE_ENV=test mocha-webpack",
+    "coverage": "NODE_ENV=coverage nyc --reporter=lcov --reporter=text mocha-webpack",
     "lint": "eslint --ignore-pattern=\"*.test.js\" src",
     "start": "webpack-dev-server",
     "build": "webpack -d --progress --colors --config=\"./webpack.config.js\"",
     "heroku-postbuild": "webpack --config=\"./webpack.config.js\" --progress",
     "release": "NODE_ENV=production webpack --progress --colors --config=\"./webpack.config.js\""
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "instrument": false,
+    "sourceMap": false
   }
 }

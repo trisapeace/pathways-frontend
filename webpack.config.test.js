@@ -1,11 +1,13 @@
 const config = require('./webpack.config.base');
-const path = require('path');
+
 const nodeExternals = require('webpack-node-externals');
+const path = require('path');
+const webpack = require('webpack');
 
 config.target = 'node';
 config.entry = undefined;
 
-config.externals = [nodeExternals()]
+config.externals = [nodeExternals()];
 
 config.module.rules = [
     {
@@ -26,18 +28,22 @@ config.module.rules = [
     },
     {
         test: /\.html$/,
-        use: 'null-loader'
+        use: ['null-loader']
     },
     {
         test: /\.css$/,
-        use: 'null-loader'
+        use: ['null-loader']
     },
     {
         test: /\.scss$/,
-        use: 'null-loader'
+        use: ['null-loader']
     }
 ];
 
-config.plugins = undefined;
+config.plugins = [
+    // Fix a warning with webcomponentsjs
+    // <https://github.com/webcomponents/webcomponentsjs/issues/794>
+    new webpack.IgnorePlugin(/vertx/)
+];
 
 module.exports = config;
