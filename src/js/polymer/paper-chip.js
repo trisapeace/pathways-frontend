@@ -2,7 +2,7 @@ require('paper-chip/paper-chip.html');
 
 import PropTypes from 'prop-types';
 
-import PolymerComponent from 'polymer/PolymerComponent';
+import PolymerComponent from 'polymer/util/PolymerComponent';
 
 export class PaperChip extends PolymerComponent {
     static propTypes = {

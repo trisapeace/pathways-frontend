@@ -1,6 +1,6 @@
 require('paper-button/paper-button.html');
 
-import PolymerComponent from 'polymer/PolymerComponent';
+import PolymerComponent from 'polymer/util/PolymerComponent';
 
 export class PaperButton extends PolymerComponent {
     static options = {

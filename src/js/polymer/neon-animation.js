@@ -3,7 +3,7 @@ require('neon-animation/neon-animated-pages.html');
 
 import PropTypes from 'prop-types';
 
-import PolymerComponent from 'polymer/PolymerComponent';
+import PolymerComponent from 'polymer/util/PolymerComponent';
 
 export class NeonAnimatable extends PolymerComponent {
     static options = {

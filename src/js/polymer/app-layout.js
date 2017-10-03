@@ -1,6 +1,6 @@
 require('app-layout/app-layout.html');
 
-import PolymerComponent from 'polymer/PolymerComponent';
+import PolymerComponent from 'polymer/util/PolymerComponent';
 
 export class AppBox extends PolymerComponent {
     static options = {

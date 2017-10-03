@@ -2,7 +2,7 @@ require('paper-dialog/paper-dialog.html');
 
 import PropTypes from 'prop-types';
 
-import PolymerComponent from 'polymer/PolymerComponent';
+import PolymerComponent from 'polymer/util/PolymerComponent';
 
 export class PaperDialog extends PolymerComponent {
     static propTypes = {
