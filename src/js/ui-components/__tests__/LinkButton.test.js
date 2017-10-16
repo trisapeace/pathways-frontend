@@ -21,16 +21,16 @@ describe('<LinkButton/>', function() {
         }
     };
 
-    it('should create children with provided className prop', function() {
+    it('creates children with the provided props', function() {
         const props = {
-            className: 'test--linkbutton-class'
+            testProp: 'test--linkbutton-prop'
         };
         const wrapper = mount(<LinkButton {...props} />, options);
-        expect(wrapper.children().first().hasClass(props.className)).to.be.true;
+        expect(wrapper.find('paper-button')).to.have.props(props);
     });
 
     describe('if "replace" is false', function() {
-        it('should change router location on click', function() {
+        it('changes router location on click', function() {
             const props = {
                 to: '/test--push-target'
             };
@@ -41,7 +41,7 @@ describe('<LinkButton/>', function() {
     });
 
     describe('if "replace" is true', function() {
-        it('should replace router location on click', function() {
+        it('replaces router location on click', function() {
             const props = {
                 to: '/test--replace-target',
                 replace: true
