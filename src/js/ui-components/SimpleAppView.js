@@ -73,7 +73,7 @@ export default class SimpleAppView extends AppView {
     }
 }
 
-class SimpleAppViewToolbar extends React.PureComponent {
+export class SimpleAppViewToolbar extends React.PureComponent {
     static contextTypes = {
         router: PropTypes.object.isRequired
     };
