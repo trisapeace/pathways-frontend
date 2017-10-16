@@ -56,7 +56,7 @@ export default class AppView extends React.Component {
         throw Error("Not implemented");
     }
 
-    _getRenderFn(containerType='full') {
+    _getRenderFn(containerType) {
         if (this._renderFns.hasOwnProperty(containerType)) {
             return this._renderFns[containerType];
         } else {
