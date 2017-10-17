@@ -7,6 +7,13 @@ export default class MapAttribution extends React.Component {
         map: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            _changed: false
+        };
+    }
+
     componentWillMount() {
         const {map} = this.context;
         map.on('layeradd layerremove', this._onMapLayersChange.bind(this));
