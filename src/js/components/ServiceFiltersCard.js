@@ -9,13 +9,11 @@ import {PaperChip} from 'polymer/paper-chip';
 import {PaperIconButton} from 'polymer/paper-icon-button';
 import {PaperProgress} from 'polymer/paper-progress';
 
+import MapAttribution from 'components/MapAttribution';
+
 @inject('locationsStore')
 @observer
 export default class ServiceFiltersCard extends React.Component {
-    static contextTypes = {
-        map: PropTypes.object.isRequired
-    };
-
     static propTypes = {
         locationsStore: PropTypes.object.isRequired,
         data: PropTypes.object,
@@ -23,34 +21,11 @@ export default class ServiceFiltersCard extends React.Component {
         onEditOpen: PropTypes.func
     };
 
-    componentWillMount() {
-        const {map} = this.context;
-        map.on('layeradd layerremove', this._onMapLayersChange.bind(this));
-    }
-
     render() {
-        const {map} = this.context;
         const {locationsStore, data} = this.props;
 
         const isLoading = locationsStore.isRequest('fetching');
-
         const loadingElem = isLoading ? <PaperProgress indeterminate /> : null;
-
-        const mapNotice = [];
-
-        const prefix = `<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>`;
-        mapNotice.push(prefix);
-
-        const attributions = [];
-        map.eachLayer(
-            (layer) => {
-                const attribution = layer.getAttribution();
-                if (attribution) {
-                    attributions.push(attribution);
-                }
-            }
-        );
-        mapNotice.push(attributions.join(', '));
 
         const filterElems = Object.entries(data || {}).filter(
             ([key, value]) => Boolean(key && value)
@@ -84,21 +59,11 @@ export default class ServiceFiltersCard extends React.Component {
                         {selectedFilters}
                         <PaperIconButton icon="editor:mode-edit" onClick={this._onEditButtonClick.bind(this)} />
                     </div>
-                    <div>
-                        <small
-                            dangerouslySetInnerHTML={{
-                                __html: mapNotice.join(' | ')
-                            }}
-                        />
-                    </div>
+                    <MapAttribution />
                     {loadingElem}
                 </div>
             </PaperCard>
         );
-    }
-
-    _onMapLayersChange() {
-        this.setState({_changed: true});
     }
 
     _onEditButtonClick() {
