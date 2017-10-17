@@ -30,7 +30,7 @@ export default class SimpleAppView extends AppView {
         return (
             <AppHeaderLayout className="app-view" fullbleed>
                 <AppHeader slot="header">
-                    <SimpleAppViewToolbar
+                    <SimpleAppViewToolbar_Full
                         hasParent={Boolean(this.parent)}
                         onBackClick={this._onBackClick.bind(this)}
                         title={this.title}
@@ -46,8 +46,7 @@ export default class SimpleAppView extends AppView {
 
         return (
             <div className="app-view">
-                <SimpleAppViewToolbar
-                    isOverlay={true}
+                <SimpleAppViewToolbar_Dialog
                     onCloseClick={this._onCloseClick.bind(this)}
                     title={this.title}
                 />
@@ -73,29 +72,39 @@ export default class SimpleAppView extends AppView {
     }
 }
 
-export class SimpleAppViewToolbar extends React.PureComponent {
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
+export class SimpleAppViewToolbar_Full extends React.PureComponent {
     static propTypes = {
         hasParent: PropTypes.bool,
-        isOverlay: PropTypes.bool,
         onBackClick: PropTypes.func,
+        title: PropTypes.string
+    };
+
+    render() {
+        const {hasParent, onBackClick, title} = this.props;
+
+        const navButton = hasParent ? (
+            <PaperIconButton icon="arrow-back" onClick={onBackClick} />
+        ) : null;
+
+        return (
+            <AppToolbar>
+                {navButton}
+                <div main-title>{title}</div>
+            </AppToolbar>
+        );
+    }
+}
+
+export class SimpleAppViewToolbar_Dialog extends React.PureComponent {
+    static propTypes = {
         onCloseClick: PropTypes.func,
         title: PropTypes.string
     };
 
     render() {
-        const {hasParent, isOverlay, onBackClick, onCloseClick, title} = this.props;
+        const {onCloseClick, title} = this.props;
 
-        let navButton = null;
-
-        if (hasParent) {
-            navButton = <PaperIconButton icon="arrow-back" onClick={onBackClick} />;
-        } else if (isOverlay) {
-            navButton = <PaperIconButton icon="close" onClick={onCloseClick} />;
-        }
+        const navButton = <PaperIconButton icon="close" onClick={onCloseClick} />;
 
         return (
             <AppToolbar>
