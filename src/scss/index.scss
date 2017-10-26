@@ -35,6 +35,11 @@ app-toolbar {
 paper-button {
     outline: none;
 
+    &.grey {
+        background-color: var(--paper-grey-700);
+        color: white;
+    }
+
     &.indigo {
         background-color: var(--paper-indigo-500);
         color: white;
