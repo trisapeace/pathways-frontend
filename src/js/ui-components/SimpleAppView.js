@@ -29,7 +29,7 @@ export default class SimpleAppView extends AppView {
 
         return (
             <AppHeaderLayout className="app-view" fullbleed>
-                <AppHeader slot="header">
+                <AppHeader condenses reveals slot="header">
                     <SimpleAppViewToolbar_Full
                         hasParent={Boolean(this.parent)}
                         onBackClick={this._onBackClick.bind(this)}

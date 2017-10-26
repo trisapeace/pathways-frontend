@@ -28,6 +28,8 @@ require('neon-animation/neon-animations.html');
 
 const reactPolymer = require('react-polymer');
 
+reactPolymer.registerAttribute('condensed-title');
 reactPolymer.registerAttribute('main');
 reactPolymer.registerAttribute('main-title');
 reactPolymer.registerAttribute('slot');
+reactPolymer.registerAttribute('spacer');
