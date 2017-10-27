@@ -57,7 +57,7 @@ export default class PathwayDetailView extends SimpleAppView {
     constructor(props) {
         super({
             ...props,
-            title: "Pathways",
+            title: "Pathway detail",
             parent: '/pathways',
             mainComponent: PathwayDetailView_Main
         });

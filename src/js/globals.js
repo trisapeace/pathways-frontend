@@ -18,6 +18,7 @@ require('webcomponentsjs/webcomponents-lite.js');
 
 require('font-roboto/roboto.html');
 
+require('iron-icons/communication-icons.html');
 require('iron-icons/editor-icons.html');
 require('iron-icons/iron-icons.html');
 

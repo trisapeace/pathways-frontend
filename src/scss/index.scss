@@ -8,10 +8,27 @@ body {
     background-color: #fafafa;
 }
 
-app-toolbar {
-    background-color: #4285f4;
+app-header {
+    background-color: var(--paper-grey-800);
     color: #fff;
+}
 
+paper-dialog app-toolbar {
+    background-color: var(--paper-grey-800);
+    color: #fff;
+}
+
+app-toolbar {
+    @media (max-width: 600px) {
+        /* Mobile styles for toolbar
+         * <https://github.com/PolymerElements/app-layout/issues/169>
+         */
+        height: 56px;
+        padding: 0 8px;
+    }
+}
+
+app-toolbar {
     paper-icon-button + [main-title] {
         margin-left: 8px;
     }
@@ -20,15 +37,6 @@ app-toolbar {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-    }
-
-    @media (max-width: 600px) {
-        /* Mobile styles for toolbar
-         * <https://github.com/PolymerElements/app-layout/issues/169>
-         */
-
-        height: 56px;
-        padding: 0 8px;
     }
 }
 
@@ -84,6 +92,76 @@ paper-dialog.app-view-dialog {
             position: relative;
             flex-grow: 1;
             display: flex;
+        }
+    }
+}
+
+.pathway-list-item {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    padding: .7em .57em;
+    align-items: center;
+    color: inherit;
+
+    .pathway-icon-wrapper {
+        display: flex;
+        flex-shrink: 0;
+        flex-grow: 0;
+        margin-right: 1em;
+        width: 9em;
+        height: 9em;
+        justify-content: center;
+        align-items: center;
+
+        .pathway-icon {
+            display: block;
+            position: relative;
+
+            iron-icon {
+                margin: 1.5em;
+                --iron-icon-width: 4em;
+                --iron-icon-height: 4em;
+            }
+
+            svg.pathway-icon-progress {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                stroke: var(--paper-light-blue-100);
+                stroke-width: 3px;
+                vector-effect: non-scaling-stroke;
+                fill: none;
+            }
+
+            paper-badge {
+                --paper-badge-margin-left: -2.5em;
+                --paper-badge-margin-bottom: -4em;
+            }
+        }
+    }
+
+    .pathway-list-item-name {
+        flex-shrink: 0;
+        flex-grow: 1;
+        max-width: 20em;
+    }
+
+    &.pathway-list-item--focus {
+        .pathway-list-item-name {
+            font-weight: bold;
+        }
+
+        .pathway-icon {
+            iron-icon {
+                margin: 2em;
+                --iron-icon-width: 6em;
+                --iron-icon-height: 6em;
+            }
         }
     }
 }
