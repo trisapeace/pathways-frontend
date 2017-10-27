@@ -159,9 +159,54 @@ paper-dialog.app-view-dialog {
         .pathway-icon {
             iron-icon {
                 margin: 2em;
-                --iron-icon-width: 6em;
-                --iron-icon-height: 6em;
+                --iron-icon-width: 6.5em;
+                --iron-icon-height: 6.5em;
             }
+        }
+    }
+}
+
+.pathway-action-item {
+    $checkbox-width: 30px;
+
+    padding: 0;
+
+    .pathway-action-item--body {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .pathway-action-item--main {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        align-items: center;
+        padding: 0 16px;
+
+        .pathway-action-item--checkbox {
+            width: $checkbox-width;
+        }
+
+        .pathway-action-item--label {
+            flex-grow: 1;
+        }
+    }
+
+    .pathway-action-item--detail {
+        flex-grow: 1;
+        padding: 8px 16px;
+        background-color: var(--paper-grey-100);
+    }
+
+    .pathway-action-item--actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        paper-icon-button {
+            margin: 0 1em;
         }
     }
 }

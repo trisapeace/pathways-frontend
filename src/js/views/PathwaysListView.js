@@ -16,9 +16,6 @@ class PathwaysListView_Main extends React.Component {
             <div>
                 <PaperCard className="full-card">
                     <div className="card-content">
-                        <p>
-                            All of my pathways go here.
-                        </p>
                         <LinkButton to="/pathways/example" className="pathway-list-item">
                             <div className="pathway-icon-wrapper">
                                 <div className="pathway-icon">

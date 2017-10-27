@@ -34,3 +34,4 @@ reactPolymer.registerAttribute('main');
 reactPolymer.registerAttribute('main-title');
 reactPolymer.registerAttribute('slot');
 reactPolymer.registerAttribute('spacer');
+reactPolymer.registerAttribute('secondary');
