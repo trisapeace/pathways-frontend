@@ -9,7 +9,7 @@ import {apiClient} from 'mobx-rest';
 import adapter from 'mobx-rest-fetch-adapter'
 
 import config from 'config';
-import Pathways from 'Pathways';
+import Application from 'Application';
 import stores from 'stores';
 
 apiClient(adapter, {
@@ -25,7 +25,7 @@ console.info(`Pathways Web Frontend`, window.PATHWAYS);
 function main() {
     ReactDOM.render(
         <Provider {...stores}>
-            <Pathways />
+            <Application />
         </Provider>,
         document.getElementById('root')
     );

@@ -6,7 +6,7 @@ import routes from 'routes';
 
 import AppViewContainer_Full from 'ui-components/AppViewContainer_Full';
 
-export default class Pathways extends React.Component {
+export default class Application extends React.Component {
     /**
      * Base application component. Should contain a top-level component picked
      * via react-router, UI chrome, and any number of overlay components.
