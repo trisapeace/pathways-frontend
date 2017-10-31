@@ -19,13 +19,14 @@ export default class PartialCircle extends React.PureComponent {
             const startRad = (start / 100) * 2 * Math.PI;
             const endRad = (end / 100) * 2 * Math.PI;
             const path = this._path(25, 25, 25 - border, startRad + offset, endRad + offset);
-            pathElem = <path d={path} />;
+            pathElem = <path d={path} strokeWidth={3} />;
         } else {
-            pathElem = <circle cx={25} cy={25} r={25 - border} />;
+            pathElem = <circle cx={25} cy={25} r={25 - border} strokeWidth={3} />;
         }
 
         return (
             <svg width="100%" height="100%" viewBox="0 0 50 50" {...other}>
+                <circle cx={25} cy={25} r={25 - border} strokeWidth={1} stroke="currentColor" />
                 {pathElem}
             </svg>
         );
