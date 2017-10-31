@@ -39,7 +39,9 @@ export default class PolymerComponent extends React.Component {
      *  - callback: A private event handler function, or a prop name that will
      *              receive a custom event handler.
      *  - preventDefault: Stop the default event handler. Defaults to false.
-     *
+     *  - resetProps: A list of prop names for props that must not change
+    *                 after this event fires. Use this if an event causes
+    *                 side-effects even with preventDefault.
      */
 
     static options = DEFAULT_OPTIONS;
@@ -60,22 +62,25 @@ export default class PolymerComponent extends React.Component {
         this._eventFns = new Map();
 
         for (const eventOptions of this._polymerEvents) {
-            const {event, callback, preventDefault} = eventOptions;
+            const {event: eventName, callback, preventDefault, resetPropNames} = eventOptions;
 
             if (isFunction(callback)) {
-                this._eventFns.set(event, (e) => {
-                    if (preventDefault) e.preventDefault();
-                    if (callback) callback(e);
+                this._eventFns.set(eventName, (event) => {
+                    if (preventDefault) event.preventDefault();
+                    if (callback) callback(event);
+                    if (resetPropNames) this._resetPropsForEvent(resetPropNames, event);
                 });
             } else if (callback) {
-                this._eventFns.set(event, (e) => {
+                this._eventFns.set(eventName, (event) => {
                     const callbackFn = this.props[callback];
-                    if (preventDefault) e.preventDefault();
-                    if (callbackFn) callbackFn(e);
+                    if (preventDefault) event.preventDefault();
+                    if (callbackFn) callbackFn(event);
+                    if (resetPropNames) this._resetPropsForEvent(resetPropNames, event);
                 });
             } else {
-                this._eventFns.set(event, (e) => {
-                    if (preventDefault) e.preventDefault();
+                this._eventFns.set(eventName, (event) => {
+                    if (preventDefault) event.preventDefault();
+                    if (resetPropNames) this._resetPropsForEvent(resetPropNames, event);
                 });
             }
         }
@@ -128,6 +133,16 @@ export default class PolymerComponent extends React.Component {
             {
                 ref: (elem) => this._elem = elem,
                 ...props
+            }
+        );
+    }
+
+    _resetPropsForEvent(propNames, event) {
+        propNames.forEach(
+            (propName) => {
+                if (this.props[propName] !== null) {
+                    event.target[propName] = this.props[propName];
+                }
             }
         );
     }
