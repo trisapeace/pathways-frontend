@@ -8,6 +8,11 @@ body {
     background-color: #fafafa;
 }
 
+.interactive {
+    cursor: pointer;
+    user-select: none;
+}
+
 app-header {
     background-color: var(--paper-grey-800);
     color: #fff;
@@ -167,28 +172,13 @@ paper-dialog.app-view-dialog {
 }
 
 .pathway-action-item {
-    $checkbox-width: 30px;
-
     padding: 0;
     width: 100%;
     z-index: 1;
     margin-bottom: 10px;
 
-    &.opened {
-        z-index: 2;
-    }
-
     .card-content {
-    }
-
-    .card-actions {
-        background-color: var(--paper-grey-50);
         padding: 0;
-    }
-
-    .card-content.interactive {
-        cursor: pointer;
-        user-select: none;
     }
 
     .pathway-action-item--main {
@@ -196,18 +186,29 @@ paper-dialog.app-view-dialog {
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0 16px;
 
         .pathway-action-item--checkbox {
-            width: $checkbox-width;
+            padding: 16px;
+            padding-right: 0;
+            margin-left: 4px;
+        }
+
+        .pathway-action-item--header {
+            flex-grow: 1;
+            padding: 16px;
+            padding-left: 4px;
         }
     }
 
+    .card-actions {
+        background-color: var(--paper-grey-50);
+        padding: 0;
+    }
+
     .pathway-action-item--header {
-        flex-grow: 1;
         display: flex;
-        flex-direction: row;
         align-items: center;
+        flex-direction: row;
 
         .pathway-action-item--label {
             flex-grow: 1;
@@ -222,6 +223,17 @@ paper-dialog.app-view-dialog {
 
         paper-icon-button {
             margin: 0 1em;
+        }
+    }
+
+    &.opened {
+        z-index: 2;
+    }
+
+    &.completed {
+        .pathway-action-item--main .pathway-action-item--header {
+            color: var(--paper-grey-400);
+            text-decoration: line-through;
         }
     }
 }
