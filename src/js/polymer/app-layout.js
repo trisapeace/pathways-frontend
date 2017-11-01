@@ -1,4 +1,5 @@
 require('app-layout/app-layout.html');
+require('app-layout/app-scroll-effects/app-scroll-effects.html');
 
 import PolymerComponent from 'polymer/util/PolymerComponent';
 

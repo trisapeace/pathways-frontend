@@ -31,6 +31,9 @@ class WelcomeView_Main extends React.Component {
                 <PaperCard className="full-card">
                     <div className="card-content">
                         <p>TODO: Everything else.</p>
+                        <LinkButton to="/pathways" raised className="grey">
+                            Pathways
+                        </LinkButton>
                         <LinkButton to="/services" raised className="indigo">
                             Services
                         </LinkButton>

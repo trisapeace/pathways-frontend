@@ -36,7 +36,6 @@ describe('<MapAttribution/>', function() {
     });
 
     describe('with "map" in context', function() {
-
         it('updates state on "layeradd"', function() {
             const wrapper = shallow(<MapAttribution />, options);
             expect(mapMock.on).to.have.been.called;

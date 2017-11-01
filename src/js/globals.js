@@ -18,6 +18,7 @@ require('webcomponentsjs/webcomponents-lite.js');
 
 require('font-roboto/roboto.html');
 
+require('iron-icons/communication-icons.html');
 require('iron-icons/editor-icons.html');
 require('iron-icons/iron-icons.html');
 
@@ -28,6 +29,9 @@ require('neon-animation/neon-animations.html');
 
 const reactPolymer = require('react-polymer');
 
+reactPolymer.registerAttribute('condensed-title');
 reactPolymer.registerAttribute('main');
 reactPolymer.registerAttribute('main-title');
 reactPolymer.registerAttribute('slot');
+reactPolymer.registerAttribute('spacer');
+reactPolymer.registerAttribute('secondary');
