@@ -17,7 +17,7 @@ import ServiceMap from 'components/ServiceMap';
 class ServiceMapView_Main extends React.Component {
     static propTypes = {
         initialSearch: PropTypes.object,
-        locationsStore: PropTypes.object.isRequired,
+        locationsStore: PropTypes.object.isRequired
     };
 
     constructor(props) {

@@ -13,47 +13,47 @@ import {IronCollapse} from 'polymer/iron-collapse';
 import {IronIcon} from 'polymer/iron-icon';
 import {PaperRipple} from 'polymer/paper-ripple';
 
-export default class PathwayActionCard extends React.PureComponent {
+export default class PathwayActionCard extends React.Component {
     static propTypes = {
-        actionId: PropTypes.number.isRequired,
+        pathwayAction: PropTypes.object.isRequired,
         opened: PropTypes.bool.isRequired,
+        onActionComplete: PropTypes.func.isRequired,
         onSelect: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            completed: false,
             showDialog: false
         };
     }
 
     render() {
-        const {opened} = this.props;
-        const {completed, showDialog} = this.state;
+        const {pathwayAction, opened} = this.props;
+        const {showDialog} = this.state;
 
-        const label = "Pathway action";
+        const label = pathwayAction.label;
 
         const toggleIcon = (opened) ? 'icons:expand-less' : 'icons:expand-more';
 
         const classes = ['pathway-action-item'];
         if (opened) classes.push('opened');
-        if (completed) classes.push('completed');
+        if (pathwayAction.completed) classes.push('completed');
 
-        const searchDialog = (
+        const searchDialog = pathwayAction.search ? (
             <AppViewContainer_Dialog
-                appView={<ServiceMapView initialSearch={{what: 'EMPLOYMENT'}} />}
+                appView={<ServiceMapView initialSearch={pathwayAction.search} />}
                 isOpen={showDialog}
                 onRequestClose={this._onDialogRequestClose.bind(this)}
             />
-        );
+        ) : null;
 
         return (
             <PaperCard className={classes.join(' ')} elevation={(opened) ? 2 : 1}>
                 <div className="card-content">
                     <div className="pathway-action-item--main">
                         <div className="pathway-action-item--checkbox">
-                            <PaperCheckbox checked={completed} onChange={this._onCheckboxChange.bind(this)} />
+                            <PaperCheckbox checked={pathwayAction.completed} onChange={this._onCheckboxChange.bind(this)} />
                         </div>
                         <div className="pathway-action-item--header interactive" onClick={this._onMainClick.bind(this)}>
                             <span className="pathway-action-item--label">{label}</span>
@@ -64,8 +64,8 @@ export default class PathwayActionCard extends React.PureComponent {
                 </div>
                 <IronCollapse opened={opened} className="card-actions">
                     <div className="pathway-action-item--actions">
-                        <PaperIconButton icon="icons:search" onClick={this._onMapSearchClick.bind(this)} />
-                        <PaperIconButton icon="icons:list" onClick={this._onListSearchClick.bind(this)} />
+                        <PaperIconButton icon="icons:search" onClick={this._onMapSearchClick.bind(this)} disabled={!pathwayAction.search} />
+                        <PaperIconButton icon="icons:list" onClick={this._onListSearchClick.bind(this)} disabled={!pathwayAction.search} />
                         <PaperIconButton icon="icons:alarm" onClick={this._onAlarmClick.bind(this)} />
                     </div>
                 </IronCollapse>
@@ -75,12 +75,15 @@ export default class PathwayActionCard extends React.PureComponent {
     }
 
     _onMainClick() {
-        const {actionId, opened, onSelect} = this.props;
-        if (onSelect) onSelect(opened ? undefined : actionId);
+        const {pathwayAction, opened, onSelect} = this.props;
+        if (onSelect) onSelect(opened ? undefined : pathwayAction.id);
     }
 
     _onCheckboxChange() {
-        this.setState({completed: !this.state.completed});
+        const {pathwayAction, onActionComplete} = this.props;
+        if (onActionComplete) onActionComplete(pathwayAction.id, !pathwayAction.completed);
+        // FIXME: Cheating because I can't be bothered to fix observers in PathwaysStore for this little proof of concept.
+        this.setState({});
     }
 
     _onMapSearchClick(e) {

@@ -144,8 +144,10 @@ paper-dialog.app-view-dialog {
             }
 
             paper-badge {
-                --paper-badge-margin-left: -2.5em;
-                --paper-badge-margin-bottom: -4em;
+                margin-top: 1.2em;
+                margin-left: -1.2em;
+                --paper-badge-background: var(--paper-light-blue-400);
+                --paper-badge-text-color: white;
             }
         }
     }
@@ -166,6 +168,11 @@ paper-dialog.app-view-dialog {
                 margin: 2em;
                 --iron-icon-width: 6.5em;
                 --iron-icon-height: 6.5em;
+            }
+
+            paper-badge {
+                margin-top: 2.1em;
+                margin-left: -1.8em;
             }
         }
     }

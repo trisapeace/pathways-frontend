@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-export default class PartialCircle extends React.PureComponent {
+export default class ProgressCircle extends React.PureComponent {
     static propTypes = {
         start: PropTypes.number.isRequired,
         end: PropTypes.number.isRequired
@@ -15,9 +15,9 @@ export default class PartialCircle extends React.PureComponent {
         const offset = -0.5 * Math.PI;
         let pathElem = null;
 
-        if (end - start < 100) {
-            const startRad = (start / 100) * 2 * Math.PI;
-            const endRad = (end / 100) * 2 * Math.PI;
+        if (end - start < 1) {
+            const startRad = (start) * 2 * Math.PI;
+            const endRad = (end) * 2 * Math.PI;
             const path = this._path(25, 25, 25 - border, startRad + offset, endRad + offset);
             pathElem = <path d={path} strokeWidth={3} />;
         } else {

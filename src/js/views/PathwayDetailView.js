@@ -2,15 +2,20 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import {inject, observer} from 'mobx-react';
+
 import SimpleAppView from 'ui-components/SimpleAppView';
 
 import PathwayActionCard from 'components/PathwayActionCard';
 
 import {PaperCard} from 'polymer/paper-card';
 
+@inject('pathwaysStore')
+@observer
 class PathwayDetailView_Main extends React.Component {
     static propTypes = {
-        match: PropTypes.object
+        match: PropTypes.object,
+        pathwaysStore: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -21,25 +26,27 @@ class PathwayDetailView_Main extends React.Component {
     }
 
     render() {
-        const {match} = this.props;
-        const {params} = match;
+        const {match, pathwaysStore} = this.props;
+        const {pathwayId} = match.params;
 
-        const actions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        const pathwayDetails = pathwaysStore.pathwayDetails(pathwayId);
+        const actions = pathwaysStore.pathwayActions(pathwayId);
 
         return (
             <div>
                 <PaperCard className="full-card">
                     <div className="card-content">
-                        <p>Short description of this pathway, <em>{params.pathwayId}</em>.</p>
+                        <p>{pathwayDetails.description}</p>
                     </div>
                 </PaperCard>
                 {
                     actions.map(
-                        (actionId, index) => (
+                        (action) => (
                             <PathwayActionCard
-                                key={index}
-                                actionId={actionId}
-                                opened={this.state.selectedActionId === actionId}
+                                key={action.id}
+                                pathwayAction={action}
+                                opened={this.state.selectedActionId === action.id}
+                                onActionComplete={this._onActionComplete.bind(this)}
                                 onSelect={this._onActionSelect.bind(this)}
                             />
                         )
@@ -47,6 +54,12 @@ class PathwayDetailView_Main extends React.Component {
                 }
             </div>
         );
+    }
+
+    _onActionComplete(actionId, completed) {
+        const {match, pathwaysStore} = this.props;
+        const {pathwayId} = match.params;
+        pathwaysStore.setActionCompleted(pathwayId, actionId, completed);
     }
 
     _onActionSelect(actionId) {
