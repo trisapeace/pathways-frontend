@@ -49,8 +49,8 @@ export default class ServiceFiltersDialog extends React.Component {
         this._onDataChange(formData);
     }
 
-    _onOkClick(e) {
-        e.preventDefault();
+    _onOkClick(event) {
+        event.preventDefault();
         this._submitButton.click();
     }
 

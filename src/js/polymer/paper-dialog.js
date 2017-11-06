@@ -60,12 +60,12 @@ export class PaperDialog extends PolymerComponent {
         }
     }
 
-    _onOpenedChanged(e) {
+    _onOpenedChanged(event) {
         // The "iron-overlay-opened" event seems to fire a bit late when the dialog is
         // revealed, so we'll fake it.
-        const {value} = e.detail;
+        const {value} = event.detail;
         if (value === true) {
-            if (this.props.onOpenStart) this.props.onOpenStart(e);
+            if (this.props.onOpenStart) this.props.onOpenStart(event);
         }
     }
 

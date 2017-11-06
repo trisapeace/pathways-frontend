@@ -86,18 +86,18 @@ export default class PathwayActionCard extends React.Component {
         this.setState({});
     }
 
-    _onMapSearchClick(e) {
-        e.preventDefault();
+    _onMapSearchClick(event) {
+        event.preventDefault();
         this.setState({showDialog: true});
     }
 
-    _onListSearchClick(e) {
-        e.preventDefault();
+    _onListSearchClick(event) {
+        event.preventDefault();
         this.setState({showDialog: true});
     }
 
-    _onAlarmClick(e) {
-        e.preventDefault();
+    _onAlarmClick(event) {
+        event.preventDefault();
         alert("🤖 Beep. Beep. Beep. 🤖");
     }
 

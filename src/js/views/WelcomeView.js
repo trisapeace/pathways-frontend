@@ -50,8 +50,8 @@ class WelcomeView_Main extends React.Component {
         );
     }
 
-    _onDialogOpenClick(e) {
-        e.preventDefault();
+    _onDialogOpenClick(event) {
+        event.preventDefault();
         this.setState({isDialogOpen: true});
     }
 
