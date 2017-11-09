@@ -57,10 +57,10 @@ class PathwayLinkButton extends React.Component {
 
         return (
             <LinkButton to={pathwayDetails.url} className={classes.join(' ')}>
-                <div className="pathway-icon-wrapper">
-                    <div className="pathway-icon">
+                <div className="pathway-list-item-icon">
+                    <div className="pathway-icon-wrapper">
                         <ProgressCircle start={0} end={pathwayDetails.progress} className="pathway-icon-progress" />
-                        <IronIcon icon={pathwayDetails.icon} />
+                        <IronIcon icon={pathwayDetails.icon} className="pathway-icon" />
                         {progressBadge}
                     </div>
                 </div>

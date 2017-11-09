@@ -111,7 +111,7 @@ paper-dialog.app-view-dialog {
     align-items: center;
     color: inherit;
 
-    .pathway-icon-wrapper {
+    .pathway-list-item-icon {
         display: flex;
         flex-shrink: 0;
         flex-grow: 0;
@@ -121,11 +121,11 @@ paper-dialog.app-view-dialog {
         justify-content: center;
         align-items: center;
 
-        .pathway-icon {
+        .pathway-icon-wrapper {
             display: block;
             position: relative;
 
-            iron-icon {
+            iron-icon.pathway-icon {
                 margin: 1.5em;
                 --iron-icon-width: 4em;
                 --iron-icon-height: 4em;
