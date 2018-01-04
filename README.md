@@ -45,7 +45,7 @@ Then, use the provided "release" script:
 
     npm run release
 
-The result will be placed in the "out" directory.
+The result will be placed in the "dist" directory.
 
 Authors
 -----

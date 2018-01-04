@@ -58,6 +58,6 @@ typings/
 .env
 
 # Build output
-out/
+dist/
 
 .tmp/

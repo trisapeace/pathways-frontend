@@ -32,7 +32,7 @@ module.exports = {
     },
     output: {
         filename: '[name].bundle.[chunkhash].js',
-        path: path.resolve(__dirname, 'out'),
+        path: path.resolve(__dirname, 'dist'),
         publicPath: '/'
     },
     module: {
@@ -157,7 +157,7 @@ module.exports = {
         new webpack.IgnorePlugin(/vertx/)
     ],
     devServer: {
-        contentBase: path.resolve(__dirname, "out"),
+        contentBase: path.resolve(__dirname, 'dist'),
         inline: true,
         historyApiFallback: true,
         stats: {colors: true}
