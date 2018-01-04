@@ -11,11 +11,11 @@ Web interface for the Pathways application, which helps people to find human ser
 Build environment
 -----
 
-Application dependencies are managed using yarn or npm. Ideally, please use [Yarn](https://yarnpkg.com). This ensures you will be using use the yarn.lock file.
+Application dependencies are managed using npm.
 
 Install package dependencies:
 
-     yarn install
+     npm install
 
 Development
 -----
@@ -27,7 +27,7 @@ To create a development build, you must add a configuration file that says how t
 
 Then, use the provided "start" script to launch a server with the frontend application:
 
-    yarn run start
+    npm run start
 
 This script uses [webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html). As long as it is running, you can access the application at <http://localhost:8080>. It will rebuild automatically as you work.
 
@@ -43,7 +43,7 @@ To create a production build, add another configuration file that says how to ac
 
 Then, use the provided "release" script:
 
-    yarn run release
+    npm run release
 
 The result will be placed in the "out" directory.
 
