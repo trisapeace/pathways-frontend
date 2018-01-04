@@ -6,7 +6,7 @@ import {inject, observer} from 'mobx-react';
 
 import Form from 'react-jsonschema-form';
 
-import Portal from 'react-portal';
+import {Portal} from 'react-portal';
 
 import {PaperButton} from 'polymer/paper-button';
 import {PaperDialog} from 'polymer/paper-dialog';
