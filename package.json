@@ -78,8 +78,8 @@
     "coverage": "NODE_ENV=coverage nyc --reporter=lcov --reporter=text mocha-webpack",
     "lint": "eslint --ignore-pattern=\"*.test.js\" src",
     "start": "webpack-dev-server",
-    "build": "webpack -d --progress --colors --config=\"./webpack.config.js\"",
-    "heroku-postbuild": "webpack --config=\"./webpack.config.js\" --progress",
+    "build": "webpack --progress --colors --config=\"./webpack.config.js\"",
+    "build-dev": "webpack -d --progress --colors --config=\"./webpack.config.js\"",
     "release": "NODE_ENV=production webpack --progress --colors --config=\"./webpack.config.js\""
   },
   "nyc": {
