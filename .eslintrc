@@ -16,6 +16,10 @@
         "eslint:recommended",
         "plugin:react/recommended"
     ],
+    "globals": {
+        "__BUILD": true,
+        "__CONFIG": true
+    },
     "rules": {
         "strict": 0,
         "no-var": "warn",

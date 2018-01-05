@@ -1,14 +1,3 @@
-function config() {
-    switch (process.env.NODE_ENV) {
-        case 'production':
-            return 'production';
-        case 'test':
-            return 'test';
-        case 'coverage':
-            return 'coverage';
-        default:
-            return 'development';
-    }
-}
+const BUILD_CONFIG = process.env.NODE_ENV || 'development';
 
-module.exports = require(`./webpack.config.${config()}.js`);
+module.exports = require(`./webpack.config.${BUILD_CONFIG}.js`);

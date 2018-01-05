@@ -5,21 +5,13 @@ const HtmlPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const configPath = path.join(__dirname, 'config');
-
-try {
-    const config = require(configPath);
-} catch (error) {
-    console.error("Error loading configuration:", error.message);
-    console.info(`Make sure you have created config/${NODE_ENV}.js`)
-    process.exit(1);
-}
-
 const extractCSSPlugin = new ExtractTextPlugin({
     filename: '[name].bundle.[contenthash].css',
     allChunks: true
 });
+
+const BUILD_CONFIG = process.env.NODE_ENV || 'development';
+const CONFIG_API_URL = process.env.CONFIG_API_URL;
 
 module.exports = {
     entry: {
@@ -120,7 +112,7 @@ module.exports = {
             path.resolve(__dirname, 'node_modules')
         ],
         alias: {
-            config: configPath,
+            config: path.join(__dirname, 'config'),
             "manifest.json": path.join(__dirname, 'src', 'manifest.json')
         }
     },
@@ -140,7 +132,8 @@ module.exports = {
             }
         }),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
+            '__BUILD.CONFIG': JSON.stringify(BUILD_CONFIG),
+            '__CONFIG.API_URL': JSON.stringify(CONFIG_API_URL)
         }),
         new CopyWebpackPlugin([
             {

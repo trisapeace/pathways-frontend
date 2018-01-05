@@ -1,4 +1,4 @@
-import URL from 'url';
+import url from 'url';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -13,10 +13,11 @@ import Application from 'Application';
 import stores from 'stores';
 
 apiClient(adapter, {
-    apiPath: URL.format({...config.api})
+    apiPath: url.format({...config.api})
 });
 
 window.PATHWAYS = {
+    config,
     stores
 };
 
