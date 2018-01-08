@@ -1,7 +1,7 @@
-import ServiceProvidersStore from 'stores/remote/ServiceProvidersStore';
+import LocationsStore from 'stores/remote/LocationsStore';
 import PathwaysStore from 'stores/remote/PathwaysStore';
 
-const serviceProvidersStore = new ServiceProvidersStore();
+const serviceProvidersStore = new LocationsStore();
 const pathwaysStore = new PathwaysStore();
 
 export default {

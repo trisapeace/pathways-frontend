@@ -4,9 +4,9 @@ import {computed} from 'mobx';
 
 import apiSearchTemplate from 'util/api-mock/search/template.json';
 
-export default class ServiceProvidersStore extends Collection {
-    url()  { return '/v1/service-providers/'; }
-    model() { return ServiceProviderModel; }
+export default class LocationsStore extends Collection {
+    url()  { return '/v1/locations/'; }
+    model() { return LocationModel; }
 
     @computed get searchSchema() {
         return {
@@ -16,7 +16,7 @@ export default class ServiceProvidersStore extends Collection {
     }
 }
 
-class ServiceProviderModel extends Model {
+class LocationModel extends Model {
     @computed get name() {
         return this.get('name');
     }
