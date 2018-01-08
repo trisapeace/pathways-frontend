@@ -1,6 +1,6 @@
 {
   "env": {
-    "CONFIG_API_URL": {
+    "REACT_APP_CONFIG_API_URL": {
       "required": false
     }
   },

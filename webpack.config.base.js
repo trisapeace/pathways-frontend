@@ -11,7 +11,7 @@ const extractCSSPlugin = new ExtractTextPlugin({
 });
 
 const BUILD_CONFIG = process.env.NODE_ENV || 'development';
-const CONFIG_API_URL = process.env.CONFIG_API_URL;
+const CONFIG_API_URL = process.env.REACT_APP_CONFIG_API_URL;
 
 module.exports = {
     entry: {
