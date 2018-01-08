@@ -20,10 +20,9 @@ Install package dependencies:
 Development
 -----
 
-To create a development build, you must add a configuration file that says how to access the API:
+To create a development build, you should add a local enviroment file named ".env" that specifies how to access the API:
 
-    cp config/env.example.js config/development.js
-    open config/development.js
+    REACT_APP_CONFIG_API_URL='http://localhost:8000'
 
 Then, use the provided "start" script to launch a server with the frontend application:
 
