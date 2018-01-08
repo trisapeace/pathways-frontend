@@ -1,7 +1,7 @@
 {
   "env": {
-    "PATHWAYS_BACKEND_URL": {
-      "required": true
+    "CONFIG_API_URL": {
+      "required": false
     }
   },
   "buildpacks": [
