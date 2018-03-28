@@ -7,9 +7,7 @@ export const setMessage = (message: string) => ({
 
 export type MessageAction = ReturnType<typeof setMessage>;
 
-const isValid = (action: MessageAction): bool {
-    return action.payload === action.payload;
-}
+const isValid = (action: MessageAction): boolean => action.payload === action.payload;
 
 export const reducer = (state: Store = new Store('default text'), action: MessageAction): Store => {
     if (!isValid(action)) {
