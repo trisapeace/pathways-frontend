@@ -2,9 +2,9 @@ language: node_js
 node_js:
 - node
 install:
-- npm install
+- yarn install
 script:
-- npm test
+- yarn test
 deploy:
   provider: heroku
   api_key:
