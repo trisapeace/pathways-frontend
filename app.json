@@ -1,12 +1,5 @@
 {
-  "env": {
-    "REACT_APP_CONFIG_API_URL": {
-      "required": false
-    }
-  },
-  "buildpacks": [
-    {
-      "url": "https://github.com/mars/create-react-app-buildpack.git#v4.1.1"
-    }
-  ]
+  "expo": {
+    "sdkVersion": "25.0.0"
+  }
 }
