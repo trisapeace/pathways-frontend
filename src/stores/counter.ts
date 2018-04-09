@@ -6,7 +6,7 @@ export const increment = (store: Store) => (
     helpers.makeAction(constants.SET_COUNTER, { value: store.value + 1 })
 );
 
-type SetCounterAction = Readonly<ReturnType<typeof increment>>;
+export type SetCounterAction = Readonly<ReturnType<typeof increment>>;
 
 export const decrement = (store: Store): SetCounterAction => (
     helpers.makeAction(constants.SET_COUNTER, { value: store.value - 1 })
@@ -17,9 +17,7 @@ export const reset = () => (
     helpers.makeAction(constants.RESET_COUNTER)
 );
 
-type ResetCounterAction = Readonly<ReturnType<typeof reset>>;
-
-export type Actions = SetCounterAction | ResetCounterAction;
+export type ResetCounterAction = Readonly<ReturnType<typeof reset>>;
 
 // tslint:disable-next-line:typedef
 const defaultStore = () => (
@@ -28,7 +26,7 @@ const defaultStore = () => (
 
 export type Store = Readonly<ReturnType<typeof defaultStore>>;
 
-export const reducer = (store: Store = defaultStore(), action?: Actions): Store => {
+export const reducer = (store: Store = defaultStore(), action?: SetCounterAction | ResetCounterAction): Store => {
     if (!action) {
         return store;
     }

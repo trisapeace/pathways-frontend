@@ -6,8 +6,7 @@ export const setMessage = (message: string) => (
     helpers.makeAction(constants.SET_MESSAGE_TEXT, { message })
 );
 
-type MessageAction = Readonly<ReturnType<typeof setMessage>>;
-export type Actions = MessageAction;
+export type MessageAction = Readonly<ReturnType<typeof setMessage>>;
 
 // tslint:disable-next-line:typedef
 const defaultStore = () => (
@@ -16,7 +15,7 @@ const defaultStore = () => (
 
 export type Store = Readonly<ReturnType<typeof defaultStore>>;
 
-export const reducer = (store: Store = defaultStore(), action?: Actions): Store => {
+export const reducer = (store: Store = defaultStore(), action?: MessageAction): Store => {
     if (!action) {
         return store;
     }

@@ -10,9 +10,9 @@ export interface Props {
 };
 
 export interface Actions {
-    increment(store: counter.Store): counter.Actions;
-    decrement(store: counter.Store): counter.Actions;
-    setMessage(newMessage: string): message.Actions;
+    increment(store: counter.Store): counter.SetCounterAction;
+    decrement(store: counter.Store): counter.SetCounterAction;
+    setMessage(newMessage: string): message.MessageAction;
 };
 
 export const MyContainer: React.SFC<Props & Actions> = (props) => {
