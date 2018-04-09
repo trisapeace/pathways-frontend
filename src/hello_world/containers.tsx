@@ -15,7 +15,7 @@ export interface Actions {
     setMessage(newMessage: string): message.MessageAction;
 };
 
-export const MyContainer: React.SFC<Props & Actions> = (props) => {
+export const HelloWorldContainer: React.SFC<Props & Actions> = (props) => {
     const { counterInProps, messageInProps, increment, decrement, setMessage } = props;
     return (
         <View style={{ alignItems: 'center' }}>

@@ -1,12 +1,14 @@
 import * as constants from '../application/constants';
 import * as helpers from '../application/helpers/redux-helpers';
 
+export type Store = Readonly<ReturnType<typeof buildDefaultStore>>;
+export type SetCounterAction = Readonly<ReturnType<typeof increment>>;
+export type ResetCounterAction = Readonly<ReturnType<typeof reset>>;
+
 // tslint:disable-next-line:typedef
 export const increment = (store: Store) => (
     helpers.makeAction(constants.SET_COUNTER, { value: store.value + 1 })
 );
-
-export type SetCounterAction = Readonly<ReturnType<typeof increment>>;
 
 export const decrement = (store: Store): SetCounterAction => (
     helpers.makeAction(constants.SET_COUNTER, { value: store.value - 1 })
@@ -17,16 +19,12 @@ export const reset = () => (
     helpers.makeAction(constants.RESET_COUNTER)
 );
 
-export type ResetCounterAction = Readonly<ReturnType<typeof reset>>;
-
 // tslint:disable-next-line:typedef
-const defaultStore = () => (
+const buildDefaultStore = () => (
     { value: 0 }
 );
 
-export type Store = Readonly<ReturnType<typeof defaultStore>>;
-
-export const reducer = (store: Store = defaultStore(), action?: SetCounterAction | ResetCounterAction): Store => {
+export const reducer = (store: Store = buildDefaultStore(), action?: SetCounterAction | ResetCounterAction): Store => {
     if (!action) {
         return store;
     }
