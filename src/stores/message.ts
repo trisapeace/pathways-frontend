@@ -10,19 +10,19 @@ type MessageAction = Readonly<ReturnType<typeof setMessage>>;
 export type Actions = MessageAction;
 
 // tslint:disable-next-line:typedef
-const makeStore = (message: string) => (
-    { message }
+const defaultStore = () => (
+    { message: 'default text' }
 );
 
-export type Store = Readonly<ReturnType<typeof makeStore>>;
+export type Store = Readonly<ReturnType<typeof defaultStore>>;
 
-export const reducer = (store: Store = makeStore('default text'), action?: Actions): Store => {
+export const reducer = (store: Store = defaultStore(), action?: Actions): Store => {
     if (!action) {
         return store;
     }
     switch (action.type) {
         case constants.SET_MESSAGE_TEXT:
-            return makeStore(action.payload.message);
+            return { ...store, message: action.payload.message };
         default:
             return store;
     }

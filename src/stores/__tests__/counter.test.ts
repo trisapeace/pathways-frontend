@@ -1,14 +1,12 @@
 import * as counter from '../counter';
 import * as constants from '../../application/constants';
+import * as helpers from '../../application/helpers/redux-helpers';
 import { aNumber } from '../../application/test_helpers/random_test_values';
 
 let buildStore = () => counter.reducer(undefined, undefined);
 
 let buildStoreWithValue = (value: number) => {
-    const action = {
-        type: constants.SET_COUNTER as typeof constants.SET_COUNTER,
-        payload: { value }
-    };
+    const action = helpers.makeAction(constants.SET_COUNTER, { value });
     return counter.reducer(undefined, action);
 };
 
