@@ -30,6 +30,11 @@ export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (p
                 <TextInput value={messageInProps.message} onChangeText={(text) => setMessage(text)} />
                 <Output value={messageInProps.message} />
             </View>
+            <View style={{ flexDirection: 'row', padding: 20 }}>
+                <MyButton title='Page one' onPress={() => { }} />
+                <MyButton title='Page two' onPress={() => { }} />
+                <MyButton title='Page two' onPress={() => { }} />
+            </View>
         </View >
     );
 };
