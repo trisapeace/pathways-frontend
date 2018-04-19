@@ -1,7 +1,8 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Props, Actions, HelloWorldContainer } from './hello_world_container';
-import * as category from '../stores/category';
+import * as reduxFirstRouter from 'redux-first-router';
+import * as category from '../stores/category'
 import * as counter from '../stores/counter';
 import * as message from '../stores/message';
 import { Store } from '../application/store';
@@ -15,7 +16,9 @@ const mapStateToProps = (store: Store): Props => ({
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     increment: (prop: counter.Store) => dispatch(counter.increment(prop)),
     decrement: (prop: counter.Store) => dispatch(counter.decrement(prop)),
-    setCategory: (prop: category.Store) => dispatch(category.setCategory(prop.category)),
+    // note the absense of the dispatch call here, seems very wrong
+    pushUserWithUrl: (url: string) => reduxFirstRouter.push(url),
+    pushUserWithId: (id: number) => dispatch(category.setCategory(id)),
     setMessage: (aMessage: string) => dispatch(message.setMessage(aMessage)),
 });
 

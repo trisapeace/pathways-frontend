@@ -14,12 +14,13 @@ export interface Props {
 export interface Actions {
     increment(store: counter.Store): counter.SetCounterAction;
     decrement(store: counter.Store): counter.SetCounterAction;
-    setCategory(prop: category.Store): category.CategoryAction;
+    pushUserWithUrl(url: string): void;
+    pushUserWithId(id: number): category.CategoryAction;
     setMessage(newMessage: string): message.MessageAction;
 };
 
 export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (props) => {
-    const { categoryInProps, counterInProps, messageInProps, increment, decrement, setCategory, setMessage } = props;
+    const { categoryInProps, counterInProps, messageInProps, increment, decrement, pushUserWithUrl, pushUserWithId, setMessage } = props;
     return (
         <View style={{ alignItems: 'center' }}>
             <Greeting name='Valeera' />
@@ -35,9 +36,8 @@ export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (p
                 <Output value={categoryInProps.category} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
-                <MyButton title='User 123' onPress={() => setCategory({ category: 123 })} />
-                <MyButton title='User 234' onPress={() => setCategory({ category: 234 })} />
-                <MyButton title='User 345' onPress={() => setCategory({ category: 345 })} />
+                <MyButton title='User 123' onPress={() => pushUserWithUrl('/user/123')} />
+                <MyButton title='User 234' onPress={() => pushUserWithId(234)} />
             </View>
         </View >
     );

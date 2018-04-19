@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import createMemoryHistory from 'history/createMemoryHistory';
-import { connectRoutes } from 'redux-first-router';
+import { connectRoutes, push } from 'redux-first-router';
 import { rootReducer as reducerForAppState } from '../stores';
 import { Store as StoreForAppState } from '../stores';
 
@@ -9,10 +9,13 @@ export type Store = {
 };
 
 const routesMap = {
-    LIST: '/list/:category',
+    USER: '/user/:category',
 };
 
 const history = createMemoryHistory();
 const { enhancer, middleware, reducer } = connectRoutes(history, routesMap);
 const reducerWithRouting = combineReducers({ location: reducer, appState: reducerForAppState });
 export const store = createStore(reducerWithRouting, compose(enhancer, applyMiddleware(middleware)));
+
+
+push('/user/321');
