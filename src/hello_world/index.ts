@@ -6,8 +6,8 @@ import * as message from '../stores/message';
 import { Store } from '../application/store';
 
 const mapStateToProps = (store: Store): Props => ({
-    counterInProps: store.counterInStore,
-    messageInProps: store.messageInStore,
+    counterInProps: store.appState.counterInStore,
+    messageInProps: store.appState.messageInStore,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
