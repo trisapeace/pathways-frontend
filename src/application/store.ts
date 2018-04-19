@@ -1,11 +1,11 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import createMemoryHistory from 'history/createMemoryHistory';
-import { connectRoutes } from 'redux-first-router'
+import { connectRoutes } from 'redux-first-router';
 import { rootReducer as reducerForAppState } from '../stores';
 import { Store as StoreForAppState } from '../stores';
 
 export type Store = {
-    appState: StoreForAppState
+    readonly appState: StoreForAppState,
 };
 
 const routesMap = {
