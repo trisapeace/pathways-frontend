@@ -1,5 +1,5 @@
 import 'react-native';
-import { Text } from 'react-native'
+import { Text } from 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Output } from '../components';
