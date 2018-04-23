@@ -6,13 +6,13 @@
 With a fresh repository, this will get the application compiled and running on Expo:
 
     // Install dependencies
-    npm install
+    yarn install
     // Compile TypeScript
-    npm run tsc
+    yarn run tsc
     // Run tests
-    npm run jest
+    yarn run jest
     // Build & start Expo
-    npm start
+    yarn start
     // Follow instructions to open app in Expo
 
 
@@ -21,10 +21,10 @@ With a fresh repository, this will get the application compiled and running on E
 In seperate processes you will want to run the following:
 
     // Watch filesystem and recompile TypeScript on changes
-    npm run tsc -- --watch
+    yarn run tsc -- --watch
 
     // Watch filesystem and rerun tests on changes
-    npm run jest -- --watch
+    yarn run jest -- --watch
 
     // Watch filesystem and rebuild app / reload Expo on changes
-    npm start
+    yarn start
