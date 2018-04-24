@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Props, Actions, HelloWorldContainer } from './hello_world_container';
+import { MainPage } from '../stores/main_tabs';
 import * as reduxFirstRouter from 'redux-first-router';
 import * as mainTabs from '../stores/main_tabs'
 import * as counter from '../stores/counter';
@@ -18,7 +19,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     decrement: (prop: counter.Store) => dispatch(counter.decrement(prop)),
     // note the absense of the dispatch call here, seems very wrong
     pushUserWithUrl: (url: string) => reduxFirstRouter.push(url),
-    pushUserWithId: (id: number) => dispatch(mainTabs.setMainTab(id)),
+    pushUserWithId: (id: MainPage) => dispatch(mainTabs.setMainTab(id)),
     setMessage: (aMessage: string) => dispatch(message.setMessage(aMessage)),
 });
 

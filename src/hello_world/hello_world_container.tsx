@@ -1,4 +1,5 @@
 import { Output, TwiceTheOutput, MyButton, Greeting } from './components';
+import { MainPage } from '../stores/main_tabs';
 import React from 'react';
 import { View, TextInput } from 'react-native';
 import * as mainTabs from '../stores/main_tabs';
@@ -15,7 +16,7 @@ export interface Actions {
     increment(store: counter.Store): counter.SetCounterAction;
     decrement(store: counter.Store): counter.SetCounterAction;
     pushUserWithUrl(url: string): void;
-    pushUserWithId(id: number): mainTabs.SetMainTabAction;
+    pushUserWithId(id: MainPage): mainTabs.SetMainTabAction;
     setMessage(newMessage: string): message.MessageAction;
 };
 
@@ -33,11 +34,11 @@ export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (p
             <View>
                 <TextInput value={messageInProps.message} onChangeText={(text) => setMessage(text)} />
                 <Output value={messageInProps.message} />
-                <Output value={categoryInProps.category} />
+                <Output value={categoryInProps.mainTab} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
-                <MyButton title='Link to 123 with URL' onPress={() => pushUserWithUrl('/user/123')} />
-                <MyButton title='Link to 234 with action' onPress={() => pushUserWithId(234)} />
+                <MyButton title='To One with URL' onPress={() => pushUserWithUrl('/user/MainPage.One')} />
+                <MyButton title='To Two with action' onPress={() => pushUserWithId(MainPage.Two)} />
             </View>
         </View >
     );

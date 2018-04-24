@@ -10,7 +10,7 @@ export type Store = {
 };
 
 const routesMap = {
-    [constants.SET_MAIN_TAB]: '/user/:category',
+    [constants.SET_MAIN_TAB]: '/user/:mainTab',
 };
 
 const history = createMemoryHistory();
@@ -18,5 +18,4 @@ const { enhancer, middleware, reducer } = connectRoutes(history, routesMap);
 const reducerWithRouting = combineReducers({ location: reducer, appState: reducerForAppState });
 export const store = createStore(reducerWithRouting, compose(enhancer, applyMiddleware(middleware)));
 
-
-push('/user/321');
+push('/user/MainPage.One');
