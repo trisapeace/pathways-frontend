@@ -1,3 +1,4 @@
+import * as constants from '../application/constants';
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import createMemoryHistory from 'history/createMemoryHistory';
 import { connectRoutes, push } from 'redux-first-router';
@@ -9,7 +10,7 @@ export type Store = {
 };
 
 const routesMap = {
-    USER: '/user/:category',
+    [constants.SET_MAIN_TAB]: '/user/:category',
 };
 
 const history = createMemoryHistory();

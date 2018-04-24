@@ -8,9 +8,9 @@ const mapStateToProps = (): Props => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
-    goToQuestionnaire: () => dispatch(mainTabs.setCategory(1)),
-    goToPlan: () => dispatch(mainTabs.setCategory(2)),
-    goToExplore: () => dispatch(mainTabs.setCategory(3)),
+    goToQuestionnaire: () => dispatch(mainTabs.setMainTab(1)),
+    goToPlan: () => dispatch(mainTabs.setMainTab(2)),
+    goToExplore: () => dispatch(mainTabs.setMainTab(3)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationButtonsBelowChildComponent);

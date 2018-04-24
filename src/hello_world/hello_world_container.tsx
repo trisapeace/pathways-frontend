@@ -15,7 +15,7 @@ export interface Actions {
     increment(store: counter.Store): counter.SetCounterAction;
     decrement(store: counter.Store): counter.SetCounterAction;
     pushUserWithUrl(url: string): void;
-    pushUserWithId(id: number): mainTabs.CategoryAction;
+    pushUserWithId(id: number): mainTabs.SetMainTabAction;
     setMessage(newMessage: string): message.MessageAction;
 };
 

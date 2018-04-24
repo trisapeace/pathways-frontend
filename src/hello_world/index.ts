@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     decrement: (prop: counter.Store) => dispatch(counter.decrement(prop)),
     // note the absense of the dispatch call here, seems very wrong
     pushUserWithUrl: (url: string) => reduxFirstRouter.push(url),
-    pushUserWithId: (id: number) => dispatch(mainTabs.setCategory(id)),
+    pushUserWithId: (id: number) => dispatch(mainTabs.setMainTab(id)),
     setMessage: (aMessage: string) => dispatch(message.setMessage(aMessage)),
 });
 
