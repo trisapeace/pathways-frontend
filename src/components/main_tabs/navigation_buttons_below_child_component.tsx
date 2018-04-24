@@ -4,7 +4,7 @@ import { View, Button } from 'react-native';
 interface TabButtonProp {
     onPress: () => void,
     title: string,
-}
+};
 
 const TabButton: React.StatelessComponent<TabButtonProp> = ({ onPress, title }) => (
     <Button onPress={onPress} title={title} />
@@ -32,4 +32,3 @@ export const NavigationButtonsBelowChildComponent: React.StatelessComponent<Prop
         </View>
     );
 };
-
