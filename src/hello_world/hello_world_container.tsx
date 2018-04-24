@@ -18,10 +18,14 @@ export interface Actions {
     pushUserWithUrl(url: string): void;
     pushUserWithId(id: MainPage): mainTabs.SetMainTabAction;
     setMessage(newMessage: string): message.MessageAction;
+    goBack(): void;
+    goForwards(): void;
 };
 
 export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (props) => {
-    const { categoryInProps, counterInProps, messageInProps, increment, decrement, pushUserWithUrl, pushUserWithId, setMessage } = props;
+    const { categoryInProps, counterInProps, messageInProps, increment, decrement,
+        goBack, goForwards,
+        pushUserWithUrl, pushUserWithId, setMessage } = props;
     return (
         <View style={{ alignItems: 'center' }}>
             <Greeting name='Valeera' />
@@ -39,6 +43,10 @@ export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (p
             <View style={{ flexDirection: 'row', padding: 20 }}>
                 <MyButton title='To One with URL' onPress={() => pushUserWithUrl('/user/MainPage.One')} />
                 <MyButton title='To Two with action' onPress={() => pushUserWithId(MainPage.Two)} />
+            </View>
+            <View style={{ flexDirection: 'row', padding: 20 }}>
+                <MyButton title='back' onPress={() => goBack()} />
+                <MyButton title='forward' onPress={() => goForwards()} />
             </View>
         </View >
     );

@@ -21,6 +21,8 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     pushUserWithUrl: (url: string) => reduxFirstRouter.push(url),
     pushUserWithId: (id: MainPage) => dispatch(mainTabs.setMainTab(id)),
     setMessage: (aMessage: string) => dispatch(message.setMessage(aMessage)),
+    goBack: () => reduxFirstRouter.back(),
+    goForwards: () => reduxFirstRouter.next(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HelloWorldContainer);
