@@ -1,3 +1,1 @@
-import { Application } from './lib/application';
-
-export default Application;
+export { Application } from './lib/application';

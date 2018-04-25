@@ -19,7 +19,7 @@ export interface Actions {
     goToExplore: () => void,
 };
 
-export const NavigationButtonsBelowChildComponent: React.StatelessComponent<Props & Actions> = (props) => {
+export const NavigationBar: React.StatelessComponent<Props & Actions> = (props) => {
     const { goToQuestionnaire, goToPlan, goToExplore } = props;
     return (
         <View style={{ flexDirection: 'column', padding: 20 }}>

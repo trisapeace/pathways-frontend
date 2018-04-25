@@ -24,4 +24,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     goForwards: (): void => reduxFirstRouter.next(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(helloWorldContainer);
+export const ConnectedHelloWorld = connect(mapStateToProps, mapDispatchToProps)(helloWorldContainer);

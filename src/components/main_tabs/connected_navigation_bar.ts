@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Props, Actions, NavigationButtonsBelowChildComponent } from './navigation_buttons_below_child_component';
+import { Props, Actions, NavigationBar } from './navigation_bar';
 import { Store } from '../../application/store';
 import * as mainTabs from '../../stores/main_tabs';
 
@@ -13,4 +13,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     goToExplore: () => dispatch(mainTabs.setMainTab(mainTabs.MainPage.Three)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationButtonsBelowChildComponent);
+export const ConnectedNavigationBar = connect(mapStateToProps, mapDispatchToProps)(NavigationBar);

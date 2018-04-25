@@ -1,16 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Container from '../hello_world';
-import MainTabsComponent from '../components/main_tabs';
+import { ConnectedHelloWorld } from '../hello_world/connected_hello_world';
+import { ConnectedNavigationBar } from '../components/main_tabs/connected_navigation_bar';
 import { store } from './store';
 import { ErrorBoundary } from './error_boundary';
 
 export const Application = (): JSX.Element => (
     <ErrorBoundary>
         <Provider store={store}>
-            <MainTabsComponent>
-                <Container />
-            </MainTabsComponent>
+            <ConnectedNavigationBar>
+                <ConnectedHelloWorld />
+            </ConnectedNavigationBar>
         </Provider>
     </ErrorBoundary>
 );
