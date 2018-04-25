@@ -22,7 +22,7 @@ export interface Actions {
     goForwards(): void;
 }
 
-export const helloWorldContainer: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
+export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
     const { mainTabsInProps, counterInProps, messageInProps, increment, decrement,
         goBack, goForwards,
         pushUserWithUrl, pushUserWithId, setMessage }: Props & Actions = props;

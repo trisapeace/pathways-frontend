@@ -9,7 +9,7 @@ export type Store = Readonly<ReturnType<typeof buildDefaultStore>>;
 export type SetMainTabAction = Readonly<ReturnType<typeof setMainTab>>;
 
 // tslint:disable-next-line:typedef
-export const setMainTab = (mainTab: MainPage) => (
+export const setMainTab = (mainTab: MainPage | string) => (
     helpers.makeAction(constants.SET_MAIN_TAB, { mainTab })
 );
 
@@ -30,27 +30,26 @@ export const reducer = (store: Store = buildDefaultStore(), action?: SetMainTabA
     }
 };
 
-// Using number as a type alias for MainPage here,
+// Using number as a type alias for the MainPage enum, see
 // https://stackoverflow.com/questions/29706609/typescript-how-to-add-type-guards-for-enums-in-union-types/29706830#29706830
 
 const validateMainPageId = (pageId: number | string): MainPage => {
     if (typeof pageId === 'string') {
-        return convertStringToTab(pageId);
+        return toEnum(pageId);
     }
     return pageId;
 };
 
-const convertStringToTab = (pageId: string): MainPage => {
+const toEnum = (pageId: string): MainPage => {
     switch (pageId) {
         case 'MainPage.One': return MainPage.One;
         case 'MainPage.Two': return MainPage.Two;
         case 'MainPage.Three': return MainPage.Three;
-        default: throwValidationError(pageId);
+        default: throw validationError(pageId);
     }
-    return MainPage.One;
 };
 
-const throwValidationError = (pageId: string): void => {
+const validationError = (pageId: string): Error => {
     const message = `${pageId}: Invalid main page id, accepted values are MainPage.One, MainPage.Two or MainPage.Three`;
-    throw new Error(message);
+    return new Error(message);
 };

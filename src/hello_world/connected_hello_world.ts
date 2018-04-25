@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Props, Actions, helloWorldContainer } from './hello_world_container';
+import { Props, Actions, HelloWorldContainer } from './hello_world_container';
 import * as reduxFirstRouter from 'redux-first-router';
 import * as mainTabs from '../stores/main_tabs';
 import * as counter from '../stores/counter';
@@ -24,4 +24,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     goForwards: (): void => reduxFirstRouter.next(),
 });
 
-export const ConnectedHelloWorld = connect(mapStateToProps, mapDispatchToProps)(helloWorldContainer);
+export const ConnectedHelloWorld = connect(mapStateToProps, mapDispatchToProps)(HelloWorldContainer);
