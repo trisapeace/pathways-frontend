@@ -7,10 +7,10 @@ import * as counter from '../stores/counter';
 import * as message from '../stores/message';
 
 export interface Props {
-    mainTabsInProps: mainTabs.Store,
-    counterInProps: counter.Store,
-    messageInProps: message.Store,
-};
+    readonly mainTabsInProps: mainTabs.Store;
+    readonly counterInProps: counter.Store;
+    readonly messageInProps: message.Store;
+}
 
 export interface Actions {
     increment(store: counter.Store): counter.SetCounterAction;
@@ -20,33 +20,33 @@ export interface Actions {
     setMessage(newMessage: string): message.MessageAction;
     goBack(): void;
     goForwards(): void;
-};
+}
 
-export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (props) => {
+export const helloWorldContainer: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
     const { mainTabsInProps, counterInProps, messageInProps, increment, decrement,
         goBack, goForwards,
-        pushUserWithUrl, pushUserWithId, setMessage } = props;
+        pushUserWithUrl, pushUserWithId, setMessage }: Props & Actions = props;
     return (
         <View style={{ alignItems: 'center' }}>
             <Greeting name='Valeera' />
             <View style={{ flexDirection: 'row', padding: 20 }}>
-                <MyButton title='Increment' onPress={() => increment(counterInProps)} />
-                <MyButton title='Decrement' onPress={() => decrement(counterInProps)} />
+                <MyButton title='Increment' onPress={(): counter.SetCounterAction => increment(counterInProps)} />
+                <MyButton title='Decrement' onPress={(): counter.SetCounterAction => decrement(counterInProps)} />
             </View>
             <Output value={counterInProps.value} />
             <TwiceTheOutput value={counterInProps.value} />
             <View>
-                <TextInput value={messageInProps.message} onChangeText={(text) => setMessage(text)} />
+                <TextInput value={messageInProps.message} onChangeText={(text: string): message.MessageAction => setMessage(text)} />
                 <Output value={messageInProps.message} />
                 <Output value={mainTabsInProps.mainTab} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
-                <MyButton title='To One with URL' onPress={() => pushUserWithUrl('/user/MainPage.One')} />
-                <MyButton title='To Two with action' onPress={() => pushUserWithId(MainPage.Two)} />
+                <MyButton title='To One with URL' onPress={(): void => pushUserWithUrl('/user/MainPage.One')} />
+                <MyButton title='To Two with action' onPress={(): mainTabs.SetMainTabAction => pushUserWithId(MainPage.Two)} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
-                <MyButton title='back' onPress={() => goBack()} />
-                <MyButton title='forward' onPress={() => goForwards()} />
+                <MyButton title='back' onPress={(): void => goBack()} />
+                <MyButton title='forward' onPress={(): void => goForwards()} />
             </View>
         </View >
     );

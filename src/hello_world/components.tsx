@@ -1,61 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, Button } from 'react-native';
 
 interface OutputProp {
-    value: number | string;
+    readonly value: number | string;
 }
 
-export const Output: React.SFC<OutputProp> = ({ value }) => (
+export const Output: React.SFC<OutputProp> = ({ value }: OutputProp): JSX.Element => (
     <Text>The value is {value}</Text>
 );
 
 interface TwiceTheOutputProp {
-    value: number;
+    readonly value: number;
 }
 
-export const TwiceTheOutput: React.SFC<TwiceTheOutputProp> = ({ value }) => (
+export const TwiceTheOutput: React.SFC<TwiceTheOutputProp> = ({ value }: TwiceTheOutputProp): JSX.Element => (
     <Text>The double value is {2 * value}</Text>
 );
 
-interface MyButtonProp {
-    onPress: () => void,
-    title: string,
+interface MyButtonProps {
+    readonly title: string;
 }
 
-export const MyButton: React.SFC<MyButtonProp> = ({ onPress, title }) => (
+interface MyButtonActions {
+    readonly onPress: () => void;
+}
+
+// https://github.com/jonaskello/tslint-immutable#no-mixed-interface
+export const MyButton: React.SFC<MyButtonProps & MyButtonActions> = ({ onPress, title }: MyButtonProps & MyButtonActions): JSX.Element => (
     <Button onPress={onPress} title={title} />
 );
 
 interface GreetingProp {
-    name: string;
+    readonly name: string;
 }
-export const Greeting: React.SFC<GreetingProp> = ({ name }) => (
+export const Greeting: React.SFC<GreetingProp> = ({ name }: GreetingProp): JSX.Element => (
     <Text>Hello {name}!</Text>
 );
-
-interface BlinkProps {
-    text: string;
-}
-
-interface BlinkState {
-    isShowingText: boolean;
-}
-
-export class Blink extends Component<BlinkProps, BlinkState> {
-    constructor(props: BlinkProps) {
-        super(props);
-        this.state = { isShowingText: true };
-        setInterval(() => {
-            this.setState((previousState: BlinkState) => {
-                return { isShowingText: !previousState.isShowingText };
-            });
-        }, 100);
-    }
-
-    render() {
-        let display = this.state.isShowingText ? this.props.text : ' ';
-        return (
-            <Text>{display}</Text>
-        );
-    }
-}

@@ -5,8 +5,7 @@ import MainTabsComponent from '../components/main_tabs';
 import { store } from './store';
 import { ErrorBoundary } from './error_boundary';
 
-
-export const Application = () => (
+export const Application = (): JSX.Element => (
     <ErrorBoundary>
         <Provider store={store}>
             <MainTabsComponent>

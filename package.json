@@ -31,7 +31,7 @@
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "postinstall": "bin/postinstall.sh",
-    "lint": "tslint --rules-dir node_modules/tslint-immutable/rules/ src/**/*.ts",
+    "lint": "tslint --rules-dir node_modules/tslint-immutable/rules/ src/**/*.ts src/**/*.tsx",
     "tsc": "tsc",
     "jest": "jest",
     "clean": "rimraf lib/**/*.js lib/**/*.js.map",
