@@ -2,8 +2,8 @@ import * as constants from '../application/constants';
 import * as helpers from '../application/helpers/redux-helpers';
 
 export enum MainPage {
-    One, Two, Three
-};
+    One, Two, Three,
+}
 
 export type Store = Readonly<ReturnType<typeof buildDefaultStore>>;
 export type SetMainTabAction = Readonly<ReturnType<typeof setMainTab>>;
@@ -45,6 +45,12 @@ const convertStringToTab = (pageId: string): MainPage => {
         case 'MainPage.One': return MainPage.One;
         case 'MainPage.Two': return MainPage.Two;
         case 'MainPage.Three': return MainPage.Three;
+        default: throwValidationError(pageId);
     }
-    throw new Error(pageId + ': Invalid main page id, accepted values are MainPage.One, MainPage.Two or MainPage.Three');
+    return MainPage.One;
+};
+
+const throwValidationError = (pageId: string): void => {
+    const message = `${pageId}: Invalid main page id, accepted values are MainPage.One, MainPage.Two or MainPage.Three`;
+    throw new Error(message);
 };

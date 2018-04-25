@@ -1,9 +1,8 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Props, Actions, HelloWorldContainer } from './hello_world_container';
-import { MainPage } from '../stores/main_tabs';
 import * as reduxFirstRouter from 'redux-first-router';
-import * as mainTabs from '../stores/main_tabs'
+import * as mainTabs from '../stores/main_tabs';
 import * as counter from '../stores/counter';
 import * as message from '../stores/message';
 import { Store } from '../application/store';
@@ -15,14 +14,14 @@ const mapStateToProps = (store: Store): Props => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
-    increment: (prop: counter.Store) => dispatch(counter.increment(prop)),
-    decrement: (prop: counter.Store) => dispatch(counter.decrement(prop)),
+    increment: (prop: counter.Store): counter.SetCounterAction => dispatch(counter.increment(prop)),
+    decrement: (prop: counter.Store): counter.SetCounterAction => dispatch(counter.decrement(prop)),
+    pushUserWithId: (id: mainTabs.MainPage): mainTabs.SetMainTabAction => dispatch(mainTabs.setMainTab(id)),
+    setMessage: (aMessage: string): message.MessageAction => dispatch(message.setMessage(aMessage)),
     // note the absense of the dispatch call here, seems very wrong
-    pushUserWithUrl: (url: string) => reduxFirstRouter.push(url),
-    pushUserWithId: (id: MainPage) => dispatch(mainTabs.setMainTab(id)),
-    setMessage: (aMessage: string) => dispatch(message.setMessage(aMessage)),
-    goBack: () => reduxFirstRouter.back(),
-    goForwards: () => reduxFirstRouter.next(),
+    pushUserWithUrl: (url: string): void => reduxFirstRouter.push(url),
+    goBack: (): void => reduxFirstRouter.back(),
+    goForwards: (): void => reduxFirstRouter.next(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HelloWorldContainer);
