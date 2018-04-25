@@ -1,47 +1,47 @@
-import * as main_tabs from '../main_tabs';
+import * as navigation from '../navigation_bar';
 import * as constants from '../../application/constants';
 import * as helpers from '../../application/helpers/redux-helpers';
 
-let buildStore = () => main_tabs.reducer(undefined, undefined);
+let buildStore = () => navigation.reducer(undefined, undefined);
 
-let buildStoreWithValue = (mainTab: main_tabs.MainPage) => {
+let buildStoreWithValue = (mainTab: navigation.MainPage) => {
     const action = helpers.makeAction(constants.SET_MAIN_TAB, { mainTab });
-    return main_tabs.reducer(undefined, action);
+    return navigation.reducer(undefined, action);
 };
 
 describe('setting the main page', () => {
 
     it('should create action with type SET_MAIN_TAB', () => {
-        const theAction = main_tabs.setMainTab(main_tabs.MainPage.Three);
+        const theAction = navigation.setMainTab(navigation.MainPage.Three);
         expect(theAction.type).toBe(constants.SET_MAIN_TAB);
     });
 
     it('should create action with page id as passed to the action creator', () => {
-        const theAction = main_tabs.setMainTab(main_tabs.MainPage.Three);
+        const theAction = navigation.setMainTab(navigation.MainPage.Three);
         expect(theAction.type).toBe(constants.SET_MAIN_TAB);
-        expect(theAction.payload.mainTab).toBe(main_tabs.MainPage.Three);
+        expect(theAction.payload.mainTab).toBe(navigation.MainPage.Three);
     });
 });
 
 describe('the reducer', () => {
     it('should default to build a store with MainPage.One', () => {
-        const theStore = main_tabs.reducer();
-        expect(theStore.mainTab).toBe(main_tabs.MainPage.One);
+        const theStore = navigation.reducer();
+        expect(theStore.mainTab).toBe(navigation.MainPage.One);
     });
 
     it('when called with SET_MAIN_TAB should return store with value from action', () => {
         const theStore = buildStore();
         const theAction = {
             type: constants.SET_MAIN_TAB as typeof constants.SET_MAIN_TAB,
-            payload: { mainTab: main_tabs.MainPage.Two }
+            payload: { mainTab: navigation.MainPage.Two }
         };
-        const theNewStore = main_tabs.reducer(theStore, theAction);
+        const theNewStore = navigation.reducer(theStore, theAction);
         expect(theNewStore.mainTab).toBe(theAction.payload.mainTab);
     });
 
     it('should return store unchanged if action is undefined', () => {
-        const theOriginalStore = buildStoreWithValue(main_tabs.MainPage.Two);
-        const theNewStore = main_tabs.reducer(theOriginalStore, undefined);
+        const theOriginalStore = buildStoreWithValue(navigation.MainPage.Two);
+        const theNewStore = navigation.reducer(theOriginalStore, undefined);
         expect(theNewStore.mainTab).toBe(theOriginalStore.mainTab);
     });
 
@@ -52,8 +52,8 @@ describe('the reducer', () => {
             type: constants.SET_MAIN_TAB as typeof constants.SET_MAIN_TAB,
             payload: { mainTab: mainTabAsString }
         };
-        const theNewStore = main_tabs.reducer(theStore, theAction);
-        expect(theNewStore.mainTab).toBe(main_tabs.MainPage.Two);
+        const theNewStore = navigation.reducer(theStore, theAction);
+        expect(theNewStore.mainTab).toBe(navigation.MainPage.Two);
     });
 
     it('should throw if the payload contains an invalid string', () => {
@@ -63,6 +63,6 @@ describe('the reducer', () => {
             type: constants.SET_MAIN_TAB as typeof constants.SET_MAIN_TAB,
             payload: { mainTab: invalidMainTabAsString }
         };
-        expect(() => main_tabs.reducer(theStore, theAction)).toThrow(/MainPage.Invalid: Invalid main page id, accepted values are MainPage.One, MainPage.Two or MainPage.Three/);
+        expect(() => navigation.reducer(theStore, theAction)).toThrow(/MainPage.Invalid: Invalid main page id, accepted values are MainPage.One, MainPage.Two or MainPage.Three/);
     });
 });

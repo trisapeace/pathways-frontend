@@ -1,13 +1,12 @@
 import { Output, TwiceTheOutput, MyButton, Greeting } from './components';
-import { MainPage } from '../stores/main_tabs';
 import React from 'react';
 import { View, TextInput } from 'react-native';
-import * as mainTabs from '../stores/main_tabs';
-import * as counter from '../stores/counter';
-import * as message from '../stores/message';
+import * as navigation from '../../stores/navigation_bar';
+import * as counter from '../../stores/counter';
+import * as message from '../../stores/message';
 
 export interface Props {
-    readonly mainTabsInProps: mainTabs.Store;
+    readonly mainTabsInProps: navigation.Store;
     readonly counterInProps: counter.Store;
     readonly messageInProps: message.Store;
 }
@@ -16,7 +15,7 @@ export interface Actions {
     increment(store: counter.Store): counter.SetCounterAction;
     decrement(store: counter.Store): counter.SetCounterAction;
     pushUserWithUrl(url: string): void;
-    pushUserWithId(id: MainPage): mainTabs.SetMainTabAction;
+    pushUserWithId(id: navigation.MainPage): navigation.SetMainTabAction;
     setMessage(newMessage: string): message.MessageAction;
     goBack(): void;
     goForwards(): void;
@@ -42,7 +41,8 @@ export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (p
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
                 <MyButton title='To One with URL' onPress={(): void => pushUserWithUrl('/user/MainPage.One')} />
-                <MyButton title='To Two with action' onPress={(): mainTabs.SetMainTabAction => pushUserWithId(MainPage.Two)} />
+                <MyButton title='To Two with action'
+                    onPress={(): navigation.SetMainTabAction => pushUserWithId(navigation.MainPage.Two)} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
                 <MyButton title='back' onPress={(): void => goBack()} />

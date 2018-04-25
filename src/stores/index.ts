@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import * as mainTabs from './main_tabs';
+import * as mainTabs from './navigation_bar';
 import * as counter from './counter';
 import * as message from './message';
 

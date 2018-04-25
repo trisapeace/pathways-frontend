@@ -1,11 +1,11 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Props, Actions, HelloWorldContainer } from './hello_world_container';
+import { Props, Actions, HelloWorldContainer } from './hello_world';
 import * as reduxFirstRouter from 'redux-first-router';
-import * as mainTabs from '../stores/main_tabs';
-import * as counter from '../stores/counter';
-import * as message from '../stores/message';
-import { Store } from '../application/store';
+import * as mainTabs from '../../stores/navigation_bar';
+import * as counter from '../../stores/counter';
+import * as message from '../../stores/message';
+import { Store } from '../../application/store';
 
 const mapStateToProps = (store: Store): Props => ({
     mainTabsInProps: store.appState.mainTabsInStore,

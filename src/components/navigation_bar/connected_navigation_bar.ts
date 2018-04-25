@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Props, Actions, NavigationBar } from './navigation_bar';
 import { Store } from '../../application/store';
-import * as store from '../../stores/main_tabs';
+import * as store from '../../stores/navigation_bar';
 
 const mapStateToProps = (): Props => ({
 });
