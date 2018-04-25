@@ -18,4 +18,4 @@ const { enhancer, middleware, reducer } = connectRoutes(history, routesMap);
 const reducerWithRouting = combineReducers({ location: reducer, appState: reducerForAppState });
 export const store = createStore(reducerWithRouting, compose(enhancer, applyMiddleware(middleware)));
 
-push('/user/MainPage.One');
+push('/user/MainPage.Two');

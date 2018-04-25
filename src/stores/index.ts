@@ -4,13 +4,13 @@ import * as counter from './counter';
 import * as message from './message';
 
 export interface Store {
-    readonly categoryInStore: mainTabs.Store;
+    readonly mainTabsInStore: mainTabs.Store;
     readonly counterInStore: counter.Store;
     readonly messageInStore: message.Store;
 }
 
 export const rootReducer = combineReducers({
-    categoryInStore: mainTabs.reducer,
+    mainTabsInStore: mainTabs.reducer,
     counterInStore: counter.reducer,
     messageInStore: message.reducer,
 });

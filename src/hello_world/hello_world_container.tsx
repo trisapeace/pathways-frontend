@@ -7,7 +7,7 @@ import * as counter from '../stores/counter';
 import * as message from '../stores/message';
 
 export interface Props {
-    categoryInProps: mainTabs.Store,
+    mainTabsInProps: mainTabs.Store,
     counterInProps: counter.Store,
     messageInProps: message.Store,
 };
@@ -23,7 +23,7 @@ export interface Actions {
 };
 
 export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (props) => {
-    const { categoryInProps, counterInProps, messageInProps, increment, decrement,
+    const { mainTabsInProps, counterInProps, messageInProps, increment, decrement,
         goBack, goForwards,
         pushUserWithUrl, pushUserWithId, setMessage } = props;
     return (
@@ -38,7 +38,7 @@ export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (p
             <View>
                 <TextInput value={messageInProps.message} onChangeText={(text) => setMessage(text)} />
                 <Output value={messageInProps.message} />
-                <Output value={categoryInProps.mainTab} />
+                <Output value={mainTabsInProps.mainTab} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
                 <MyButton title='To One with URL' onPress={() => pushUserWithUrl('/user/MainPage.One')} />
