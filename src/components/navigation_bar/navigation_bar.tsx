@@ -1,14 +1,6 @@
-import React from 'react';
-import { View, Button } from 'react-native';
-
-interface TabButtonProp {
-    onPress: () => void;
-    title: string;
-}
-
-const TabButton: React.StatelessComponent<TabButtonProp> = ({ onPress, title }: TabButtonProp): JSX.Element => (
-    <Button onPress={onPress} title={title} />
-);
+import React, { ReactNode } from 'react';
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
+import { Font } from 'expo';
 
 export interface Props {
     children?: React.ReactChildren;
@@ -20,18 +12,52 @@ export interface Actions {
     goToExplore: () => void;
 }
 
-type NavigationBarProps = I18nProps & Props & Actions;
+interface State {
+    loading: boolean;
+}
 
-export const NavigationBar: React.StatelessComponent<NavigationBarProps> = (props: NavigationBarProps): JSX.Element => {
-    const { i18n, goToQuestionnaire, goToPlan, goToExplore }: NavigationBarProps = props;
-    return (
-        <View style={{ flexDirection: 'column', padding: 20 }}>
-            <View>{props.children}</View>
-            <View style={{ flexDirection: 'row', padding: 20 }}>
-                <TabButton title={i18n.t`Questionnaire`} onPress={(): void => goToQuestionnaire()} />
-                <TabButton title={i18n.t`Your plan`} onPress={(): void => goToPlan()} />
-                <TabButton title={i18n.t`Explore all`} onPress={(): void => goToExplore()} />
-            </View>
-        </View>
-    );
-};
+export class NavigationBar extends React.Component<Props & Actions, State> {
+    constructor(props: Props & Actions) {
+        super(props);
+        this.state = {
+            loading: true,
+        }
+    }
+
+    async componentDidMount() {
+        await Font.loadAsync({
+            Roboto: require("native-base/Fonts/Roboto.ttf"),
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+        });
+        this.setState({ loading: false });
+    }
+
+    render(): ReactNode {
+        const { goToQuestionnaire, goToPlan, goToExplore } = this.props;
+        if (this.state.loading) {
+            return <Text>Loading...</Text>;
+        }
+        return (
+            <Container>
+                <Header />
+                <Content>{this.props.children}</Content>
+                <Footer>
+                    <FooterTab>
+                        <Button vertical onPress={() => goToQuestionnaire()}>
+                            <Icon name="apps" />
+                            <Text>Quest</Text>
+                        </Button>
+                        <Button vertical onPress={() => goToPlan()}>
+                            <Icon name="camera" />
+                            <Text>My plan</Text>
+                        </Button>
+                        <Button vertical onPress={() => goToExplore()}>
+                            <Icon active name="navigate" />
+                            <Text>Explore</Text>
+                        </Button>
+                    </FooterTab>
+                </Footer>
+            </Container >
+        )
+    }
+}
