@@ -35,7 +35,7 @@
     "tsc": "tsc",
     "jest": "jest",
     "clean": "rimraf lib/**/*.js lib/**/*.js.map",
-    "build": "yarn run clean && yarn run tsc",
+    "build": "yarn run clean && yarn run clean && yarn run clean && yarn run tsc",
     "test": "yarn run build && yarn run jest",
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
