@@ -44,7 +44,7 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupTestFrameworkScriptFile": "<rootDir>/lib/application/__tests__/setup_tests.js",
+    "setupTestFrameworkScriptFile": "<rootDir>/lib/application/test_helpers/setup_tests.js",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
