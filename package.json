@@ -62,7 +62,6 @@
     "redux": "^3.7.2",
     "redux-first-router": "^0.0.16-next",
     "redux-first-router-link": "^1.4.2",
-    "redux-first-router-navigation": "^1.0.1",
     "redux-persist": "^5.9.1"
   }
 }
