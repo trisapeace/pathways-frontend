@@ -1,9 +1,9 @@
 import * as reduxFirstRouter from 'redux-first-router';
-import { reducer, Store as StoreForAppState } from '../stores';
+import { reducer, Store as StoreForApplicationState } from '../stores';
 import { createStoreWithRouter } from './router';
 
 export type Store = {
-    readonly appState: StoreForAppState,
+    readonly applicationState: StoreForApplicationState,
 };
 
 export const store = createStoreWithRouter(reducer);
