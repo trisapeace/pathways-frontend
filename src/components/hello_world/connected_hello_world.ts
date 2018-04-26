@@ -8,7 +8,7 @@ import * as message from '../../stores/message';
 import { Store } from '../../application/store';
 
 const mapStateToProps = (store: Store): Props => ({
-    mainTabsInProps: store.applicationState.mainTabsInStore,
+    navigationBarInProps: store.applicationState.navigationBarInStore,
     counterInProps: store.applicationState.counterInStore,
     messageInProps: store.applicationState.messageInStore,
 });

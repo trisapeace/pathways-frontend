@@ -18,7 +18,6 @@ describe('setting the main page', () => {
 
     it('should create action with page id as passed to the action creator', () => {
         const theAction = navigation.setMainTab(navigation.MainPage.Three);
-        expect(theAction.type).toBe(constants.SET_MAIN_TAB);
         expect(theAction.payload.mainTab).toBe(navigation.MainPage.Three);
     });
 });

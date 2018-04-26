@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
-import * as mainTabs from './navigation_bar';
+import * as navigationBar from './navigation_bar';
 import * as counter from './counter';
 import * as message from './message';
 
 export interface Store {
-    readonly mainTabsInStore: mainTabs.Store;
+    readonly navigationBarInStore: navigationBar.Store;
     readonly counterInStore: counter.Store;
     readonly messageInStore: message.Store;
 }
 
 export const reducer = combineReducers<Store>({
-    mainTabsInStore: mainTabs.reducer,
+    navigationBarInStore: navigationBar.reducer,
     counterInStore: counter.reducer,
     messageInStore: message.reducer,
 });
