@@ -9,7 +9,7 @@ export interface Store {
     readonly messageInStore: message.Store;
 }
 
-export const rootReducer = combineReducers({
+export const reducer = combineReducers<Store>({
     mainTabsInStore: mainTabs.reducer,
     counterInStore: counter.reducer,
     messageInStore: message.reducer,
