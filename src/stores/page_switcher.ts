@@ -1,8 +1,8 @@
 import * as constants from '../application/constants';
 import * as helpers from './helpers/make_action';
 
-export enum MainPage {
-    One, Two, Three,
+export enum Page {
+    Questionnaire, MyPlan, ExploreAll,
 }
 
 export type Store = Readonly<ReturnType<typeof buildDefaultStore>>;
@@ -10,13 +10,13 @@ export type Store = Readonly<ReturnType<typeof buildDefaultStore>>;
 export type SetMainPageAction = Readonly<ReturnType<typeof setMainPage>>;
 
 // tslint:disable-next-line:typedef
-export const setMainPage = (mainPage: MainPage | string) => (
+export const setMainPage = (mainPage: Page | string) => (
     helpers.makeAction(constants.SET_MAIN_TAB, { mainPage })
 );
 
 // tslint:disable-next-line:typedef
 const buildDefaultStore = () => (
-    { mainPage: MainPage.One }
+    { mainPage: Page.Questionnaire }
 );
 
 export const reducer = (store: Store = buildDefaultStore(), action?: SetMainPageAction): Store => {
@@ -34,20 +34,20 @@ export const reducer = (store: Store = buildDefaultStore(), action?: SetMainPage
 // Using number as a type alias for the MainPage enum, see
 // https://stackoverflow.com/questions/29706609/typescript-how-to-add-type-guards-for-enums-in-union-types/29706830#29706830
 
-const validateMainPageId = (pageId: number | string): MainPage => (
+const validateMainPageId = (pageId: number | string): Page => (
     typeof pageId === 'string' ? toMainPageId(pageId) : pageId
 );
 
-const toMainPageId = (pageId: string): MainPage => {
+const toMainPageId = (pageId: string): Page => {
     switch (pageId) {
-        case 'MainPage.One': return MainPage.One;
-        case 'MainPage.Two': return MainPage.Two;
-        case 'MainPage.Three': return MainPage.Three;
+        case 'Page.Questionnaire': return Page.Questionnaire;
+        case 'Page.MyPlan': return Page.MyPlan;
+        case 'Page.ExploreAll': return Page.ExploreAll;
         default: throw invalidPageIdError(pageId);
     }
 };
 
 const invalidPageIdError = (pageId: string): Error => {
-    const message = `${pageId}: Invalid main page id, accepted values are MainPage.One, MainPage.Two or MainPage.Three`;
+    const message = `${pageId}: Invalid main page id, accepted values are Page.Questionnaire, Page.MyPlan or Page.ExploreAll`;
     return new Error(message);
 };

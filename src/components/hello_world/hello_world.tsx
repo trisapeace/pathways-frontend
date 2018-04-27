@@ -1,14 +1,14 @@
 import { Output, TwiceTheOutput, MyButton, Greeting } from './components';
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
-import * as navigation from '../../stores/main_page';
+import * as pageSwitcher from '../../stores/page_switcher';
 import * as counter from '../../stores/counter';
 import * as message from '../../stores/message';
 
 import { Trans, Plural, DateFormat, NumberFormat } from '@lingui/react';
 
 export interface Props {
-    readonly mainPageInProps: navigation.Store;
+    readonly mainPageInProps: pageSwitcher.Store;
     readonly counterInProps: counter.Store;
     readonly messageInProps: message.Store;
 }
@@ -17,7 +17,7 @@ export interface Actions {
     increment(store: counter.Store): counter.SetCounterAction;
     decrement(store: counter.Store): counter.SetCounterAction;
     pushUserWithUrl(url: string): void;
-    pushUserWithId(id: navigation.MainPage): navigation.SetMainPageAction;
+    pushUserWithId(id: pageSwitcher.Page): pageSwitcher.SetMainPageAction;
     setMessage(newMessage: string): message.MessageAction;
     goBack(): void;
     goForwards(): void;
@@ -63,7 +63,7 @@ export const Component: React.StatelessComponent<I18nProps & Props & Actions> = 
             <View style={{ flexDirection: 'row', padding: 20 }}>
                 <MyButton title={i18n.t`To One with URL`} onPress={(): void => pushUserWithUrl('/user/MainPage.One')} />
                 <MyButton title={i18n.t`To Two with action`}
-                    onPress={(): navigation.SetMainPageAction => pushUserWithId(navigation.MainPage.Two)} />
+                    onPress={(): pageSwitcher.SetMainPageAction => pushUserWithId(pageSwitcher.Page.MyPlan)} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
                 <MyButton title={i18n.t`back`} onPress={(): void => goBack()} />
