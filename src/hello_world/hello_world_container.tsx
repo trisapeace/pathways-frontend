@@ -7,8 +7,11 @@ import * as message from '../stores/message';
 import { I18n } from '@lingui/core';
 import { withI18n } from '@lingui/react';
 
-export interface Props {
+export interface I18nProps {
     i18n: I18n;
+}
+
+export interface Props {
     counterInProps: counter.Store;
     messageInProps: message.Store;
 }
@@ -19,8 +22,8 @@ export interface Actions {
     setMessage(newMessage: string): message.MessageAction;
 }
 
-export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = withI18n()((props: Props & Actions): JSX.Element => {
-    const { i18n, counterInProps, messageInProps, increment, decrement, setMessage }: Props & Actions = props;
+export const HelloWorldContainer: React.StatelessComponent<I18nProps & Props & Actions> = withI18n()((props: I18nProps & Props & Actions): JSX.Element => {
+    const { i18n, counterInProps, messageInProps, increment, decrement, setMessage }: I18nProps & Props & Actions = props;
 
     const incText = i18n.t`Increment`;
     const decText = i18n.t`Decrement`;

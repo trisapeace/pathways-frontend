@@ -1,4 +1,13 @@
 {
+  "Default text": {
+    "translation": "Default text",
+    "origin": [
+      [
+        "lib/stores/message.js",
+        7
+      ]
+    ]
+  },
   "The value is {value}": {
     "translation": "The value is {value}",
     "origin": [

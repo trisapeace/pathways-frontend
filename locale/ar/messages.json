@@ -1,6 +1,15 @@
 {
+  "Default text": {
+    "translation": "[AR] Default text",
+    "origin": [
+      [
+        "lib/stores/message.js",
+        7
+      ]
+    ]
+  },
   "The value is {value}": {
-    "translation": "[CS] The value is {value}",
+    "translation": "[AR] The value is {value}",
     "origin": [
       [
         "lib/hello_world/components.js",
@@ -9,7 +18,7 @@
     ]
   },
   "The double value is {double}": {
-    "translation": "[CS] The double value is {double}",
+    "translation": "[AR] The double value is {double}",
     "origin": [
       [
         "lib/hello_world/components.js",
@@ -22,7 +31,7 @@
     ]
   },
   "Hello {name}!": {
-    "translation": "[CS] Hello {name}!",
+    "translation": "[AR] Hello {name}!",
     "origin": [
       [
         "lib/hello_world/components.js",
@@ -35,7 +44,7 @@
     ]
   },
   "Increment": {
-    "translation": "[CS] Increment",
+    "translation": "[AR] Increment",
     "origin": [
       [
         "lib/hello_world/hello_world_container.js",
@@ -44,7 +53,7 @@
     ]
   },
   "Decrement": {
-    "translation": "[CS] Decrement",
+    "translation": "[AR] Decrement",
     "origin": [
       [
         "lib/hello_world/hello_world_container.js",
