@@ -1,6 +1,6 @@
 import * as counter from '../counter';
 import * as constants from '../../application/constants';
-import * as helpers from '../../application/helpers/redux-helpers';
+import * as helpers from '../helpers/make_action';
 import { aNumber } from '../../application/test_helpers/random_test_values';
 
 let buildStore = (): counter.Store => counter.reducer(undefined, undefined);

@@ -1,6 +1,6 @@
 import * as locale from '../locale';
 import * as constants from '../../application/constants';
-import * as helpers from '../../application/helpers/redux-helpers';
+import * as helpers from '../helpers/make_action';
 
 let buildStore = (): locale.Store => locale.reducer(undefined, undefined);
 

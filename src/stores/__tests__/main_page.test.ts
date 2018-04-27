@@ -1,6 +1,6 @@
 import * as navigation from '../main_page';
 import * as constants from '../../application/constants';
-import * as helpers from '../../application/helpers/redux-helpers';
+import * as helpers from '../helpers/make_action';
 
 let buildStore = () => navigation.reducer(undefined, undefined);
 
