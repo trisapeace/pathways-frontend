@@ -14,10 +14,8 @@ export const Question: React.StatelessComponent<Props & Actions> = (props: Props
     const { question } = props;
     return <Content>
         <Text>{question.text}</Text>
-        <Content>
-            {question.answers.map((answer) => {
-                return <Answer answer={answer} />
-            })}
-        </Content>
+        {question.answers.map((answer) => {
+            return <Answer answer={answer} />
+        })}
     </Content>;
 };

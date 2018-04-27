@@ -1,5 +1,5 @@
 import React from 'react';
-import { Content, Text } from 'native-base';
+import { Text } from 'native-base';
 import * as store from '../../stores/questionnaire';
 
 export interface Props {
@@ -11,7 +11,5 @@ export interface Actions {
 
 export const Answer: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
     const { answer } = props;
-    return <Content>
-        <Text>{answer.text}</Text>
-    </Content>;
+    return <Text>{answer.text}</Text>;
 };

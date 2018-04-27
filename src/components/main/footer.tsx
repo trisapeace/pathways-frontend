@@ -1,7 +1,9 @@
 import React from 'react';
 import { Footer, FooterTab, Button, Icon, Text } from 'native-base';
+import * as store from '../../stores/page_switcher';
 
 export interface Props {
+    mainPageInProps: store.Page,
 };
 
 export interface Actions {
@@ -11,19 +13,19 @@ export interface Actions {
 };
 
 export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
-    const { goToQuestionnaire, goToPlan, goToExplore } = props;
+    const { goToQuestionnaire, goToPlan, goToExplore, mainPageInProps } = props;
     return (
         <Footer>
             <FooterTab>
-                <Button vertical onPress={() => goToQuestionnaire()}>
+                <Button vertical active={mainPageInProps === store.Page.Questionnaire} onPress={() => goToQuestionnaire()}>
                     <Icon name="apps" />
                     <Text>Questionnaire</Text>
                 </Button>
-                <Button vertical onPress={() => goToPlan()}>
+                <Button vertical active={mainPageInProps === store.Page.MyPlan} onPress={() => goToPlan()}>
                     <Icon name="camera" />
                     <Text>My plan</Text>
                 </Button>
-                <Button vertical onPress={() => goToExplore()}>
+                <Button vertical active={mainPageInProps === store.Page.ExploreAll} onPress={() => goToExplore()}>
                     <Icon active name="navigate" />
                     <Text>Explore</Text>
                 </Button>
