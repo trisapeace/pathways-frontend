@@ -6,25 +6,26 @@ export enum MainPage {
 }
 
 export type Store = Readonly<ReturnType<typeof buildDefaultStore>>;
-export type SetMainTabAction = Readonly<ReturnType<typeof setMainTab>>;
+
+export type SetMainPageAction = Readonly<ReturnType<typeof setMainPage>>;
 
 // tslint:disable-next-line:typedef
-export const setMainTab = (mainTab: MainPage | string) => (
-    helpers.makeAction(constants.SET_MAIN_TAB, { mainTab })
+export const setMainPage = (mainPage: MainPage | string) => (
+    helpers.makeAction(constants.SET_MAIN_TAB, { mainPage })
 );
 
 // tslint:disable-next-line:typedef
 const buildDefaultStore = () => (
-    { mainTab: MainPage.One }
+    { mainPage: MainPage.One }
 );
 
-export const reducer = (store: Store = buildDefaultStore(), action?: SetMainTabAction): Store => {
+export const reducer = (store: Store = buildDefaultStore(), action?: SetMainPageAction): Store => {
     if (!action) {
         return store;
     }
     switch (action.type) {
         case constants.SET_MAIN_TAB:
-            return { ...store, mainTab: validateMainPageId(action.payload.mainTab) };
+            return { ...store, mainPage: validateMainPageId(action.payload.mainPage) };
         default:
             return store;
     }
@@ -33,23 +34,20 @@ export const reducer = (store: Store = buildDefaultStore(), action?: SetMainTabA
 // Using number as a type alias for the MainPage enum, see
 // https://stackoverflow.com/questions/29706609/typescript-how-to-add-type-guards-for-enums-in-union-types/29706830#29706830
 
-const validateMainPageId = (pageId: number | string): MainPage => {
-    if (typeof pageId === 'string') {
-        return toEnum(pageId);
-    }
-    return pageId;
-};
+const validateMainPageId = (pageId: number | string): MainPage => (
+    typeof pageId === 'string' ? toMainPageId(pageId) : pageId
+);
 
-const toEnum = (pageId: string): MainPage => {
+const toMainPageId = (pageId: string): MainPage => {
     switch (pageId) {
         case 'MainPage.One': return MainPage.One;
         case 'MainPage.Two': return MainPage.Two;
         case 'MainPage.Three': return MainPage.Three;
-        default: throw validationError(pageId);
+        default: throw invalidPageIdError(pageId);
     }
 };
 
-const validationError = (pageId: string): Error => {
+const invalidPageIdError = (pageId: string): Error => {
     const message = `${pageId}: Invalid main page id, accepted values are MainPage.One, MainPage.Two or MainPage.Three`;
     return new Error(message);
 };
