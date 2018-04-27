@@ -1,41 +1,19 @@
 import React from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
+import { Container, Header, Content } from 'native-base';
 import { withFontLoading } from './with_font_loading';
+import * as footer from './footer';
 
-export interface Props {
-    children?: any
-};
+export type Props = footer.Props;
+export type Actions = footer.Actions;
 
-export interface Actions {
-    goToQuestionnaire: () => void,
-    goToPlan: () => void,
-    goToExplore: () => void,
-};
-
-const MainComponent: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
-    const { goToQuestionnaire, goToPlan, goToExplore } = props;
+const MainComponent: React.StatelessComponent<footer.Props & footer.Actions> = (props: footer.Props & footer.Actions): JSX.Element => {
     return (
         <Container>
             <Header />
             <Content>{props.children}</Content>
-            <Footer>
-                <FooterTab>
-                    <Button vertical onPress={() => goToQuestionnaire()}>
-                        <Icon name="apps" />
-                        <Text>Questionnaire</Text>
-                    </Button>
-                    <Button vertical onPress={() => goToPlan()}>
-                        <Icon name="camera" />
-                        <Text>My plan</Text>
-                    </Button>
-                    <Button vertical onPress={() => goToExplore()}>
-                        <Icon active name="navigate" />
-                        <Text>Explore</Text>
-                    </Button>
-                </FooterTab>
-            </Footer>
+            <footer.FooterComponent {...props} />
         </Container >
-    )
+    );
 };
 
 export const Main = withFontLoading(MainComponent);

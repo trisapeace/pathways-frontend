@@ -6,7 +6,10 @@ interface FontState {
     loading: boolean
 };
 
-export function withFontLoading<Props>(WrappedComponent: React.ComponentType<Props>) {
+/**
+ * This HOC handles the font loading hack needed for the app to come up correctly on android devices.
+ */
+export function withFontLoading<Props>(ChildComponent: React.ComponentType<Props>) {
     return class extends React.Component<Props, FontState> {
         constructor(props: Props) {
             super(props);
@@ -24,15 +27,15 @@ export function withFontLoading<Props>(WrappedComponent: React.ComponentType<Pro
         }
 
         render(): ReactNode {
-            return this.state.loading ? this.renderLodading() : this.renderWrappedComponent();
+            return this.state.loading ? this.renderLodading() : this.renderChildComponent();
         }
 
         renderLodading = (): ReactNode => (
             <Text>Loading...</Text>
         )
 
-        renderWrappedComponent = (): ReactNode => (
-            <WrappedComponent {...this.props} />
+        renderChildComponent = (): ReactNode => (
+            <ChildComponent {...this.props} />
         )
     }
 }
