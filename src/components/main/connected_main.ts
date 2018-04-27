@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Props, Actions, NavigationBar } from './navigation_bar';
+import { Props, Actions, Main } from './main';
 import { Store } from '../../application/store';
 import * as store from '../../stores/navigation_bar';
 
@@ -14,5 +14,5 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     goToExplore: (): store.SetMainTabAction => dispatch(store.setMainTab(store.MainPage.Three)),
 });
 
-const I18nNavigationBar = withI18n()(NavigationBar);
-export const ConnectedNavigationBar = connect(mapStateToProps, mapDispatchToProps)(I18nNavigationBar);
+const I18nNavigationBar = withI18n()(Main);
+export const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(I18nNavigationBar);
