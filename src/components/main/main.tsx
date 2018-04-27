@@ -1,19 +1,16 @@
 import React from 'react';
-import { Container, Header, Content } from 'native-base';
-import { withFontLoading } from './with_font_loading';
+import { Container } from 'native-base';
+import * as header from './header';
+import * as content from './content';
 import * as footer from './footer';
 
-export type Props = footer.Props;
-export type Actions = footer.Actions;
+export type Props = content.Props & footer.Props;
+export type Actions = content.Actions & footer.Actions;
 
-const MainComponent: React.StatelessComponent<footer.Props & footer.Actions> = (props: footer.Props & footer.Actions): JSX.Element => {
-    return (
-        <Container>
-            <Header />
-            <Content>{props.children}</Content>
-            <footer.FooterComponent {...props} />
-        </Container >
-    );
-};
-
-export const Main = withFontLoading(MainComponent);
+export const Main: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
+    <Container>
+        <header.HeaderComponent {...props} />
+        <content.ContentComponent {...props} />
+        <footer.FooterComponent {...props} />
+    </Container >
+);
