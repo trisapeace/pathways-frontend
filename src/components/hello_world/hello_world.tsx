@@ -23,7 +23,7 @@ export interface Actions {
     goForwards(): void;
 }
 
-export const HelloWorldContainer: React.StatelessComponent<I18nProps & Props & Actions> = (props: I18nProps & Props & Actions): JSX.Element => {
+export const Component: React.StatelessComponent<I18nProps & Props & Actions> = (props: I18nProps & Props & Actions): JSX.Element => {
     const { i18n,
         navigationBarInProps, counterInProps, messageInProps, increment, decrement,
         goBack, goForwards,

@@ -8,6 +8,6 @@ export interface Props {
 export interface Actions {
 }
 
-export const ContentComponent: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
+export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
     <Content>{props.children}</Content>
 );

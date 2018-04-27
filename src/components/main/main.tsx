@@ -7,10 +7,10 @@ import * as footer from './footer';
 export type Props = content.Props & footer.Props;
 export type Actions = content.Actions & footer.Actions;
 
-export const Main: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
+export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
     <Container>
-        <header.HeaderComponent {...props} />
-        <content.ContentComponent {...props} />
-        <footer.FooterComponent {...props} />
+        <header.Component {...props} />
+        <content.Component {...props} />
+        <footer.Component {...props} />
     </Container >
 );

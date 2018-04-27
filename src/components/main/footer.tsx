@@ -10,7 +10,7 @@ export interface Actions {
     goToExplore: () => void,
 };
 
-export const FooterComponent: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
+export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
     const { goToQuestionnaire, goToPlan, goToExplore } = props;
     return (
         <Footer>
