@@ -1,0 +1,55 @@
+{
+  "The value is {value}": {
+    "translation": "[CS] The value is {value}",
+    "origin": [
+      [
+        "lib/hello_world/components.js",
+        4
+      ]
+    ]
+  },
+  "The double value is {double}": {
+    "translation": "[CS] The double value is {double}",
+    "origin": [
+      [
+        "lib/hello_world/components.js",
+        7
+      ],
+      [
+        "ts_out/hello_world/components.jsx",
+        7
+      ]
+    ]
+  },
+  "Hello {name}!": {
+    "translation": "[CS] Hello {name}!",
+    "origin": [
+      [
+        "lib/hello_world/components.js",
+        10
+      ],
+      [
+        "ts_out/hello_world/components.jsx",
+        10
+      ]
+    ]
+  },
+  "Increment": {
+    "translation": "[CS] Increment",
+    "origin": [
+      [
+        "lib/hello_world/hello_world_container.js",
+        7
+      ]
+    ]
+  },
+  "Decrement": {
+    "translation": "[CS] Decrement",
+    "origin": [
+      [
+        "lib/hello_world/hello_world_container.js",
+        8
+      ]
+    ]
+  }
+}

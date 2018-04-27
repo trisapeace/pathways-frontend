@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@lingui/babel-preset-react": "2.0.1",
+    "@lingui/cli": "2.0.1",
     "@types/enzyme": "^3.1.9",
     "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/history": "^4.6.2",
@@ -35,6 +37,7 @@
     "lint": "tslint --rules-dir node_modules/tslint-immutable/rules/ src/**/*.ts src/**/*.tsx",
     "tsc": "tsc",
     "jest": "jest",
+    "lingui": "lingui",
     "clean": "rimraf lib/**/*.js lib/**/*.js.map",
     "build": "yarn run clean && yarn run clean && yarn run clean && yarn run tsc",
     "test": "yarn run build && yarn run jest",
@@ -54,6 +57,8 @@
     ]
   },
   "dependencies": {
+    "@lingui/react": "2.0.1",
+    "@types/react-native": "^0.52.20",
     "expo": "^26.0.0",
     "history": "^4.7.2",
     "react": "16.3.2",
@@ -63,5 +68,8 @@
     "redux-first-router": "^0.0.16-next",
     "redux-first-router-link": "^1.4.2",
     "redux-persist": "^5.9.1"
+  },
+  "lingui": {
+    "sourceLocale": "en"
   }
 }

@@ -5,12 +5,20 @@ import { ConnectedNavigationBar } from '../components/navigation_bar/connected_n
 import { store } from './store';
 import { ErrorBoundary } from './error_boundary';
 
+import { I18nProvider } from '@lingui/react';
+import enMessages from '../../locale/en/messages';
+import csMessages from '../../locale/cs/messages';
+
+const catalog = {en: enMessages, cs: csMessages};
+
 export const Application = (): JSX.Element => (
     <ErrorBoundary>
         <Provider store={store}>
-            <ConnectedNavigationBar>
-                <ConnectedHelloWorld />
-            </ConnectedNavigationBar>
+            <I18nProvider language='cs' catalogs={catalog}>
+                <ConnectedNavigationBar>
+                    <ConnectedHelloWorld />
+                </ConnectedNavigationBar>
+            </I18nProvider>
         </Provider>
     </ErrorBoundary>
 );
