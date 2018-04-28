@@ -34,10 +34,10 @@ export class Application extends React.Component {
                         <ConnectedNavigationBar>
                             <ConnectedHelloWorld />
                         </ConnectedNavigationBar>
+                        <Button onPress={(): void => this._setLang('en')} title='English' />
+                        <Button onPress={(): void => this._setLang('ar')} title='Arabic' />
                     </I18nProvider>
                 </Provider>
-                <Button onPress={(): void => this._setLang('en')} title='English' />
-                <Button onPress={(): void => this._setLang('ar')} title='Arabic' />
             </ErrorBoundary>
         );
     }

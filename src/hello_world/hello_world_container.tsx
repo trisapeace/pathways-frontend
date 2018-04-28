@@ -1,11 +1,11 @@
 import { Output, TwiceTheOutput, MyButton, Greeting } from './components';
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import * as counter from '../stores/counter';
 import * as message from '../stores/message';
 
 import { I18n } from '@lingui/core';
-import { withI18n } from '@lingui/react';
+import { withI18n, Trans, Plural, DateFormat, NumberFormat } from '@lingui/react';
 
 export interface I18nProps {
     i18n: I18n;
@@ -37,10 +37,20 @@ export const HelloWorldContainer: React.StatelessComponent<I18nProps & Props & A
             </View>
             <Output value={counterInProps.value} />
             <TwiceTheOutput value={counterInProps.value} />
+            <Text>
+                <Plural
+                    value={counterInProps.value}
+                    one='# item'
+                    other='# items'
+                    _3='There are exactly # items'
+                />
+            </Text>
             <View>
                 <TextInput value={messageInProps.message} onChangeText={(text: string) => setMessage(text)} />
                 <Output value={messageInProps.message} />
             </View>
+            <Text><Trans>Current date:</Trans> <DateFormat value={Date.now()} /></Text>
+            <Text><Trans>Number format:</Trans> <NumberFormat value={counterInProps.value * 1.54} /></Text>
         </View >
     );
 });

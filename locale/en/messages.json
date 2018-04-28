@@ -1,4 +1,31 @@
 {
+  "{0, plural, one {# item} other {# items} =3 {There are exactly # items}}": {
+    "translation": "{0, plural, one {# item} other {# items} =3 {There are exactly # items}}",
+    "origin": [
+      [
+        "lib/hello_world/hello_world_container.js",
+        18
+      ]
+    ]
+  },
+  "Number format:": {
+    "translation": "Number format:",
+    "origin": [
+      [
+        "lib/hello_world/hello_world_container.js",
+        25
+      ]
+    ]
+  },
+  "Current date:": {
+    "translation": "Current date:",
+    "origin": [
+      [
+        "lib/hello_world/hello_world_container.js",
+        24
+      ]
+    ]
+  },
   "Default text": {
     "translation": "Default text",
     "origin": [
