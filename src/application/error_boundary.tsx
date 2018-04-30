@@ -2,26 +2,26 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 interface Props {
-};
+}
 
 interface State {
-    error?: Error,
-    errorInfo?: React.ErrorInfo
-};
+    readonly error?: Error;
+    readonly errorInfo?: React.ErrorInfo;
+}
 
 export class ErrorBoundary extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            error: null,
-            errorInfo: null
+            error: undefined,
+            errorInfo: undefined,
         };
     }
 
-    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
         this.setState({
             error: error,
-            errorInfo: errorInfo
+            errorInfo: errorInfo,
         });
     }
 
@@ -32,7 +32,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
     renderOnError(): React.ReactNode {
         return (
             <View>
-                <Text>{"Oh-no! Something went wrong"}</Text>
+                <Text>{'Oh-no! Something went wrong'}</Text>
                 <Text>{this.state.error && this.state.error.toString()}</Text>
             </View>
         );

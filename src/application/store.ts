@@ -1,14 +1,11 @@
-import { createStore } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { rootReducer } from '../stores';
-export { Store } from '../stores';
+import * as reduxFirstRouter from 'redux-first-router';
+import { reducer, Store as StoreForApplicationState } from '../stores';
+import { createStoreWithRouter } from './router';
 
-const persistConfiguration = {
-    key: 'root',
-    storage,
+export type Store = {
+    readonly applicationState: StoreForApplicationState,
 };
 
-const persistedReducer = persistReducer(persistConfiguration, rootReducer);
-export const store = createStore(persistedReducer);
-export const persistor = persistStore(store);
+export const store = createStoreWithRouter(reducer);
+
+reduxFirstRouter.push('/user/MainPage.Two');

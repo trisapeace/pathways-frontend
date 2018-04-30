@@ -5,10 +5,15 @@
   "devDependencies": {
     "@types/enzyme": "^3.1.9",
     "@types/enzyme-adapter-react-16": "^1.0.2",
+    "@types/history": "^4.6.2",
     "@types/jest": "^22.2.2",
     "@types/react": "^16.0.40",
+    "@types/react-native": "^0.52.20",
     "@types/react-redux": "^5.0.15",
     "@types/react-test-renderer": "^16.0.1",
+    "@types/redux-first-router": "^1.10.2",
+    "@types/redux-first-router-link": "^1.4.3",
+    "babel-core": "^6.26.2",
     "babel-jest": "^22.4.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -27,11 +32,11 @@
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "postinstall": "bin/postinstall.sh",
-    "lint": "tslint --rules-dir node_modules/tslint-immutable/rules/ src/**/*.ts",
+    "lint": "tslint --rules-dir node_modules/tslint-immutable/rules/ src/**/*.ts src/**/*.tsx",
     "tsc": "tsc",
     "jest": "jest",
     "clean": "rimraf lib/**/*.js lib/**/*.js.map",
-    "build": "yarn run clean && yarn run tsc",
+    "build": "yarn run clean && yarn run clean && yarn run clean && yarn run tsc",
     "test": "yarn run build && yarn run jest",
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
@@ -40,7 +45,7 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupTestFrameworkScriptFile": "<rootDir>/lib/application/__tests__/setup_tests.js",
+    "setupTestFrameworkScriptFile": "<rootDir>/lib/application/test_helpers/setup_tests.js",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
@@ -49,12 +54,14 @@
     ]
   },
   "dependencies": {
-    "@types/react-native": "^0.52.20",
     "expo": "^26.0.0",
-    "react": "16.3.1",
-    "react-native": "0.52.0",
+    "history": "^4.7.2",
+    "react": "16.3.2",
+    "react-native": "0.54.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
+    "redux-first-router": "^0.0.16-next",
+    "redux-first-router-link": "^1.4.2",
     "redux-persist": "^5.9.1"
   }
 }

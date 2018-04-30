@@ -1,17 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Container from '../hello_world';
-import { store, persistor } from './store';
-import { PersistGate } from 'redux-persist/integration/react';
+import { ConnectedHelloWorld } from '../components/hello_world/connected_hello_world';
+import { ConnectedNavigationBar } from '../components/navigation_bar/connected_navigation_bar';
+import { store } from './store';
 import { ErrorBoundary } from './error_boundary';
 
-
-export const Application = () => (
+export const Application = (): JSX.Element => (
     <ErrorBoundary>
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <Container />
-            </PersistGate>
+            <ConnectedNavigationBar>
+                <ConnectedHelloWorld />
+            </ConnectedNavigationBar>
         </Provider>
     </ErrorBoundary>
 );
