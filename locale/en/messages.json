@@ -1,9 +1,90 @@
 {
+  "To One with URL": {
+    "translation": "To One with URL",
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        29
+      ]
+    ]
+  },
+  "To Two with action": {
+    "translation": "To Two with action",
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        30
+      ]
+    ]
+  },
+  "back": {
+    "translation": "back",
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        33
+      ]
+    ]
+  },
+  "forward": {
+    "translation": "forward",
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        34
+      ]
+    ]
+  },
+  "Questionnaire": {
+    "translation": "Questionnaire",
+    "origin": [
+      [
+        "lib/components/navigation_bar/navigation_bar.js",
+        10
+      ]
+    ]
+  },
+  "Your plan": {
+    "translation": "Your plan",
+    "origin": [
+      [
+        "lib/components/navigation_bar/navigation_bar.js",
+        11
+      ]
+    ]
+  },
+  "Explore all": {
+    "translation": "Explore all",
+    "origin": [
+      [
+        "lib/components/navigation_bar/navigation_bar.js",
+        12
+      ]
+    ]
+  },
+  "{0, plural, zero {no (zero) items} one {# (one) item} two {# (two) item} few {# (few) items} many {# (many) items} other {# (other) items} =5 {There (#N) are exactly # items}}": {
+    "translation": "{0, plural, zero {no (zero) items} one {# (one) item} two {# (two) item} few {# (few) items} many {# (many) items} other {# (other) items} =5 {There (#N) are exactly # items}}",
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        19
+      ]
+    ]
+  },
+  "jsLingui test": {
+    "translation": "jsLingui test",
+    "origin": [
+      [
+        "lib/application/index.js",
+        30
+      ]
+    ]
+  },
   "The value is {value}": {
     "translation": "The value is {value}",
     "origin": [
       [
-        "lib/hello_world/components.js",
+        "lib/components/hello_world/components.js",
         4
       ]
     ]
@@ -12,11 +93,7 @@
     "translation": "",
     "origin": [
       [
-        "lib/hello_world/components.js",
-        7
-      ],
-      [
-        "ts_out/hello_world/components.jsx",
+        "lib/components/hello_world/components.js",
         7
       ]
     ]
@@ -25,12 +102,8 @@
     "translation": "",
     "origin": [
       [
-        "lib/hello_world/components.js",
-        10
-      ],
-      [
-        "ts_out/hello_world/components.jsx",
-        10
+        "lib/components/hello_world/components.js",
+        11
       ]
     ]
   },
@@ -38,8 +111,8 @@
     "translation": "Increment",
     "origin": [
       [
-        "lib/hello_world/hello_world_container.js",
-        7
+        "lib/components/hello_world/hello_world.js",
+        8
       ]
     ]
   },
@@ -47,17 +120,8 @@
     "translation": "Decrement",
     "origin": [
       [
-        "lib/hello_world/hello_world_container.js",
-        8
-      ]
-    ]
-  },
-  "{0, plural, one {# item} other {# items} =3 {There are exactly # items}}": {
-    "translation": "{0, plural, one {# item} other {# items} =3 {There are exactly # items}}",
-    "origin": [
-      [
-        "lib/hello_world/hello_world_container.js",
-        18
+        "lib/components/hello_world/hello_world.js",
+        9
       ]
     ]
   },
@@ -65,8 +129,8 @@
     "translation": "Current date:",
     "origin": [
       [
-        "lib/hello_world/hello_world_container.js",
-        24
+        "lib/components/hello_world/hello_world.js",
+        21
       ]
     ]
   },
@@ -74,8 +138,8 @@
     "translation": "Number format:",
     "origin": [
       [
-        "lib/hello_world/hello_world_container.js",
-        25
+        "lib/components/hello_world/hello_world.js",
+        22
       ]
     ]
   },

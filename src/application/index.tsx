@@ -5,9 +5,9 @@ import { ConnectedNavigationBar } from '../components/navigation_bar/connected_n
 import { store } from './store';
 import { ErrorBoundary } from './error_boundary';
 
-import { I18nManager, Button } from 'react-native';
+import { I18nManager, View, Text, Button } from 'react-native';
 
-import { I18nProvider } from '@lingui/react';
+import { I18nProvider, Trans } from '@lingui/react';
 import enMessages from '../../locale/en/messages';
 import arMessages from '../../locale/ar/messages';
 
@@ -32,10 +32,13 @@ export class Application extends React.Component {
                 <Provider store={store}>
                     <I18nProvider language={this.state.langCode} catalogs={catalog}>
                         <ConnectedNavigationBar>
-                            <ConnectedHelloWorld />
+                            <ConnectedHelloWorld language={this.state.langCode} />
                         </ConnectedNavigationBar>
-                        <Button onPress={(): void => this._setLang('en')} title='English' />
-                        <Button onPress={(): void => this._setLang('ar')} title='Arabic' />
+                        <View style={{ alignItems: 'center' }}>
+                            <Button onPress={(): void => this._setLang('en')} title='English' />
+                            <Button onPress={(): void => this._setLang('ar')} title='Arabic' />
+                            <Text><Trans>jsLingui test</Trans></Text>
+                        </View>
                     </I18nProvider>
                 </Provider>
             </ErrorBoundary>
