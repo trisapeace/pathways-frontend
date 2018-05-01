@@ -8,7 +8,7 @@ import * as message from '../../stores/message';
 import { I18n } from '@lingui/core';
 import { withI18n, Trans, Plural, DateFormat, NumberFormat } from '@lingui/react';
 
-export interface I18nProps {
+interface I18nProps {
     i18n: I18n;
 }
 

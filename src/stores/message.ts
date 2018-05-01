@@ -1,8 +1,6 @@
 import * as constants from '../application/constants';
 import * as helpers from '../application/helpers/redux-helpers';
 
-import { i18n } from '@lingui/core';
-
 export type Store = Readonly<ReturnType<typeof buildDefaultStore>>;
 export type MessageAction = Readonly<ReturnType<typeof setMessage>>;
 
@@ -13,7 +11,7 @@ export const setMessage = (message: string) => (
 
 // tslint:disable-next-line:typedef
 const buildDefaultStore = () => (
-    { message: i18n.t`Default text` }
+    { message: 'Default text' }
 );
 
 export const reducer = (store: Store = buildDefaultStore(), action?: MessageAction): Store => {
