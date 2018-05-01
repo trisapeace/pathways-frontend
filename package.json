@@ -40,7 +40,7 @@
     "jest": "jest",
     "lingui": "lingui",
     "clean": "rimraf lib/**/*.js lib/**/*.js.map locale/_build/**/*.json",
-    "build": "yarn run clean && yarn run clean && yarn run clean && yarn run tsc",
+    "build": "yarn run tsc",
     "test": "yarn run build && yarn run jest",
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",

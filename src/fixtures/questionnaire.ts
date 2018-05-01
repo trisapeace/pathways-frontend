@@ -43,5 +43,22 @@ export const buildQuestionnaireFixture = (): ReadonlyArray<Question> => {
                 },
             ],
         },
+        {
+            text: 'Which age group do you belong to?',
+            answers: [
+                {
+                    text: 'Under 13 years old',
+                },
+                {
+                    text: '13-18 years old',
+                },
+                {
+                    text: '18-64 years old',
+                },
+                {
+                    text: '65+ years old',
+                },
+            ],
+        },
     ];
 };

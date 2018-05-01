@@ -31,7 +31,7 @@ export function withFontLoading<Props>(ChildComponent: React.ComponentType<Props
         }
 
         renderLodading = (): ReactNode => (
-            <Text>Loading...</Text>
+            <Text>Loading fonts...</Text>
         )
 
         renderChildComponent = (): ReactNode => (

@@ -11,5 +11,5 @@ export interface Actions {
 
 export const Answer: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
     const { answer } = props;
-    return <Text>{answer.text}</Text>;
+    return <Text>{answer.text}</Text>
 };
