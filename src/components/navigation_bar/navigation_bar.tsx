@@ -13,10 +13,6 @@ const TabButton: React.StatelessComponent<TabButtonProp> = ({ onPress, title }: 
     <Button onPress={onPress} title={title} />
 );
 
-interface I18nProps {
-    i18n: I18n;
-}
-
 export interface Props {
     children: React.ReactChildren;
 }

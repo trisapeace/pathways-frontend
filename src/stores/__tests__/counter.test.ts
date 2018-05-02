@@ -3,9 +3,9 @@ import * as constants from '../../application/constants';
 import * as helpers from '../../application/helpers/redux-helpers';
 import { aNumber } from '../../application/test_helpers/random_test_values';
 
-let buildStore = () => counter.reducer(undefined, undefined);
+let buildStore = (): counter.Store => counter.reducer(undefined, undefined);
 
-let buildStoreWithValue = (value: number) => {
+let buildStoreWithValue = (value: number): counter.Store => {
     const action = helpers.makeAction(constants.SET_COUNTER, { value });
     return counter.reducer(undefined, action);
 };

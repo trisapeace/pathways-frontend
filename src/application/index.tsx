@@ -5,55 +5,20 @@ import { ConnectedNavigationBar } from '../components/navigation_bar/connected_n
 import { store } from './store';
 import { ErrorBoundary } from './error_boundary';
 
-import { I18nManager, View, Text, Button } from 'react-native';
+import { catalogs } from './locales';
 
-import { I18nProvider, Trans } from '@lingui/react';
-import enMessages from '../../locale/en/messages';
-import arMessages from '../../locale/ar/messages';
+import { ConnectedI18nProvider } from '../components/language_switcher/connected_i18n_provider';
+import { ConnectedLanguageSwitcher } from '../components/language_switcher/connected_language_switcher';
 
-const catalog = {en: enMessages, ar: arMessages};
-const RTL_LANGS = ['ar'];
-
-export class Application extends React.Component {
-
-    constructor(props: object) {
-        super(props);
-        // TODO: Lift component state into Redux.
-        I18nManager.forceRTL(false);
-        this.state = {
-            langCode: 'en',
-            rtl: false,
-        };
-    }
-
-    render (): JSX.Element {
-        return (
-            <ErrorBoundary>
-                <Provider store={store}>
-                    <I18nProvider language={this.state.langCode} catalogs={catalog}>
-                        <ConnectedNavigationBar>
-                            <ConnectedHelloWorld language={this.state.langCode} />
-                        </ConnectedNavigationBar>
-                        <View style={{ alignItems: 'center' }}>
-                            <Button onPress={(): void => this._setLang('en')} title='English' />
-                            <Button onPress={(): void => this._setLang('ar')} title='Arabic' />
-                            <Text><Trans>jsLingui test</Trans></Text>
-                        </View>
-                    </I18nProvider>
-                </Provider>
-            </ErrorBoundary>
-        );
-    }
-
-    _setLang(langCode: string): void {
-        const rtl = langCode in RTL_LANGS;
-        // In theory, I18nManager.forceRTL() will tell all RN & Expo components
-        // to render RTL.
-        // TODO: Determine whether the native bits are needed if we're setting
-        // this manually (https://facebook.github.io/react-native/blog/2016/08/19/right-to-left-support-for-react-native-apps.html#making-an-app-rtl-ready)
-        I18nManager.forceRTL(rtl);
-        // Also store in application state
-        this.setState({langCode: langCode, rtl});
-    }
-
-}
+export const Application = (): JSX.Element => (
+    <ErrorBoundary>
+        <Provider store={store}>
+            <ConnectedI18nProvider catalogs={catalogs} >
+                <ConnectedNavigationBar>
+                    <ConnectedHelloWorld />
+                </ConnectedNavigationBar>
+                <ConnectedLanguageSwitcher />
+            </ConnectedI18nProvider>
+        </Provider>
+    </ErrorBoundary>
+);

@@ -8,9 +8,7 @@ import * as message from '../../stores/message';
 import { I18n } from '@lingui/core';
 import { withI18n, Trans, Plural, DateFormat, NumberFormat } from '@lingui/react';
 
-interface I18nProps {
-    i18n: I18n;
-}
+import { Trans, Plural, DateFormat, NumberFormat } from '@lingui/react';
 
 export interface Props {
     readonly navigationBarInProps: navigation.Store;
