@@ -1,9 +1,6 @@
 import React from 'react';
 import { View, Button } from 'react-native';
 
-import { I18n } from '@lingui/core';
-import { withI18n } from '@lingui/react';
-
 interface TabButtonProp {
     onPress: () => void;
     title: string;
@@ -14,7 +11,7 @@ const TabButton: React.StatelessComponent<TabButtonProp> = ({ onPress, title }: 
 );
 
 export interface Props {
-    children: React.ReactChildren;
+    children?: React.ReactChildren;
 }
 
 export interface Actions {
@@ -23,7 +20,7 @@ export interface Actions {
     goToExplore: () => void;
 }
 
-export const NavigationBar: React.StatelessComponent<I18nProps & Props & Actions> = withI18n()((props: I18nProps & Props & Actions): JSX.Element => {
+export const NavigationBar: React.StatelessComponent<I18nProps & Props & Actions> = (props: I18nProps & Props & Actions): JSX.Element => {
     const { i18n, goToQuestionnaire, goToPlan, goToExplore }: I18nProps & Props & Actions = props;
     return (
         <View style={{ flexDirection: 'column', padding: 20 }}>
@@ -35,4 +32,4 @@ export const NavigationBar: React.StatelessComponent<I18nProps & Props & Actions
             </View>
         </View>
     );
-});
+};

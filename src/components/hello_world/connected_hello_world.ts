@@ -7,6 +7,8 @@ import * as counter from '../../stores/counter';
 import * as message from '../../stores/message';
 import { Store } from '../../application/store';
 
+import { withI18n } from '@lingui/react';
+
 const mapStateToProps = (store: Store): Props => ({
     navigationBarInProps: store.applicationState.navigationBarInStore,
     counterInProps: store.applicationState.counterInStore,
@@ -25,4 +27,5 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
     goForwards: (): void => reduxFirstRouter.next(),
 });
 
-export const ConnectedHelloWorld = connect(mapStateToProps, mapDispatchToProps)(HelloWorldContainer);
+const I18nHelloWorld = withI18n()(HelloWorldContainer);
+export const ConnectedHelloWorld = connect(mapStateToProps, mapDispatchToProps)(I18nHelloWorld);

@@ -5,9 +5,6 @@ import * as navigation from '../../stores/navigation_bar';
 import * as counter from '../../stores/counter';
 import * as message from '../../stores/message';
 
-import { I18n } from '@lingui/core';
-import { withI18n, Trans, Plural, DateFormat, NumberFormat } from '@lingui/react';
-
 import { Trans, Plural, DateFormat, NumberFormat } from '@lingui/react';
 
 export interface Props {
@@ -26,7 +23,7 @@ export interface Actions {
     goForwards(): void;
 }
 
-export const HelloWorldContainer: React.StatelessComponent<I18nProps & Props & Actions> = withI18n()((props: I18nProps & Props & Actions): JSX.Element => {
+export const HelloWorldContainer: React.StatelessComponent<I18nProps & Props & Actions> = (props: I18nProps & Props & Actions): JSX.Element => {
     const { i18n,
         navigationBarInProps, counterInProps, messageInProps, increment, decrement,
         goBack, goForwards,
@@ -74,4 +71,4 @@ export const HelloWorldContainer: React.StatelessComponent<I18nProps & Props & A
             </View>
         </View >
     );
-});
+};
