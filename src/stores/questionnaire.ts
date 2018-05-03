@@ -1,13 +1,30 @@
 import { buildQuestionnaireFixture, Store } from '../fixtures/questionnaire';
 export { Id, Question, QuestionsMap, Answer, AnswersMap, Store } from '../fixtures/questionnaire';
+import { Id } from '../fixtures/questionnaire';
+import * as constants from '../application/constants';
+import * as helpers from './helpers/make_action';
 
 const buildDefaultStore = (): Store => (
     buildQuestionnaireFixture()
 );
 
-export const reducer = (store: Store = buildDefaultStore(), action?: any): Store => {
+export type SelectAnswerAction = Readonly<ReturnType<typeof selectAnswer>>;
+
+// tslint:disable-next-line:typedef
+export const selectAnswer = (answerId: Id) => (
+    helpers.makeAction(constants.SELECT_ANSWER, { answerId })
+);
+
+export const reducer = (store: Store = buildDefaultStore(), action?: SelectAnswerAction): Store => {
     if (!action) {
         return store;
     }
-    return store;
+    switch (action.type) {
+        case constants.SELECT_ANSWER:
+            const id = action.payload.answerId;
+            const answer = store.answers[id];
+            return { ...store, answers: { ...store.answers, [id]: { ...answer, selected: true } } };
+        default:
+            return store;
+    }
 };

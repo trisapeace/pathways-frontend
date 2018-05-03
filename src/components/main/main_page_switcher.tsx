@@ -2,11 +2,11 @@ import React from 'react';
 import { Content, Text } from 'native-base';
 import * as store from '../../stores/page_switcher';
 import * as exploreAll from '../explore_all/explore_all';
-import * as questionnaire from '../questionnaire/connected_questionnaire';
+import * as questionnaire from '../questionnaire';
 import * as myPlan from '../my_plan/my_plan';
 
 export interface Props {
-    mainPageInProps: store.Page,
+    mainPageInProps: store.Page;
 }
 
 export interface Actions {

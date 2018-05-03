@@ -2,6 +2,7 @@ import * as model from '../../stores/questionnaire';
 
 export interface Answer {
     readonly text: string;
+    readonly isSelected: boolean;
 }
 
 export interface Question {
@@ -9,9 +10,9 @@ export interface Question {
     readonly answers: ReadonlyArray<Answer>;
 }
 
-export type Store = ReadonlyArray<Question>;
+export type AllTheQuestions = ReadonlyArray<Question>;
 
-export const selectQuestionnaire = (modelStore: model.Store): Store => {
+export const selectAllQuestions = (modelStore: model.Store): AllTheQuestions => {
     const questions = modelStore.questions;
     const answers = modelStore.answers;
 
@@ -19,12 +20,12 @@ export const selectQuestionnaire = (modelStore: model.Store): Store => {
         const question = questions[key];
         return {
             text: question.text,
-            answers: selectAnswers(question.id, answers),
+            answers: selectRelatedAnswers(question.id, answers),
         };
     });
 };
 
-const selectAnswers = (questionId: model.Id, answers: model.AnswersMap): ReadonlyArray<Answer> => {
+const selectRelatedAnswers = (questionId: model.Id, answers: model.AnswersMap): ReadonlyArray<Answer> => {
     const answerKeys = Object.keys(answers);
 
     const relatedAnswerKeys = answerKeys.filter((key: string) => (
@@ -33,5 +34,6 @@ const selectAnswers = (questionId: model.Id, answers: model.AnswersMap): Readonl
 
     return relatedAnswerKeys.map((key: string) => ({
         text: answers[key].text,
+        isSelected: answers[key].selected,
     }));
 };

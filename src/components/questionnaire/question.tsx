@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, View, Text } from 'native-base';
 import { Answer } from './answer';
-import * as viewModel from './private';
+import * as viewModel from './view_model';
 
 export const Question: React.StatelessComponent<viewModel.Question> = (question: viewModel.Question): JSX.Element => {
     return <View style={{

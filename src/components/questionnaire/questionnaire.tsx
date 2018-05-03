@@ -1,10 +1,10 @@
 import React from 'react';
 import { Content, View } from 'native-base';
 import { Question } from './question';
-import * as viewModel from './private';
+import * as viewModel from './view_model';
 
 export interface Props {
-    store: viewModel.Store;
+    allTheQuestions: viewModel.AllTheQuestions;
 }
 
 export interface Actions {
@@ -18,7 +18,7 @@ export const Component: React.StatelessComponent<Props & Actions> = (props: Prop
             flex: 1,
             padding: 10,
         }}>
-            {props.store.map((question: viewModel.Question) => {
+            {props.allTheQuestions.map((question: viewModel.Question) => {
                 return <Question {...question} />;
             })}
         </View>
