@@ -9,18 +9,17 @@ export interface Props {
 
 export type Actions = viewModel.QuestionnaireActions;
 
-export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
-    const { selectAnswer }: Actions = props;
-    return <Content>
+export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
+    <Content>
         <View style={{
             flexDirection: 'column',
             justifyContent: 'flex-start',
             flex: 1,
             padding: 10,
         }}>
-            {props.allTheQuestions.map((question: viewModel.Question) => {
-                return <Question question={question} selectAnswer={selectAnswer} />;
-            })}
+            {props.allTheQuestions.map((question: viewModel.Question) => (
+                <Question question={question} selectAnswer={props.selectAnswer} />
+            ))}
         </View>
-    </Content>;
-};
+    </Content>
+);

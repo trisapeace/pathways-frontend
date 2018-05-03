@@ -1,5 +1,5 @@
 import { buildQuestionnaireFixture, Store } from '../fixtures/questionnaire';
-export { Id, Question, QuestionsMap, Answer, AnswersMap, Store } from '../fixtures/questionnaire';
+export { Id, Question, AnswersMap, Store } from '../fixtures/questionnaire';
 import { Id } from '../fixtures/questionnaire';
 import * as constants from '../application/constants';
 import * as helpers from './helpers/make_action';

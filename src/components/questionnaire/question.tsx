@@ -19,11 +19,9 @@ export const Question: React.StatelessComponent<Props & Actions> = (props: Props
         padding: 10,
     }}>
         <Text>{question.text}</Text>
-        {
-            question.answers.map((answer: viewModel.Answer) => {
-                return <Answer answer={answer} selectAnswer={selectAnswer} />;
-            })
-        }
+        {question.answers.map((answer: viewModel.Answer) => (
+            <Answer answer={answer} selectAnswer={selectAnswer} />
+        ))}
         <View style={{
             padding: 15,
             alignItems: 'center',

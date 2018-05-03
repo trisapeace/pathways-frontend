@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): main.Actions => ({
     goToQuestionnaire: (): pageSwitcher.SetMainPageAction => dispatch(pageSwitcher.setMainPage(pageSwitcher.Page.Questionnaire)),
     goToPlan: (): pageSwitcher.SetMainPageAction => dispatch(pageSwitcher.setMainPage(pageSwitcher.Page.MyPlan)),
     goToExplore: (): pageSwitcher.SetMainPageAction => dispatch(pageSwitcher.setMainPage(pageSwitcher.Page.ExploreAll)),
-    goBack: () => back(),
+    goBack: (): void => back(),
 });
 
 const I18nNavigationBar = withI18n()(withFontLoading(main.Component));

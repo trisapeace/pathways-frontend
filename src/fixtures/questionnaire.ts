@@ -5,11 +5,11 @@ export interface Question {
     readonly text: string;
 }
 
-export interface QuestionsMap {
-    [key: string]: Question;
+interface QuestionsMap {
+    readonly [key: string]: Question;
 }
 
-export interface Answer {
+interface Answer {
     readonly id: Id;
     readonly questionId: Id;
     readonly text: string;
@@ -17,12 +17,12 @@ export interface Answer {
 }
 
 export interface AnswersMap {
-    [key: string]: Answer;
+    readonly [key: string]: Answer;
 }
 
 export interface Store {
-    questions: QuestionsMap;
-    answers: AnswersMap;
+    readonly questions: QuestionsMap;
+    readonly answers: AnswersMap;
 }
 
 export const buildQuestionnaireFixture = (): Store => {

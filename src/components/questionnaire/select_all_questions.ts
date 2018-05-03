@@ -2,32 +2,37 @@ import * as model from '../../stores/questionnaire';
 import * as viewModel from './view_model';
 
 export const selectAllQuestions = (modelStore: model.Store): viewModel.AllTheQuestions => {
-    const questions = modelStore.questions;
-    const answers = modelStore.answers;
+    const { questions, answers }: model.Store = modelStore;
 
     return Object.keys(questions).map((key: string) => {
-        const question = questions[key];
+        const { id, text }: model.Question = questions[key];
         return {
-            id: question.id,
-            text: question.text,
-            answers: selectRelatedAnswers(question.id, answers),
+            id,
+            text,
+            answers: selectAnswersForQuestion(id, answers),
         };
     });
 };
 
-const selectRelatedAnswers = (questionId: model.Id, answers: model.AnswersMap): ReadonlyArray<viewModel.Answer> => {
-    const answerKeys = Object.keys(answers);
+const selectAnswersForQuestion = (questionId: model.Id, answers: model.AnswersMap): ReadonlyArray<viewModel.Answer> => {
+    const keys = answerKeysForGivenQuestion(questionId, answers);
 
-    const relatedAnswerKeys = answerKeys.filter((key: string) => (
+    return buildViewModelForAnswers(keys, answers);
+};
+
+const answerKeysForGivenQuestion = (questionId: model.Id, answers: model.AnswersMap): Array<string> => {
+    return Object.keys(answers).filter((key: string) => (
         answers[key].questionId === questionId
     ));
-
-    return relatedAnswerKeys.map((key: string) => {
-        const answer = answers[key];
-        return {
-            id: answer.id,
-            text: answer.text,
-            isSelected: answer.isSelected,
-        };
-    });
 };
+
+const buildViewModelForAnswers = (keys: Array<string>, answers: model.AnswersMap): ReadonlyArray<viewModel.Answer> => (
+    keys.map((key: string) => {
+        const { id, text, isSelected }: viewModel.Answer = answers[key];
+        return {
+            id,
+            text,
+            isSelected,
+        };
+    })
+);
