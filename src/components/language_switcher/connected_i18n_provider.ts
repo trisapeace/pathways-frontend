@@ -2,13 +2,17 @@ import { connect } from 'react-redux';
 import { I18nProvider } from '@lingui/react';
 import { Store } from '../../application/store';
 
+import { catalogs } from '../../application/locales';
+
 interface Props {
+    catalogs: {[index: string]: object};
     language: string;
 }
 
 interface Actions {}
 
 const mapStateToProps = ({ applicationState: { localeInStore } }: Store): Props => ({
+    catalogs,
     language: localeInStore.code,
 });
 const mapDispatchToProps = (): Actions => ({});

@@ -5,15 +5,13 @@ import { ConnectedNavigationBar } from '../components/navigation_bar/connected_n
 import { store } from './store';
 import { ErrorBoundary } from './error_boundary';
 
-import { catalogs } from './locales';
-
 import { ConnectedI18nProvider } from '../components/language_switcher/connected_i18n_provider';
 import { ConnectedLanguageSwitcher } from '../components/language_switcher/connected_language_switcher';
 
 export const Application = (): JSX.Element => (
     <ErrorBoundary>
         <Provider store={store}>
-            <ConnectedI18nProvider catalogs={catalogs} >
+            <ConnectedI18nProvider>
                 <ConnectedNavigationBar>
                     <ConnectedHelloWorld />
                 </ConnectedNavigationBar>
