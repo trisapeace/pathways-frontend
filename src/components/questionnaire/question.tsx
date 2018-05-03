@@ -1,9 +1,16 @@
 import React from 'react';
 import { Button, View, Text } from 'native-base';
-import { Answer } from './answer';
+import { Answer, Actions } from './answer';
 import * as viewModel from './view_model';
 
-export const Question: React.StatelessComponent<viewModel.Question> = (question: viewModel.Question): JSX.Element => {
+export interface Props {
+    question: viewModel.Question;
+}
+
+export type Actions = viewModel.QuestionnaireActions;
+
+export const Question: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
+    const { question, selectAnswer }: Props & Actions = props;
     return <View style={{
         flexDirection: 'column',
         justifyContent: 'flex-start',
@@ -14,7 +21,7 @@ export const Question: React.StatelessComponent<viewModel.Question> = (question:
         <Text>{question.text}</Text>
         {
             question.answers.map((answer: viewModel.Answer) => {
-                return <Answer {...answer} />;
+                return <Answer answer={answer} selectAnswer={selectAnswer} />;
             })
         }
         <View style={{

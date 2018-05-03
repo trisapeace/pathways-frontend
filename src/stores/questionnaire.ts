@@ -23,7 +23,8 @@ export const reducer = (store: Store = buildDefaultStore(), action?: SelectAnswe
         case constants.SELECT_ANSWER:
             const id = action.payload.answerId;
             const answer = store.answers[id];
-            return { ...store, answers: { ...store.answers, [id]: { ...answer, selected: true } } };
+            const isSelectes = answer.isSelected;
+            return { ...store, answers: { ...store.answers, [id]: { ...answer, isSelected: !isSelectes } } };
         default:
             return store;
     }
