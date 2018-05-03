@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { Store } from '../../application/store';
 import { Component, Props, Actions } from './questionnaire';
+import { Store as ApplicationStore } from '../../application/store';
+import { selectQuestionnaire } from './private';
 
-const mapStateToProps = (store: Store): Props => ({
-    questions: store.applicationState.questionnaireInStore,
+const mapStateToProps = (applicationStore: ApplicationStore): Props => ({
+    store: selectQuestionnaire(applicationStore.applicationState.questionnaireInStore),
 });
 
 const mapDispatchToProps = (): Actions => ({

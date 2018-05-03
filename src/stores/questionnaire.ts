@@ -1,15 +1,5 @@
-import { buildQuestionnaireFixture } from '../fixtures/questionnaire';
-
-export interface Answer {
-    readonly text: string;
-}
-
-export interface Question {
-    readonly text: string;
-    readonly answers: ReadonlyArray<Answer>;
-}
-
-export type Store = ReadonlyArray<Question>;
+import { buildQuestionnaireFixture, Store } from '../fixtures/questionnaire';
+export { Id, Question, QuestionsMap, Answer, AnswersMap, Store } from '../fixtures/questionnaire';
 
 const buildDefaultStore = (): Store => (
     buildQuestionnaireFixture()
