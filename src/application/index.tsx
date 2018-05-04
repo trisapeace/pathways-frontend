@@ -8,7 +8,7 @@ import { TaskList } from '../components/task_list/task_list';
 const tasks = [
     {
         id: 1,
-        complete: false,
+        completed: false,
         starred: false,
         taskDefinition: {
             id: 1,
@@ -19,7 +19,7 @@ const tasks = [
     },
     {
         id: 2,
-        complete: false,
+        completed: false,
         starred: true,
         taskDefinition: {
             id: 2,
@@ -35,11 +35,6 @@ export const Application = (): JSX.Element => (
         <Provider store={store}>
             <ConnectedNavigationBar>
                 <ConnectedHelloWorld />
-                <TaskList
-                    tasks={tasks}
-                    addToTaskList={(): void => alert('Adding to task list')}
-                    removeFromTaskList={(): void => alert('Removing from task list')}
-                />
             </ConnectedNavigationBar>
         </Provider>
     </ErrorBoundary>

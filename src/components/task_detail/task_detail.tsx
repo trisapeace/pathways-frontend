@@ -3,8 +3,16 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { TaskLabel } from '../task_label/task_label';
 
-interface Props {
-    task: Task;
+export interface Task {
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    importance: string;
+    starred: boolean;
+    completed: boolean;
+    labels: string[];
+    isFree: boolean;
 }
 
 interface Actions {
@@ -26,31 +34,17 @@ const getColorForLabel = (label: string): string => {
     }
 };
 
-export interface TaskDefinition {
-    id: number;
-    category: string;
-    description: string;
-    labels: string[];
-}
-
-export interface Task {
-    id: number;
-    complete: boolean;
-    starred: boolean;
-    taskDefinition: TaskDefinition;
-}
-
-export const TaskDetail: React.SFC<Props & Actions> = (props: Props & Actions): JSX.Element => (
+export const TaskDetail: React.SFC<Task & Actions> = (props: Task & Actions): JSX.Element => (
     <TouchableOpacity onPress={props.starTask}>
         <View style={styles.wrapper}>
             <View style={styles.leftColumn}>
-                <Text>{props.task.starred ? 'Starred' : 'Not starred'}</Text>
+                <Text>{props.starred ? 'Starred' : 'Not starred'}</Text>
             </View>
             <View style={styles.centerColumn}>
                 <View style={styles.stackedItems}>
-                    <Text>{props.task.taskDefinition.description}</Text>
+                    <Text>{props.description}</Text>
                     <View style={styles.inlineItems}>
-                        {props.task.taskDefinition.labels.map((label: string, index: number) =>
+                        {props.labels.map((label: string, index: number) =>
                          <TaskLabel text={label} color={getColorForLabel(label)} key={index} />)}
                     </View>
                 </View>
@@ -58,7 +52,7 @@ export const TaskDetail: React.SFC<Props & Actions> = (props: Props & Actions): 
             <View style={styles.rightColumn}>
                 <View style={styles.stackedItems}>
                     <Text>{'...'}</Text>
-                    <Text>{props.task.taskDefinition.category}</Text>
+                    <Text>{props.category}</Text>
                 </View>
             </View>
         </View>
