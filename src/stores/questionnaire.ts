@@ -1,8 +1,9 @@
 import { buildQuestionnaireFixture, Store } from '../fixtures/questionnaire';
-export { Id, Question, AnswersMap, Store } from '../fixtures/questionnaire';
 import { Id } from '../fixtures/questionnaire';
 import * as constants from '../application/constants';
 import * as helpers from './helpers/make_action';
+
+export { Id, Question, Answer, QuestionsMap, AnswersMap, Store } from '../fixtures/questionnaire';
 
 const buildDefaultStore = (): Store => (
     buildQuestionnaireFixture()
@@ -23,8 +24,7 @@ export const reducer = (store: Store = buildDefaultStore(), action?: SelectAnswe
         case constants.SELECT_ANSWER:
             const id = action.payload.answerId;
             const answer = store.answers[id];
-            const isSelectes = answer.isSelected;
-            return { ...store, answers: { ...store.answers, [id]: { ...answer, isSelected: !isSelectes } } };
+            return { ...store, answers: { ...store.answers, [id]: { ...answer, isSelected: !answer.isSelected } } };
         default:
             return store;
     }

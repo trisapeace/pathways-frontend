@@ -5,11 +5,11 @@ export interface Question {
     readonly text: string;
 }
 
-interface QuestionsMap {
+export interface QuestionsMap {
     readonly [key: string]: Question;
 }
 
-interface Answer {
+export interface Answer {
     readonly id: Id;
     readonly questionId: Id;
     readonly text: string;
