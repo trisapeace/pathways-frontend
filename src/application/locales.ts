@@ -2,7 +2,6 @@
 // available natively; we should see it is possibly conditionally load the
 // polyfill only when needed.
 import 'intl';
-// Include Unicode CLDR locale data for each of our locales
 import 'intl/locale-data/jsonp/en.js';
 import 'intl/locale-data/jsonp/ar.js';
 
