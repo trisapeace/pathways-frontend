@@ -1,7 +1,7 @@
 import * as questionnaire from '../questionnaire';
 import * as constants from '../../application/constants';
 import { aString, aBoolean } from '../../application/test_helpers/random_test_values';
-import { QuestionBuilder, buildStore, AnswerBuilder } from './helpers';
+import { QuestionBuilder, buildStore, AnswerBuilder } from '../test_helpers/questionnaire_helpers';
 
 describe('selecting an answer', () => {
     it('should create action with type SELECT_ANSWER', () => {

@@ -1,7 +1,9 @@
 import * as uuid from 'uuid';
 
 export const aNumber = (): number => {
-    return 1000 * Math.random();
+    // limit the range so we can reasonably use the returned
+    // values as the number of objects to create in tests
+    return 50 * Math.random();
 };
 
 export const anInteger = (): number => {

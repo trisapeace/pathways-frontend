@@ -1,26 +1,27 @@
 import * as store from '../questionnaire';
 import { aString, aBoolean } from '../../application/test_helpers/random_test_values';
 
-export const buildStore = (questions: Array<QuestionBuilder>): store.Store => {
-    return {
+export const buildStore = (questions: Array<QuestionBuilder>): store.Store => (
+    {
         questions: buildQuestionMap(questions),
         answers: buildAnswerMap(questions),
-    };
-};
+    }
+);
 
 const buildQuestionMap = (questions: Array<QuestionBuilder>): store.QuestionsMap => {
     let result: WritableQuestionsMap = {};
-    questions.forEach((question: QuestionBuilder): void => {
-        result[question.id] = question.build();
+    questions.forEach((questionBuilder: QuestionBuilder) => {
+        result[questionBuilder.id] = questionBuilder.build();
     });
     return result;
 };
 
 const buildAnswerMap = (questions: Array<QuestionBuilder>): store.AnswersMap => {
     let result: WritableAnswersMap = {};
-    questions.forEach((question: QuestionBuilder): void => {
-        question.answers.forEach((answer: AnswerBuilder) => {
-            result[answer.id] = answer.withQuestionId(question.id).build();
+    questions.forEach((questionBuilder: QuestionBuilder) => {
+        const answers = questionBuilder.answers;
+        answers.forEach((answerBuilder: AnswerBuilder) => {
+            result[answerBuilder.id] = answerBuilder.withQuestionId(questionBuilder.id).build();
         });
     });
     return result;
@@ -37,7 +38,7 @@ interface WritableAnswersMap {
 export class QuestionBuilder {
     id: string = aString();
     text: string = aString();
-    answers: Array<AnswerBuilder> = [new AnswerBuilder(), new AnswerBuilder(), new AnswerBuilder()];
+    answers: Array<AnswerBuilder> = Array<AnswerBuilder>(3);
 
     withId(id: string): QuestionBuilder {
         this.id = id;
