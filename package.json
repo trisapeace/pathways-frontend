@@ -70,6 +70,10 @@
     "redux-persist": "^5.9.1"
   },
   "lingui": {
-    "sourceLocale": "en"
+    "sourceLocale": "en",
+    "format": "lingui",
+    "srcPathDirs": [
+      "<rootDir>/src"
+    ]
   }
 }

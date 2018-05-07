@@ -1,155 +1,133 @@
 {
-  "To One with URL": {
-    "translation": "To One with URL",
-    "origin": [
-      [
-        "lib/components/hello_world/hello_world.js",
-        29
-      ]
-    ]
-  },
-  "To Two with action": {
-    "translation": "To Two with action",
-    "origin": [
-      [
-        "lib/components/hello_world/hello_world.js",
-        30
-      ]
-    ]
-  },
-  "back": {
-    "translation": "back",
-    "origin": [
-      [
-        "lib/components/hello_world/hello_world.js",
-        33
-      ]
-    ]
-  },
-  "forward": {
-    "translation": "forward",
-    "origin": [
-      [
-        "lib/components/hello_world/hello_world.js",
-        34
-      ]
-    ]
-  },
-  "Questionnaire": {
-    "translation": "Questionnaire",
-    "origin": [
-      [
-        "lib/components/navigation_bar/navigation_bar.js",
-        10
-      ]
-    ]
-  },
-  "Your plan": {
-    "translation": "Your plan",
-    "origin": [
-      [
-        "lib/components/navigation_bar/navigation_bar.js",
-        11
-      ]
-    ]
-  },
-  "Explore all": {
-    "translation": "Explore all",
-    "origin": [
-      [
-        "lib/components/navigation_bar/navigation_bar.js",
-        12
-      ]
-    ]
-  },
-  "{0, plural, zero {no (zero) items} one {# (one) item} two {# (two) item} few {# (few) items} many {# (many) items} other {# (other) items} =5 {There (#N) are exactly # items}}": {
-    "translation": "{0, plural, zero {no (zero) items} one {# (one) item} two {# (two) item} few {# (few) items} many {# (many) items} other {# (other) items} =5 {There (#N) are exactly # items}}",
-    "origin": [
-      [
-        "lib/components/hello_world/hello_world.js",
-        19
-      ]
-    ]
-  },
-  "jsLingui test": {
-    "translation": "jsLingui test",
-    "origin": [
-      [
-        "lib/application/index.js",
-        30
-      ]
-    ]
-  },
   "The value is {value}": {
-    "translation": "The value is {value}",
     "origin": [
       [
-        "lib/components/hello_world/components.js",
-        4
+        "src/components/hello_world/components.tsx",
+        11
       ]
     ]
   },
   "The double value is {double}": {
-    "translation": "",
     "origin": [
       [
-        "lib/components/hello_world/components.js",
-        7
-      ]
-    ]
-  },
-  "Hello {name}!": {
-    "translation": "",
-    "origin": [
-      [
-        "lib/components/hello_world/components.js",
-        11
-      ]
-    ]
-  },
-  "Increment": {
-    "translation": "Increment",
-    "origin": [
-      [
-        "lib/components/hello_world/hello_world.js",
-        8
-      ]
-    ]
-  },
-  "Decrement": {
-    "translation": "Decrement",
-    "origin": [
-      [
-        "lib/components/hello_world/hello_world.js",
-        9
-      ]
-    ]
-  },
-  "Current date:": {
-    "translation": "Current date:",
-    "origin": [
-      [
-        "lib/components/hello_world/hello_world.js",
+        "src/components/hello_world/components.tsx",
         21
       ]
     ]
   },
-  "Number format:": {
-    "translation": "Number format:",
+  "Hello {name}!": {
     "origin": [
       [
-        "lib/components/hello_world/hello_world.js",
+        "src/components/hello_world/components.tsx",
+        42
+      ]
+    ]
+  },
+  "Increment": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        32
+      ]
+    ]
+  },
+  "Decrement": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        33
+      ]
+    ]
+  },
+  "{0, plural, zero {no (zero) items} one {# (one) item} two {# (two) item} few {# (few) items} many {# (many) items} other {# (other) items} =5 {There (#N) are exactly # items}}": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        45
+      ]
+    ]
+  },
+  "Current date:": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        56
+      ]
+    ]
+  },
+  "Number format:": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        57
+      ]
+    ]
+  },
+  "To One with URL": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        64
+      ]
+    ]
+  },
+  "To Two with action": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        65
+      ]
+    ]
+  },
+  "back": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        69
+      ]
+    ]
+  },
+  "forward": {
+    "origin": [
+      [
+        "src/components/hello_world/hello_world.tsx",
+        70
+      ]
+    ]
+  },
+  "jsLingui test": {
+    "origin": [
+      [
+        "src/components/language_switcher/language_switcher.tsx",
         22
       ]
     ]
   },
-  "Default text": {
-    "translation": "Default text",
+  "Questionnaire": {
     "origin": [
       [
-        "lib/stores/message.js",
-        7
+        "src/components/navigation_bar/navigation_bar.tsx",
+        31
       ]
     ]
+  },
+  "Your plan": {
+    "origin": [
+      [
+        "src/components/navigation_bar/navigation_bar.tsx",
+        32
+      ]
+    ]
+  },
+  "Explore all": {
+    "origin": [
+      [
+        "src/components/navigation_bar/navigation_bar.tsx",
+        33
+      ]
+    ]
+  },
+  "Default text": {
+    "obsolete": true
   }
 }
