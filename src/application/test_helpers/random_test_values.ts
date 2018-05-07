@@ -5,7 +5,3 @@ export const aNumber = (): number => {
 export const anInteger = (): number => {
     return Math.floor(aNumber());
 };
-
-export const aLocaleCode = (): string => {
-    return 'ab';
-};

@@ -1,7 +1,6 @@
 import * as locale from '../locale';
 import * as constants from '../../application/constants';
 import * as helpers from '../../application/helpers/redux-helpers';
-import { aLocaleCode } from '../../application/test_helpers/random_test_values';
 
 let buildStore = (): locale.Store => locale.reducer(undefined, undefined);
 
@@ -15,13 +14,13 @@ describe('the action for', () => {
     describe('setLocale', () => {
 
         it('should create action with type SET_LOCALE', () => {
-            const code = aLocaleCode();
+            const code = 'ar';
             const theSetLangAction = locale.setLocale(code);
             expect(theSetLangAction.type).toBe(constants.SET_LOCALE);
         });
 
         it('should create action with payload containing locale code', () => {
-            const code = aLocaleCode();
+            const code = 'ar';
             const theSetLangAction = locale.setLocale(code);
             expect(theSetLangAction.payload.code).toBe(code);
         });
@@ -38,14 +37,14 @@ describe('the reducer', () => {
         const theStore = buildStore();
         const theAction = {
             type: constants.SET_LOCALE as typeof constants.SET_LOCALE,
-            payload: { code: aLocaleCode() },
+            payload: { code: 'ar' },
         };
         const theNewStore = locale.reducer(theStore, theAction);
         expect(theNewStore.code).toBe(theAction.payload.code);
     });
 
     it('should return store unchanged if action is undefined', () => {
-        const theOriginalStore = buildStoreWithLocale(aLocaleCode());
+        const theOriginalStore = buildStoreWithLocale('ar');
         const theNewStore = locale.reducer(theOriginalStore, undefined);
         expect(theNewStore.code).toBe(theOriginalStore.code);
     });
