@@ -20,8 +20,10 @@ export interface Actions {
     goToExplore: () => void;
 }
 
-export const NavigationBar: React.StatelessComponent<I18nProps & Props & Actions> = (props: I18nProps & Props & Actions): JSX.Element => {
-    const { i18n, goToQuestionnaire, goToPlan, goToExplore }: I18nProps & Props & Actions = props;
+type NavigationBarProps = I18nProps & Props & Actions;
+
+export const NavigationBar: React.StatelessComponent<NavigationBarProps> = (props: NavigationBarProps): JSX.Element => {
+    const { i18n, goToQuestionnaire, goToPlan, goToExplore }: NavigationBarProps = props;
     return (
         <View style={{ flexDirection: 'column', padding: 20 }}>
             <View>{props.children}</View>
