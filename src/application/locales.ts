@@ -9,18 +9,12 @@ import 'intl/locale-data/jsonp/ar.js';
 import enMessages from '../../locale/en/messages';
 import arMessages from '../../locale/ar/messages';
 
-export interface Locale {
-    code: string;
-    label: string;
-    catalog: object;
-}
-
-export const locales = [
+export const locales: Array<Locale> = [
     { code: 'en', label: 'English', catalog: enMessages },
     { code: 'ar', label: 'Arabic', catalog: arMessages },
 ];
 
-export const catalogs = locales.reduce((all: {[index: string]: object}, locale: Locale): object => {
+export const catalogs = locales.reduce((all: Catalog, locale: Locale): Catalogs => {
     all[locale.code] = locale.catalog;
     return all;
 }, {});

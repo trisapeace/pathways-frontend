@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { Trans } from '@lingui/react';
-import { Locale } from '../../application/locales';
 
 export interface Props {
     currentLocale: string;

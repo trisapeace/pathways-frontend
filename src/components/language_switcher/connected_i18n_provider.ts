@@ -5,7 +5,7 @@ import { Store } from '../../application/store';
 import { catalogs } from '../../application/locales';
 
 interface Props {
-    catalogs: {[index: string]: object};
+    catalogs: Catalogs;
     language: string;
 }
 
