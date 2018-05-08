@@ -13,7 +13,12 @@ export const locales: Array<Locale> = [
     { code: 'ar', label: 'Arabic', catalog: arMessages },
 ];
 
-export const catalogs = locales.reduce((all: Catalog, locale: Locale): Catalogs => {
-    all[locale.code] = locale.catalog;
-    return all;
-}, {});
+export const catalogs = buildCatalogsMap(locales);
+
+function buildCatalogsMap(withLocales: Array<Locale>): Catalogs {
+    const reducer = (accumulator: Catalogs, locale: Locale): Catalogs => {
+        accumulator[locale.code] = locale.catalog;
+        return accumulator;
+    };
+    return withLocales.reduce(reducer, {});
+}
