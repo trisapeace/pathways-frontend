@@ -1,7 +1,7 @@
 import * as store from '../questionnaire';
 import { aString, aBoolean } from '../../application/test_helpers/random_test_values';
 
-export const buildStore = (questions: Array<QuestionBuilder>): store.Store => (
+export const buildNormalizedQuestionnaire = (questions: Array<QuestionBuilder>): store.Store => (
     {
         questions: buildQuestionMap(questions),
         answers: buildAnswerMap(questions),
