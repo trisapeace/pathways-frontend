@@ -38,7 +38,7 @@
     "tsc": "tsc",
     "jest": "jest",
     "lingui": "lingui",
-    "clean": "rimraf lib/**/*.js lib/**/*.js.map",
+    "clean": "rimraf lib/**/*.js lib/**/*.js.map locale/_build/**/*.json",
     "build": "yarn run clean && yarn run clean && yarn run clean && yarn run tsc",
     "test": "yarn run build && yarn run jest",
     "start": "react-native-scripts start",
@@ -73,7 +73,7 @@
     "sourceLocale": "en",
     "format": "lingui",
     "srcPathDirs": [
-      "<rootDir>/src"
+      "<rootDir>/lib"
     ]
   }
 }
