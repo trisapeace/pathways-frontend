@@ -1,0 +1,130 @@
+{
+  "The value is {value}": {
+    "origin": [
+      [
+        "lib/components/hello_world/components.js",
+        4
+      ]
+    ]
+  },
+  "The double value is {double}": {
+    "origin": [
+      [
+        "lib/components/hello_world/components.js",
+        7
+      ]
+    ]
+  },
+  "Hello {name}!": {
+    "origin": [
+      [
+        "lib/components/hello_world/components.js",
+        11
+      ]
+    ]
+  },
+  "Increment": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        8
+      ]
+    ]
+  },
+  "Decrement": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        9
+      ]
+    ]
+  },
+  "{0, plural, zero {no (zero) items} one {# (one) item} two {# (two) item} few {# (few) items} many {# (many) items} other {# (other) items} =5 {There (#N) are exactly # items}}": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        19
+      ]
+    ]
+  },
+  "Current date:": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        21
+      ]
+    ]
+  },
+  "Number format:": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        22
+      ]
+    ]
+  },
+  "To One with URL": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        29
+      ]
+    ]
+  },
+  "To Two with action": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        30
+      ]
+    ]
+  },
+  "back": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        33
+      ]
+    ]
+  },
+  "forward": {
+    "origin": [
+      [
+        "lib/components/hello_world/hello_world.js",
+        34
+      ]
+    ]
+  },
+  "jsLingui test": {
+    "origin": [
+      [
+        "lib/components/language_switcher/language_switcher.js",
+        6
+      ]
+    ]
+  },
+  "Questionnaire": {
+    "origin": [
+      [
+        "lib/components/navigation_bar/navigation_bar.js",
+        9
+      ]
+    ]
+  },
+  "Your plan": {
+    "origin": [
+      [
+        "lib/components/navigation_bar/navigation_bar.js",
+        10
+      ]
+    ]
+  },
+  "Explore all": {
+    "origin": [
+      [
+        "lib/components/navigation_bar/navigation_bar.js",
+        11
+      ]
+    ]
+  }
+}

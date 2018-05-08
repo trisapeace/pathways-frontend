@@ -1,9 +1,11 @@
 import { Output, TwiceTheOutput, MyButton, Greeting } from './components';
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import * as navigation from '../../stores/navigation_bar';
 import * as counter from '../../stores/counter';
 import * as message from '../../stores/message';
+
+import { Trans, Plural, DateFormat, NumberFormat } from '@lingui/react';
 
 export interface Props {
     readonly navigationBarInProps: navigation.Store;
@@ -21,32 +23,51 @@ export interface Actions {
     goForwards(): void;
 }
 
-export const HelloWorldContainer: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
-    const { navigationBarInProps, counterInProps, messageInProps, increment, decrement,
+export const HelloWorldContainer: React.StatelessComponent<I18nProps & Props & Actions> = (props: I18nProps & Props & Actions): JSX.Element => {
+    const { i18n,
+        navigationBarInProps, counterInProps, messageInProps, increment, decrement,
         goBack, goForwards,
-        pushUserWithUrl, pushUserWithId, setMessage }: Props & Actions = props;
+        pushUserWithUrl, pushUserWithId, setMessage }: I18nProps & Props & Actions = props;
+
+    const incText = i18n.t`Increment`;
+    const decText = i18n.t`Decrement`;
+
     return (
         <View style={{ alignItems: 'center' }}>
             <Greeting name='Valeera' />
             <View style={{ flexDirection: 'row', padding: 20 }}>
-                <MyButton title='Increment' onPress={(): counter.SetCounterAction => increment(counterInProps)} />
-                <MyButton title='Decrement' onPress={(): counter.SetCounterAction => decrement(counterInProps)} />
+                <MyButton title={incText} onPress={(): counter.SetCounterAction => increment(counterInProps)} />
+                <MyButton title={decText} onPress={(): counter.SetCounterAction => decrement(counterInProps)} />
             </View>
             <Output value={counterInProps.value} />
             <TwiceTheOutput value={counterInProps.value} />
+            <Text>
+                <Plural
+                    value={counterInProps.value}
+                    zero='no (zero) items'
+                    one='# (one) item'
+                    two='# (two) item'
+                    few='# (few) items'
+                    many='# (many) items'
+                    other='# (other) items'
+                    _5='There (#N) are exactly # items'
+                />
+            </Text>
+            <Text><Trans>Current date:</Trans> <DateFormat value={Date.now()} /></Text>
+            <Text><Trans>Number format:</Trans> <NumberFormat value={counterInProps.value * 1.54} /></Text>
             <View>
                 <TextInput value={messageInProps.message} onChangeText={(text: string): message.MessageAction => setMessage(text)} />
                 <Output value={messageInProps.message} />
                 <Output value={navigationBarInProps.mainTab} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
-                <MyButton title='To One with URL' onPress={(): void => pushUserWithUrl('/user/MainPage.One')} />
-                <MyButton title='To Two with action'
+                <MyButton title={i18n.t`To One with URL`} onPress={(): void => pushUserWithUrl('/user/MainPage.One')} />
+                <MyButton title={i18n.t`To Two with action`}
                     onPress={(): navigation.SetMainTabAction => pushUserWithId(navigation.MainPage.Two)} />
             </View>
             <View style={{ flexDirection: 'row', padding: 20 }}>
-                <MyButton title='back' onPress={(): void => goBack()} />
-                <MyButton title='forward' onPress={(): void => goForwards()} />
+                <MyButton title={i18n.t`back`} onPress={(): void => goBack()} />
+                <MyButton title={i18n.t`forward`} onPress={(): void => goForwards()} />
             </View>
         </View >
     );

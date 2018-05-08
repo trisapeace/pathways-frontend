@@ -11,7 +11,7 @@ export const setMessage = (message: string) => (
 
 // tslint:disable-next-line:typedef
 const buildDefaultStore = () => (
-    { message: 'default text' }
+    { message: 'Default text' }
 );
 
 export const reducer = (store: Store = buildDefaultStore(), action?: MessageAction): Store => {
