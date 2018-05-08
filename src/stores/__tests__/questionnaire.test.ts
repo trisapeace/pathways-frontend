@@ -1,5 +1,5 @@
 import * as store from '../questionnaire';
-import * as helpers from '../test_helpers/questionnaire_helpers';
+import * as helpers from './test_helpers/questionnaire_helpers';
 import { SELECT_ANSWER } from '../../application/constants';
 import { aString, aBoolean } from '../../application/test_helpers/random_test_values';
 

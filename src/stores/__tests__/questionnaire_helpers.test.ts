@@ -1,4 +1,4 @@
-import * as helpers from '../test_helpers/questionnaire_helpers';
+import * as helpers from './test_helpers/questionnaire_helpers';
 import { aString, aBoolean } from '../../application/test_helpers/random_test_values';
 import { Answer, Question } from '../questionnaire';
 
