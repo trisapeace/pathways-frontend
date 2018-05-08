@@ -14,10 +14,6 @@ export interface Answer {
     readonly isSelected: boolean;
 }
 
-export interface QuestionnaireActions {
-    readonly selectAnswer: (answerId: model.Id) => model.SelectAnswerAction;
-}
-
 export const selectQuestionnaire = (modelStore: model.Store): Questionnaire => {
     const { questions, answers }: model.Store = modelStore;
 
