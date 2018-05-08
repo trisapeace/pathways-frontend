@@ -142,15 +142,5 @@
         33
       ]
     ]
-  },
-  "Default text": {
-    "translation": "[AR] Default text",
-    "origin": [
-      [
-        "lib/stores/message.js",
-        7
-      ]
-    ],
-    "obsolete": true
   }
 }
