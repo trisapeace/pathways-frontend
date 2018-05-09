@@ -18,7 +18,7 @@ export interface QuestionnaireActions {
     selectAnswer: (answerId: model.Id) => model.SelectAnswerAction;
 }
 
-export const selectAllQuestions = (modelStore: model.Store): Questionnaire => {
+export const selectQuestionnaire = (modelStore: model.Store): Questionnaire => {
     const { questions, answers }: model.Store = modelStore;
 
     return Object.keys(questions).map((key: string) => {

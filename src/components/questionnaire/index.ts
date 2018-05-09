@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Component, Props, Actions } from './questionnaire';
 import { Store } from '../../application/store';
 import { Id, SelectAnswerAction, selectAnswer } from '../../stores/questionnaire';
-import { selectAllQuestions } from '../../selectors/questionnaire';
+import { selectQuestionnaire } from '../../selectors/questionnaire';
 
 const mapStateToProps = (store: Store): Props => ({
-    questionnaire: selectAllQuestions(store.applicationState.questionnaireInStore),
+    questionnaire: selectQuestionnaire(store.applicationState.questionnaireInStore),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
