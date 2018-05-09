@@ -1,10 +1,6 @@
 import * as model from '../stores/questionnaire';
 
-export interface Answer {
-    readonly id: model.Id;
-    readonly text: string;
-    readonly isSelected: boolean;
-}
+export type Questionnaire = ReadonlyArray<Question>;
 
 export interface Question {
     readonly id: model.Id;
@@ -12,10 +8,14 @@ export interface Question {
     readonly answers: ReadonlyArray<Answer>;
 }
 
-export type Questionnaire = ReadonlyArray<Question>;
+export interface Answer {
+    readonly id: model.Id;
+    readonly text: string;
+    readonly isSelected: boolean;
+}
 
 export interface QuestionnaireActions {
-    selectAnswer: (answerId: model.Id) => model.SelectAnswerAction;
+    readonly selectAnswer: (answerId: model.Id) => model.SelectAnswerAction;
 }
 
 export const selectQuestionnaire = (modelStore: model.Store): Questionnaire => {
@@ -37,13 +37,13 @@ const selectAnswersForQuestion = (questionId: model.Id, answers: model.AnswersMa
     return buildViewModelForAnswers(keys, answers);
 };
 
-const answerKeysForGivenQuestion = (questionId: model.Id, answers: model.AnswersMap): Array<string> => {
+const answerKeysForGivenQuestion = (questionId: model.Id, answers: model.AnswersMap): ReadonlyArray<string> => {
     return Object.keys(answers).filter((key: string) => (
         answers[key].questionId === questionId
     ));
 };
 
-const buildViewModelForAnswers = (keys: Array<string>, answers: model.AnswersMap): ReadonlyArray<Answer> => (
+const buildViewModelForAnswers = (keys: ReadonlyArray<string>, answers: model.AnswersMap): ReadonlyArray<Answer> => (
     keys.map((key: string) => {
         const { id, text, isSelected }: Answer = answers[key];
         return {

@@ -32,7 +32,7 @@ describe('the reducer', () => {
         const theStore = buildStore();
         const theAction = {
             type: constants.SET_MAIN_TAB as typeof constants.SET_MAIN_TAB,
-            payload: { mainPage: pageSwitcher.Page.MyPlan }
+            payload: { mainPage: pageSwitcher.Page.MyPlan },
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
         expect(theNewStore.mainPage).toBe(theAction.payload.mainPage);
