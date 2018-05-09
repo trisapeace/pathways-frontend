@@ -1,7 +1,7 @@
 import { selectAllQuestions } from '../select_all_questions';
-import * as testHelpers from '../../../stores/__tests__/test_helpers/questionnaire_helpers';
+import * as testHelpers from '../../../stores/__tests__/helpers/questionnaire_helpers';
 import * as viewModel from '../view_model';
-import { anInteger } from '../../../application/test_helpers/random_test_values';
+import { anInteger } from '../../../application/__tests__/helpers/random_test_values';
 
 describe('questionnaire selector', () => {
 

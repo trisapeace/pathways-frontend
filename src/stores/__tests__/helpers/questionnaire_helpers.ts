@@ -1,5 +1,5 @@
 import * as store from '../../questionnaire';
-import { aString, aBoolean } from '../../../application/test_helpers/random_test_values';
+import { aString, aBoolean } from '../../../application/__tests__/helpers/random_test_values';
 
 export const buildNormalizedQuestionnaire = (questions: Array<QuestionBuilder>): store.Store => (
     {

@@ -1,5 +1,5 @@
-import * as helpers from './test_helpers/questionnaire_helpers';
-import { aString, aBoolean } from '../../application/test_helpers/random_test_values';
+import * as helpers from './helpers/questionnaire_helpers';
+import { aString, aBoolean } from '../../application/__tests__/helpers/random_test_values';
 import { Answer, Question } from '../questionnaire';
 
 describe('questionnaire test helper for', () => {
