@@ -1,6 +1,5 @@
-import { selectAllQuestions } from '../select_all_questions';
 import * as testHelpers from '../../../stores/__tests__/helpers/questionnaire_helpers';
-import * as viewModel from '../view_model';
+import * as selector from '../../../selectors/questionnaire';
 import { anInteger } from '../../../application/__tests__/helpers/random_test_values';
 
 describe('questionnaire selector', () => {
@@ -9,14 +8,14 @@ describe('questionnaire selector', () => {
 
         let anAnswer: testHelpers.AnswerBuilder;
         let aQuestion: testHelpers.QuestionBuilder;
-        let denormalizedData: viewModel.Questionnaire;
+        let denormalizedData: selector.Questionnaire;
 
         beforeEach(() => {
             anAnswer = new testHelpers.AnswerBuilder();
             aQuestion = new testHelpers.QuestionBuilder().withAnswers([anAnswer]);
             const normalizedData = testHelpers.buildNormalizedQuestionnaire([aQuestion]);
 
-            denormalizedData = selectAllQuestions(normalizedData);
+            denormalizedData = selector.selectAllQuestions(normalizedData);
         });
 
         it('question id', () => {
@@ -47,7 +46,7 @@ describe('questionnaire selector', () => {
         );
         const normalizedData = testHelpers.buildNormalizedQuestionnaire(questions);
 
-        const denormalizedData = selectAllQuestions(normalizedData);
+        const denormalizedData = selector.selectAllQuestions(normalizedData);
 
         expect(denormalizedData).toHaveLength(questionCount);
     });
@@ -60,7 +59,7 @@ describe('questionnaire selector', () => {
         const theQuestion = new testHelpers.QuestionBuilder().withAnswers(answers);
         const normalizedData = testHelpers.buildNormalizedQuestionnaire([theQuestion]);
 
-        const denormalizedData = selectAllQuestions(normalizedData);
+        const denormalizedData = selector.selectAllQuestions(normalizedData);
 
         expect(denormalizedData[0].answers).toHaveLength(answerCount);
     });
