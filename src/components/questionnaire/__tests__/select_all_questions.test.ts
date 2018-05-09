@@ -17,7 +17,7 @@ describe('questionnaire selector', () => {
             aQuestion = new testHelpers.QuestionBuilder().withAnswers([anAnswer]);
             const normalizedData = testHelpers.buildNormalizedQuestionnaire([aQuestion]);
 
-            denormalizedData = selector.selectQuestionnaire(normalizedData);
+            denormalizedData = selector.denormalizeQuestions(normalizedData);
         });
 
         it('question id', () => {
@@ -48,7 +48,7 @@ describe('questionnaire selector', () => {
         );
         const normalizedData = testHelpers.buildNormalizedQuestionnaire(questions);
 
-        const denormalizedData = selector.selectQuestionnaire(normalizedData);
+        const denormalizedData = selector.denormalizeQuestions(normalizedData);
 
         expect(denormalizedData).toHaveLength(questionCount);
     });
@@ -61,7 +61,7 @@ describe('questionnaire selector', () => {
         const theQuestion = new testHelpers.QuestionBuilder().withAnswers(answers);
         const normalizedData = testHelpers.buildNormalizedQuestionnaire([theQuestion]);
 
-        const denormalizedData = selector.selectQuestionnaire(normalizedData);
+        const denormalizedData = selector.denormalizeQuestions(normalizedData);
 
         expect(denormalizedData[0].answers).toHaveLength(answerCount);
     });

@@ -1,4 +1,5 @@
 import * as model from '../stores/questionnaire';
+import * as app from '../application/store';
 
 export type Questionnaire = ReadonlyArray<Question>;
 
@@ -14,7 +15,11 @@ export interface Answer {
     readonly isSelected: boolean;
 }
 
-export const selectQuestionnaire = (modelStore: model.Store): Questionnaire => {
+export const selectQuestionnaire = (appStore: app.Store): Questionnaire => (
+    denormalizeQuestions(appStore.applicationState.questionnaireInStore)
+);
+
+export const denormalizeQuestions = (modelStore: model.Store): Questionnaire => {
     const { questions, answers }: model.Store = modelStore;
 
     return Object.keys(questions).map((key: string) => {
