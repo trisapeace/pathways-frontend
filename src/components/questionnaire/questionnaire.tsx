@@ -6,7 +6,7 @@ import * as selector from '../../selectors/questionnaire';
 import { QuestionnaireActions } from './actions';
 
 export interface Props {
-    questionnaire: selector.Questionnaire;
+    readonly questionnaire: selector.Questionnaire;
 }
 
 export type Actions = QuestionnaireActions;

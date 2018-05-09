@@ -1,3 +1,5 @@
+// tslint:disable:no-expression-statement
+
 import * as store from '../questionnaire';
 import * as helpers from './helpers/questionnaire_helpers';
 import { SELECT_ANSWER } from '../../application/constants';

@@ -5,7 +5,7 @@ import { SelectAnswerAction } from '../../stores/questionnaire';
 import { QuestionnaireActions } from './actions';
 
 export interface Props {
-    answer: selector.Answer;
+    readonly answer: selector.Answer;
 }
 
 export type Actions = QuestionnaireActions;

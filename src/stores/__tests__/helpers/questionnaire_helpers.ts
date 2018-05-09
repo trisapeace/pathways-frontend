@@ -1,22 +1,27 @@
+// tslint:disable:readonly-keyword
+// tslint:disable:no-this
+// tslint:disable:no-expression-statement
+// tslint:disable:readonly-array
+// tslint:disable:no-class
+
 import * as store from '../../questionnaire';
 import { aString, aBoolean } from '../../../application/__tests__/helpers/random_test_values';
 
-export const buildNormalizedQuestionnaire = (questions: Array<QuestionBuilder>): store.Store => (
+export const buildNormalizedQuestionnaire = (questions: ReadonlyArray<QuestionBuilder>): store.Store => (
     {
         questions: buildQuestionMap(questions),
         answers: buildAnswerMap(questions),
     }
 );
 
-const buildQuestionMap = (questions: Array<QuestionBuilder>): store.QuestionsMap => {
-    let result: WritableQuestionsMap = {};
-    questions.forEach((questionBuilder: QuestionBuilder) => {
-        result[questionBuilder.id] = questionBuilder.build();
-    });
-    return result;
+const buildQuestionMap = (questions: ReadonlyArray<QuestionBuilder>): store.QuestionsMap => {
+    const buildAndMapToIds = (map: store.QuestionsMap, builder: QuestionBuilder): store.QuestionsMap => {
+        return { ...map, [builder.id]: builder.build() };
+    };
+    return questions.reduce(buildAndMapToIds, {});
 };
 
-const buildAnswerMap = (questions: Array<QuestionBuilder>): store.AnswersMap => {
+const buildAnswerMap = (questions: ReadonlyArray<QuestionBuilder>): store.AnswersMap => {
     let result: WritableAnswersMap = {};
     questions.forEach((questionBuilder: QuestionBuilder) => {
         const answers = questionBuilder.answers;
@@ -26,10 +31,6 @@ const buildAnswerMap = (questions: Array<QuestionBuilder>): store.AnswersMap => 
     });
     return result;
 };
-
-interface WritableQuestionsMap {
-    [key: string]: store.Question;
-}
 
 interface WritableAnswersMap {
     [key: string]: store.Answer;

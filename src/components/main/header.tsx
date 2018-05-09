@@ -2,11 +2,11 @@ import React from 'react';
 import { Header, Left, Button, Icon, Title, Body } from 'native-base';
 
 export interface Props {
-    canGoBack: boolean;
+    readonly canGoBack: boolean;
 }
 
 export interface Actions {
-    goBack: () => void;
+    readonly goBack: () => void;
 }
 
 export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {

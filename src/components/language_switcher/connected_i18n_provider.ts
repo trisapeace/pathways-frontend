@@ -5,8 +5,8 @@ import { Store } from '../../application/store';
 import { catalogs } from '../../application/locales';
 
 interface Props {
-    catalogs: Catalogs;
-    language: string;
+    readonly catalogs: Catalogs;
+    readonly language: string;
 }
 
 interface Actions {}

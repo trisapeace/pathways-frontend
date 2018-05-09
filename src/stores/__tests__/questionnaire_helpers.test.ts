@@ -1,3 +1,6 @@
+// tslint:disable:no-expression-statement
+// tslint:disable:no-let
+
 import * as helpers from './helpers/questionnaire_helpers';
 import { aString, aBoolean } from '../../application/__tests__/helpers/random_test_values';
 import { Answer, Question } from '../questionnaire';

@@ -1,10 +1,14 @@
+// tslint:disable:no-expression-statement
+
 import * as pageSwitcher from '../page_switcher';
 import * as constants from '../../application/constants';
 import * as helpers from '../helpers/make_action';
 
-let buildStore = (): pageSwitcher.Store => pageSwitcher.reducer(undefined, undefined);
+const buildStore = (): pageSwitcher.Store => (
+    pageSwitcher.reducer(undefined, undefined)
+);
 
-let buildStoreWithValue = (mainPage: pageSwitcher.Page): pageSwitcher.Store => {
+const buildStoreWithValue = (mainPage: pageSwitcher.Page): pageSwitcher.Store => {
     const action = helpers.makeAction(constants.SET_MAIN_TAB, { mainPage });
     return pageSwitcher.reducer(undefined, action);
 };
