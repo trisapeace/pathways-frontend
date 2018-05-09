@@ -12,7 +12,7 @@ export interface Question {
     readonly answers: ReadonlyArray<Answer>;
 }
 
-export type AllTheQuestions = ReadonlyArray<Question>;
+export type Questionnaire = ReadonlyArray<Question>;
 
 export interface QuestionnaireActions {
     selectAnswer: (answerId: model.Id) => model.SelectAnswerAction;

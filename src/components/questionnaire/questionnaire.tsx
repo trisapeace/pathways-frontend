@@ -5,7 +5,7 @@ import { ConnectedLanguageSwitcher } from '../language_switcher/connected_langua
 import * as viewModel from './view_model';
 
 export interface Props {
-    allTheQuestions: viewModel.AllTheQuestions;
+    questionnaire: viewModel.Questionnaire;
 }
 
 export type Actions = viewModel.QuestionnaireActions;
@@ -19,7 +19,7 @@ export const Component: React.StatelessComponent<Props & Actions> = (props: Prop
             flex: 1,
             padding: 10,
         }}>
-            {props.allTheQuestions.map((question: viewModel.Question) => (
+            {props.questionnaire.map((question: viewModel.Question) => (
                 <Question key={question.id} question={question} selectAnswer={props.selectAnswer} />
             ))}
         </View>

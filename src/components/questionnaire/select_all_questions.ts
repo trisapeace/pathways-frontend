@@ -1,7 +1,7 @@
 import * as model from '../../stores/questionnaire';
 import * as viewModel from './view_model';
 
-export const selectAllQuestions = (modelStore: model.Store): viewModel.AllTheQuestions => {
+export const selectAllQuestions = (modelStore: model.Store): viewModel.Questionnaire => {
     const { questions, answers }: model.Store = modelStore;
 
     return Object.keys(questions).map((key: string) => {

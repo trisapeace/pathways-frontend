@@ -6,7 +6,7 @@ import { Id, SelectAnswerAction, selectAnswer } from '../../stores/questionnaire
 import { selectAllQuestions } from './select_all_questions';
 
 const mapStateToProps = (store: Store): Props => ({
-    allTheQuestions: selectAllQuestions(store.applicationState.questionnaireInStore),
+    questionnaire: selectAllQuestions(store.applicationState.questionnaireInStore),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({

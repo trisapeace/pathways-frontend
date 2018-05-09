@@ -9,7 +9,7 @@ describe('questionnaire selector', () => {
 
         let anAnswer: testHelpers.AnswerBuilder;
         let aQuestion: testHelpers.QuestionBuilder;
-        let denormalizedData: viewModel.AllTheQuestions;
+        let denormalizedData: viewModel.Questionnaire;
 
         beforeEach(() => {
             anAnswer = new testHelpers.AnswerBuilder();
