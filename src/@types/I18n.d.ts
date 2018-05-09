@@ -1,18 +1,22 @@
+// tslint:disable-next-line:no-class
 declare class I18n {
     t(message: TemplateStringsArray): string;
 }
 
-declare type Catalogs = {[localeCode: string]: object};
+declare type Catalogs = {
+    readonly [localeCode: string]: object,
+};
 
-declare type Catalog = {[message: string]: object};
+declare type Catalog = {
+    readonly [message: string]: object,
+};
 
 declare interface Locale {
-    code: string;
-    label: string;
-    catalog: object;
+    readonly code: string;
+    readonly label: string;
+    readonly catalog: object;
 }
 
 declare interface I18nProps {
-    i18n: I18n;
+    readonly i18n: I18n;
 }
-

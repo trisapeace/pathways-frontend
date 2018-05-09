@@ -8,17 +8,16 @@ import 'intl/locale-data/jsonp/ar.js';
 import enMessages from '../../locale/en/messages';
 import arMessages from '../../locale/ar/messages';
 
-export const locales: Array<Locale> = [
+export const locales: ReadonlyArray<Locale> = [
     { code: 'en', label: 'English', catalog: enMessages },
     { code: 'ar', label: 'Arabic', catalog: arMessages },
 ];
 
 export const catalogs = buildCatalogsMap(locales);
 
-function buildCatalogsMap(withLocales: Array<Locale>): Catalogs {
+function buildCatalogsMap(withLocales: ReadonlyArray<Locale>): Catalogs {
     const reducer = (accumulator: Catalogs, locale: Locale): Catalogs => {
-        accumulator[locale.code] = locale.catalog;
-        return accumulator;
+        return { ...accumulator, [locale.code]: locale.catalog };
     };
     return withLocales.reduce(reducer, {});
 }

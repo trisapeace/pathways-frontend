@@ -1,6 +1,8 @@
-import * as testHelpers from '../../../stores/__tests__/helpers/questionnaire_helpers';
+// tslint:disable:no-expression-statement
+// tslint:disable:no-let
 import * as selector from '../../../selectors/questionnaire';
 import { anInteger } from '../../../application/__tests__/helpers/random_test_values';
+import * as testHelpers from '../../../stores/__tests__/helpers/questionnaire_helpers'
 
 describe('questionnaire selector', () => {
 
