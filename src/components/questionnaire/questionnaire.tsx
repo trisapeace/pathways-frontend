@@ -20,7 +20,7 @@ export const Component: React.StatelessComponent<Props & Actions> = (props: Prop
             padding: 10,
         }}>
             {props.allTheQuestions.map((question: viewModel.Question) => (
-                <Question question={question} selectAnswer={props.selectAnswer} />
+                <Question key={question.id} question={question} selectAnswer={props.selectAnswer} />
             ))}
         </View>
     </Content>

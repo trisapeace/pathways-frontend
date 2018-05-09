@@ -20,7 +20,7 @@ export const Question: React.StatelessComponent<Props & Actions> = (props: Props
     }}>
         <Text>{question.text}</Text>
         {question.answers.map((answer: viewModel.Answer) => (
-            <Answer answer={answer} selectAnswer={selectAnswer} />
+            <Answer key={answer.id} answer={answer} selectAnswer={selectAnswer} />
         ))}
         <View style={{
             padding: 15,
