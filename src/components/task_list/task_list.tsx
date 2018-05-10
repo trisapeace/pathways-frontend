@@ -1,19 +1,19 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import { Task, TaskDetail } from '../task_detail/task_detail';
+import * as taskDetail from '../task_detail/task_detail';
 
-interface Props {
-    tasks: Task[];
+export interface Props {
+    tasks: taskDetail.Props[];
 }
 
-interface Actions {
+export interface Actions {
     addToTaskList: () => void;
     removeFromTaskList: () => void;
 }
 
 const renderTaskDetail = ({item}: any): JSX.Element => {
     return (
-        <TaskDetail
+        <taskDetail.Component
             id={item.id}
             title={item.title}
             description={item.description}
@@ -32,7 +32,7 @@ const renderTaskDetail = ({item}: any): JSX.Element => {
 
 const extractKey = (item: any): string => item.id.toString();
 
-export const TaskList: React.SFC<Props & Actions> = (props: Props & Actions): JSX.Element => (
+export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
     <FlatList
         data={props.tasks}
         renderItem={renderTaskDetail}
