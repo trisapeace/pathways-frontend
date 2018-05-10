@@ -2,12 +2,15 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import styles from './styles';
 
-interface Props {
+export interface Props {
     color: string;
     text: string;
 }
 
-export const TaskLabel: React.SFC<Props> = (props: Props): JSX.Element => (
+export interface Actions {
+}
+
+export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
     <View style={[styles.label, {backgroundColor: props.color}]}>
         <Text style={styles.labelText}>{props.text.toUpperCase()}</Text>
     </View>

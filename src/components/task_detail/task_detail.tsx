@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
-import { TaskLabel } from '../task_label/task_label';
+import * as taskLabel from '../task_label/task_label';
 
-export interface Task {
+export interface Props {
     id: string;
     title: string;
     description: string;
@@ -15,7 +15,7 @@ export interface Task {
     isFree: boolean;
 }
 
-interface Actions {
+export interface Actions {
     markTaskAsComplete: () => void;
     shareTask: () => void;
     starTask: () => void;
@@ -34,7 +34,7 @@ const getColorForLabel = (label: string): string => {
     }
 };
 
-export const TaskDetail: React.SFC<Task & Actions> = (props: Task & Actions): JSX.Element => (
+export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
     <TouchableOpacity onPress={props.starTask}>
         <View style={styles.wrapper}>
             <View style={styles.leftColumn}>
@@ -45,7 +45,7 @@ export const TaskDetail: React.SFC<Task & Actions> = (props: Task & Actions): JS
                     <Text>{props.description}</Text>
                     <View style={styles.inlineItems}>
                         {props.labels.map((label: string, index: number) =>
-                         <TaskLabel text={label} color={getColorForLabel(label)} key={index} />)}
+                         <taskLabel.Component text={label} color={getColorForLabel(label)} key={index} />)}
                     </View>
                 </View>
             </View>

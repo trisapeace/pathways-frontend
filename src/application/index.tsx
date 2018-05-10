@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import * as main from '../components/main';
 import { store } from './store';
 import { ErrorBoundary } from './error_boundary';
-import { TaskList } from '../components/task_list/task_list';
+import * as taskList from '../components/task_list/task_list';
 
 const tasks = [
     {
