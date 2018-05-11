@@ -41,7 +41,7 @@ class Switcher extends React.Component<I18nProps & Props & Actions> {
                     <Button title={toggleRTLTitle} onPress={toggleRTL} />
                 </View>
                 <View style={{alignItems: 'flex-start'}}>
-                    <Text><Trans>jsLingui test</Trans></Text>
+                    <Text><Trans>This sentence exists to demonstrate the translation functionality that exists in this application.</Trans></Text>
                 </View>
             </View>
         );
