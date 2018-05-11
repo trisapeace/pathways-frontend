@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import { I18nProvider } from '@lingui/react';
 import { Store } from '../../application/store';
-
 import { catalogs } from '../../application/locales';
+
+import { Catalogs } from './view_model';
 
 interface Props {
     readonly catalogs: Catalogs;

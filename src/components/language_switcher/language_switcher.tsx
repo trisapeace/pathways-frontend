@@ -1,44 +1,33 @@
 import React from 'react';
-import { I18nManager, View, Text, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { withI18n, Trans } from '@lingui/react';
-
-export interface Props {
-    readonly currentLocale: string;
-    readonly locales: ReadonlyArray<Locale>;
-}
-
-export interface Actions {
-    setLocale(langCode: string): void;
-}
-
-I18nManager.allowRTL(true);
+import { Locale, LanguageSwitcherProps } from './view_model';
 
 // tslint:disable-next-line:no-class
-class Switcher extends React.Component<I18nProps & Props & Actions> {
+class Switcher extends React.Component<LanguageSwitcherProps> {
 
-    constructor(props: I18nProps & Props & Actions) {
-        super(props); // tslint:disable-line:no-expression-statement
-        // tslint:disable-next-line:no-this no-expression-statement
-        this.state = {
-            isRTL: I18nManager.isRTL,
-        };
-    }
+    // constructor(props: LanguageSwitcherProps) {
+    //     super(props); // tslint:disable-line:no-expression-statement
+    //     // tslint:disable-next-line:no-this no-expression-statement
+    //     this.state = {
+    //         isRTL: I18nManager.isRTL,
+    //     };
+    // }
 
     render(): JSX.Element {
-        console.log('[render]', this.state);
-        const {i18n, setLocale, currentLocale, locales}: I18nProps & Props & Actions = this.props; // tslint:disable-line:no-this
-        const toggleRTL = this.toggleRTL.bind(this); // tslint:disable-line:no-this
-        const toggleRTLTitle = this.state.isRTL ? i18n.t`Disable RTL` : i18n.t`Force RTL`; // tslint:disable-line:no-this
+        const {i18n, setLocale, currentLocale, locales}: LanguageSwitcherProps = this.props; // tslint:disable-line:no-this
+        // const toggleRTL = this.toggleRTL.bind(this); // tslint:disable-line:no-this
+        // const toggleRTLTitle = currentLocale.isRTL ? i18n.t`Disable RTL` : i18n.t`Force RTL`; // tslint:disable-line:no-this
+        console.log('[render]', currentLocale); // tslint:disable-line:no-expression-statement
         return (
             <View>
                 <View style={{ alignItems: 'center' }}>
                     {locales.map((locale: Locale) => (
                         <Button key={locale.code}
                                 title={locale.label}
-                                onPress={(): void => setLocale(locale.code)}
-                                disabled={locale.code === currentLocale} />
+                                onPress={(): void => setLocale(locale)}
+                                disabled={locale.code === currentLocale.code} />
                     ))}
-                    <Button title={toggleRTLTitle} onPress={toggleRTL} />
                 </View>
                 <View style={{alignItems: 'flex-start'}}>
                     <Text><Trans>This sentence exists to demonstrate the translation functionality that exists in this application.</Trans></Text>
@@ -47,14 +36,14 @@ class Switcher extends React.Component<I18nProps & Props & Actions> {
         );
     }
 
-    toggleRTL(): void {
-        // tslint:disable-next-line:no-this
-        this.setState({ isRTL: !this.state.isRTL }, () => {
-            console.log({was: !this.state.isRTL, now: this.state.isRTL}, I18nManager.isRTL);
-            I18nManager.forceRTL(this.state.isRTL); // tslint:disable-line:no-expression-statement
-            Expo.Util.reload(true);
-        });
-    }
+    // toggleRTL(): void {
+    //     // tslint:disable-next-line:no-this
+    //     this.setState({ isRTL: !this.state.isRTL }, () => {
+    //         console.log({was: !this.state.isRTL, now: this.state.isRTL}, I18nManager.isRTL);
+    //         I18nManager.forceRTL(this.state.isRTL); // tslint:disable-line:no-expression-statement
+    //         Expo.Util.reload(true);
+    //     });
+    // }
 
 }
 
