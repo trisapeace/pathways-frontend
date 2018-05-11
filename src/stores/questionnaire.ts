@@ -22,14 +22,16 @@ export const reducer = (store: Store = buildDefaultStore(), action?: SelectAnswe
     }
     switch (action.type) {
         case constants.SELECT_ANSWER:
-            return selectAnswerWithId(store, action.payload.answerId);
+            return toggleSelectionForAnswer(store, action.payload.answerId);
         default:
             return store;
     }
 };
 
-const selectAnswerWithId = (store: Store, answerId: string): Store => (
-    canSelectMultiple(store, answerId) ? selectIt(store, answerId) : selectOnlyIt(store, answerId)
+const toggleSelectionForAnswer = (store: Store, answerId: string): Store => (
+    canSelectMultiple(store, answerId) ?
+        toggleSelection(store, answerId) :
+        toggleSelectionForSingleAnswer(store, answerId)
 );
 
 const canSelectMultiple = (store: Store, answerId: string): boolean => {
@@ -38,7 +40,7 @@ const canSelectMultiple = (store: Store, answerId: string): boolean => {
     return question.acceptMultipleAnswers;
 };
 
-const selectIt = (store: Store, answerId: string): Store => {
+const toggleSelection = (store: Store, answerId: string): Store => {
     const answer = store.answers[answerId];
     return {
         ...store,
@@ -52,27 +54,23 @@ const selectIt = (store: Store, answerId: string): Store => {
     };
 };
 
-const selectOnlyIt = (store: Store, answerId: string): Store => {
+const toggleSelectionForSingleAnswer = (store: Store, answerId: string): Store => {
     const answer = store.answers[answerId];
-    if (answer.isSelected) {
-        return selectIt(store, answerId);
-    }
-    const allDeselected = deselectAllAnswersToQuestion(store, answer.questionId);
-    return selectIt(allDeselected, answerId);
+    return answer.isSelected ?
+        toggleSelection(store, answerId) :
+        toggleSelection(deselectAllAnswersForQuestion(store, answer.questionId), answerId);
 };
 
-const deselectAllAnswersToQuestion = (store: Store, questionId: string): Store => {
-    const deselctAnswerToQuestion = (accumulator: AnswersMap, currentId: string): AnswersMap => {
-        const answer = store.answers[currentId];
-        const shouldDeselect = answer.questionId === questionId && answer.isSelected;
-        const newAnswer = shouldDeselect ? { ...answer, isSelected: false } : answer;
-        return {
-            ...accumulator,
-            [currentId]: newAnswer,
-        };
+const deselectAllAnswersForQuestion = (store: Store, questionId: string): Store => {
+    const deselectIfQuestionIdMatches = (accumulator: AnswersMap, answerId: string): AnswersMap => {
+        const answer = store.answers[answerId];
+        if (answer.questionId === questionId) {
+            return { ...accumulator, [answerId]: { ...answer, isSelected: false } };
+        }
+        return { ...accumulator, [answerId]: answer };
     };
     return {
         ...store,
-        answers: Object.keys(store.answers).reduce(deselctAnswerToQuestion, {}),
+        answers: Object.keys(store.answers).reduce(deselectIfQuestionIdMatches, {}),
     };
 };
