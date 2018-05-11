@@ -5,7 +5,7 @@ import * as constants from '../application/constants';
 import { Store as StoreForApplicationState } from '../stores';
 
 const routesMap = {
-    [constants.SET_MAIN_TAB]: '/user/:mainTab',
+    [constants.SET_MAIN_TAB]: '/user/:mainPage',
 };
 
 export const createStoreWithRouter = (reducerForApplicationState: Reducer<StoreForApplicationState>) => {

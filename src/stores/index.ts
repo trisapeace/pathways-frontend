@@ -1,19 +1,16 @@
 import { combineReducers } from 'redux';
-import * as navigationBar from './navigation_bar';
-import * as counter from './counter';
+import * as pageSwitcher from './page_switcher';
 import * as locale from './locale';
-import * as message from './message';
+import * as questionnaire from './questionnaire';
 
 export interface Store {
-    readonly navigationBarInStore: navigationBar.Store;
-    readonly counterInStore: counter.Store;
+    readonly mainPageInStore: pageSwitcher.Store;
     readonly localeInStore: locale.Store;
-    readonly messageInStore: message.Store;
+    readonly questionnaireInStore: questionnaire.Store;
 }
 
 export const reducer = combineReducers<Store>({
-    navigationBarInStore: navigationBar.reducer,
-    counterInStore: counter.reducer,
+    mainPageInStore: pageSwitcher.reducer,
     localeInStore: locale.reducer,
-    messageInStore: message.reducer,
+    questionnaireInStore: questionnaire.reducer,
 });
