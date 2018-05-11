@@ -54,6 +54,9 @@ const selectIt = (store: Store, answerId: string): Store => {
 
 const selectOnlyIt = (store: Store, answerId: string): Store => {
     const answer = store.answers[answerId];
+    if (answer.isSelected) {
+        return selectIt(store, answerId);
+    }
     const allDeselected = deselectAllAnswersToQuestion(store, answer.questionId);
     return selectIt(allDeselected, answerId);
 };
