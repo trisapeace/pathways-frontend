@@ -40,4 +40,37 @@ describe('questionnaire reducer', () => {
 
         expect(newStore.answers[theAnswerId].isSelected).not.toBe(selected);
     });
+
+    describe('for questions accepting at most one answer', () => {
+        it('when selecting an answer should deselect previously selected answer', () => {
+            const selectedAnswer = new helpers.AnswerBuilder().withSelected(true);
+            const unselectedAnswer = new helpers.AnswerBuilder().withSelected(false);
+            const question = new helpers.QuestionBuilder().
+                withAnswers([selectedAnswer, unselectedAnswer]).
+                withAcceptsMultipleAnswers(false);
+            const theStore = helpers.buildNormalizedQuestionnaire([question]);
+            const action = store.selectAnswer(unselectedAnswer.id);
+
+            const newStore = store.reducer(theStore, action);
+
+            expect(newStore.answers[selectedAnswer.id].isSelected).toBe(false);
+            expect(newStore.answers[unselectedAnswer.id].isSelected).toBe(true);
+        });
+    });
+
+    describe('for questions accepting more than one answer', () => {
+        it('when selecting an answer keep previously selected answer', () => {
+            const selectedAnswer = new helpers.AnswerBuilder().withSelected(true);
+            const unselectedAnswer = new helpers.AnswerBuilder().withSelected(false);
+            const question = new helpers.QuestionBuilder().withAnswers([selectedAnswer, unselectedAnswer]).
+                withAcceptsMultipleAnswers(true);
+            const theStore = helpers.buildNormalizedQuestionnaire([question]);
+            const action = store.selectAnswer(unselectedAnswer.id);
+
+            const newStore = store.reducer(theStore, action);
+
+            expect(newStore.answers[selectedAnswer.id].isSelected).toBe(true);
+            expect(newStore.answers[unselectedAnswer.id].isSelected).toBe(true);
+        });
+    });
 });

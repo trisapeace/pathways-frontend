@@ -39,6 +39,7 @@ interface WritableAnswersMap {
 export class QuestionBuilder {
     id: string = aString();
     text: string = aString();
+    acceptMultipleAnswers: boolean = true;
     answers: Array<AnswerBuilder> = Array<AnswerBuilder>(3);
 
     withId(id: string): QuestionBuilder {
@@ -56,10 +57,16 @@ export class QuestionBuilder {
         return this;
     }
 
+    withAcceptsMultipleAnswers(acceptMultipleAnswers: boolean): QuestionBuilder {
+        this.acceptMultipleAnswers = acceptMultipleAnswers;
+        return this;
+    }
+
     build(): store.Question {
         return {
             id: this.id,
             text: this.text,
+            acceptMultipleAnswers: this.acceptMultipleAnswers,
         };
     }
 }
