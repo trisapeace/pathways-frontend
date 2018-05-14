@@ -1,10 +1,12 @@
+// tslint:disable:no-expression-statement
+
 import * as locale from '../locale';
 import * as constants from '../../application/constants';
 import * as helpers from '../helpers/make_action';
 
-let buildStore = (): locale.Store => locale.reducer(undefined, undefined);
+const buildStore = (): locale.Store => locale.reducer(undefined, undefined);
 
-let buildStoreWithLocale = (code: string): locale.Store => {
+const buildStoreWithLocale = (code: string): locale.Store => {
     const action = helpers.makeAction(constants.SET_LOCALE, { code });
     return locale.reducer(undefined, action);
 };

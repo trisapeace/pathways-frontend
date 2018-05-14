@@ -6,7 +6,7 @@ import * as questionnaire from '../questionnaire';
 import * as myPlan from '../my_plan/my_plan';
 
 export interface Props {
-    mainPageInProps: store.Page;
+    readonly mainPageInProps: store.Page;
 }
 
 export interface Actions {

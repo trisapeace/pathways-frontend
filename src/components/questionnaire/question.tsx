@@ -1,13 +1,14 @@
 import React from 'react';
 import { Button, View, Text } from 'native-base';
 import { Answer, Actions } from './answer';
-import * as viewModel from './view_model';
+import * as selector from '../../selectors/questionnaire';
+import { QuestionnaireActions } from './actions';
 
 export interface Props {
-    question: viewModel.Question;
+    readonly question: selector.Question;
 }
 
-export type Actions = viewModel.QuestionnaireActions;
+export type Actions = QuestionnaireActions;
 
 export const Question: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
     const { question, selectAnswer }: Props & Actions = props;
@@ -19,7 +20,7 @@ export const Question: React.StatelessComponent<Props & Actions> = (props: Props
         padding: 10,
     }}>
         <Text>{question.text}</Text>
-        {question.answers.map((answer: viewModel.Answer) => (
+        {question.answers.map((answer: selector.Answer) => (
             <Answer key={answer.id} answer={answer} selectAnswer={selectAnswer} />
         ))}
         <View style={{

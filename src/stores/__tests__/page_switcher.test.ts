@@ -1,10 +1,14 @@
+// tslint:disable:no-expression-statement
+
 import * as pageSwitcher from '../page_switcher';
 import * as constants from '../../application/constants';
 import * as helpers from '../helpers/make_action';
 
-let buildStore = () => pageSwitcher.reducer(undefined, undefined);
+const buildStore = (): pageSwitcher.Store => (
+    pageSwitcher.reducer(undefined, undefined)
+);
 
-let buildStoreWithValue = (mainPage: pageSwitcher.Page) => {
+const buildStoreWithValue = (mainPage: pageSwitcher.Page): pageSwitcher.Store => {
     const action = helpers.makeAction(constants.SET_MAIN_TAB, { mainPage });
     return pageSwitcher.reducer(undefined, action);
 };
@@ -32,7 +36,7 @@ describe('the reducer', () => {
         const theStore = buildStore();
         const theAction = {
             type: constants.SET_MAIN_TAB as typeof constants.SET_MAIN_TAB,
-            payload: { mainPage: pageSwitcher.Page.MyPlan }
+            payload: { mainPage: pageSwitcher.Page.MyPlan },
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
         expect(theNewStore.mainPage).toBe(theAction.payload.mainPage);
@@ -49,7 +53,7 @@ describe('the reducer', () => {
         const mainPageAsString = 'Page.MyPlan';
         const theAction = {
             type: constants.SET_MAIN_TAB as typeof constants.SET_MAIN_TAB,
-            payload: { mainPage: mainPageAsString }
+            payload: { mainPage: mainPageAsString },
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
         expect(theNewStore.mainPage).toBe(pageSwitcher.Page.MyPlan);
@@ -60,8 +64,10 @@ describe('the reducer', () => {
         const invalidmainPageAsString = 'MainPage.Invalid';
         const theAction = {
             type: constants.SET_MAIN_TAB as typeof constants.SET_MAIN_TAB,
-            payload: { mainPage: invalidmainPageAsString }
+            payload: { mainPage: invalidmainPageAsString },
         };
-        expect(() => pageSwitcher.reducer(theStore, theAction)).toThrow(/MainPage.Invalid: Invalid main page id, accepted values are Page.Questionnaire, Page.MyPlan or Page.ExploreAll/);
+        expect(() => pageSwitcher.reducer(theStore, theAction)).toThrow(
+            /MainPage.Invalid: Invalid main page id, accepted values are Page.Questionnaire, Page.MyPlan or Page.ExploreAll/,
+        );
     });
 });

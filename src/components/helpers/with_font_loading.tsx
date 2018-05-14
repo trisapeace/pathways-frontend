@@ -3,8 +3,8 @@ import { Text } from 'native-base';
 import { Font } from 'expo';
 
 interface FontState {
-    loading: boolean
-};
+    readonly loading: boolean;
+}
 
 /**
  * This HOC handles the font loading hack needed for the app to come up correctly on android devices.

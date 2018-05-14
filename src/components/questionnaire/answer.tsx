@@ -1,13 +1,14 @@
 import React from 'react';
 import { Button, Icon, View, Text } from 'native-base';
-import * as viewModel from './view_model';
+import * as selector from '../../selectors/questionnaire';
 import { SelectAnswerAction } from '../../stores/questionnaire';
+import { QuestionnaireActions } from './actions';
 
 export interface Props {
-    answer: viewModel.Answer;
+    readonly answer: selector.Answer;
 }
 
-export type Actions = viewModel.QuestionnaireActions;
+export type Actions = QuestionnaireActions;
 
 export const Answer: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
     return props.answer.isSelected ? <SelectedAnswer {...props} /> : <NonSelectedAnswer {...props} />;

@@ -3,13 +3,13 @@ import { Footer, FooterTab, Button, Icon, Text } from 'native-base';
 import * as store from '../../stores/page_switcher';
 
 export interface Props {
-    mainPageInProps: store.Page;
+    readonly mainPageInProps: store.Page;
 }
 
 export interface Actions {
-    goToQuestionnaire: () => void;
-    goToPlan: () => void;
-    goToExplore: () => void;
+    readonly goToQuestionnaire: () => void;
+    readonly goToPlan: () => void;
+    readonly goToExplore: () => void;
 }
 
 export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
