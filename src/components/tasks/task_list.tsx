@@ -1,20 +1,21 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import { TaskDetail, Props as TaskDetailProps } from './task_detail';
+import { Task } from './task';
+import * as selector from '../../selectors/tasks';
 
 export interface Props {
-    tasks: TaskDetailProps[];
+    readonly tasks: ReadonlyArray<selector.Task>;
 }
 
 export interface Actions {
-    addToTaskList: () => void;
-    removeFromTaskList: () => void;
+//    readonly addToTaskList: () => void;
+//    readonly removeFromTaskList: () => void;
 }
 
 // tslint:disable-next-line:no-any
 const renderTaskDetail = ({item}: any): JSX.Element => {
     return (
-        <TaskDetail
+        <Task
             id={item.id}
             title={item.title}
             description={item.description}

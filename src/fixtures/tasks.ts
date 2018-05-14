@@ -1,6 +1,6 @@
 export type Id = string;
 
-export interface Task {
+export interface TaskDefinition {
     readonly id: Id;
     readonly title: string;
     readonly description: string;
@@ -9,48 +9,48 @@ export interface Task {
     readonly importance: number;
 }
 
-export interface Tasks {
-  [property: string]: Task;
+export interface TaskDefinitions {
+  readonly [property: string]: TaskDefinition;
 }
 
-export interface UserTask {
+export interface Task {
     readonly id: Id;
-    readonly taskId: Id;
+    readonly taskDefinitionId: Id;
     readonly starred: boolean;
     readonly completed: boolean;
     readonly suggested: boolean;
 }
 
-interface UserTasks {
-    readonly [property: string]: UserTask;
+export interface Tasks {
+    readonly [property: string]: Task;
 }
 
 export interface Store {
+    readonly taskDefinitions: TaskDefinitions;
     readonly tasks: Tasks;
-    readonly userTasks: UserTasks;
 }
 
 export const buildTasksFixture = (): Store => {
     return {
-        tasks: {
-          't1': {
-            'id': 't1',
+        taskDefinitions: {
+          'td1': {
+            'id': 'td1',
             'title': 'Enroll child in elementary school.',
             'description': '',
             'tags': ['important', 'do soon', 'free'],
             'category': 'education',
             'importance': 1,
           },
-          't2': {
-            'id': 't2',
+          'td2': {
+            'id': 'td2',
             'title': 'Register for Language Instruction for Newcomer to Canada (LINC) classes.',
             'description': '',
             'tags': ['important', 'do soon', 'free'],
             'category': 'education',
             'importance': 1,
           },
-          't3': {
-            'id': 't3',
+          'td3': {
+            'id': 'td3',
             'title': 'Get support for English language learning for children.',
             'description': '',
             'tags': ['important', 'do soon', 'free'],
@@ -58,24 +58,24 @@ export const buildTasksFixture = (): Store => {
             'importance': 1,
           },
         },
-        userTasks: {
-          'u1': {
-            'id': 'u1',
-            'taskId': 't1',
+        tasks: {
+          't1': {
+            'id': 't1',
+            'taskDefinitionId': 'td1',
             'starred': false,
             'completed': false,
             'suggested': true,
           },
-          'u2': {
-            'id': 'u2',
-            'taskId': 't2',
+          't2': {
+            'id': 't2',
+            'taskDefinitionId': 'td2',
             'starred': false,
             'completed': false,
             'suggested': true,
           },
           'u3': {
-            'id': 'u3',
-            'taskId': 't3',
+            'id': 't3',
+            'taskDefinitionId': 'td3',
             'starred': false,
             'completed': false,
             'suggested': true,
