@@ -3,8 +3,8 @@ import { View, Text } from 'react-native';
 import { tag as styles } from './styles';
 
 export interface Props {
-    color: string;
-    text: string;
+    readonly color: string;
+    readonly text: string;
 }
 
 export interface Actions {

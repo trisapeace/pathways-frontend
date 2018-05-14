@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { taskDetail as styles } from './styles';
 import { Tag } from './tag';
+import * as selector from '../../selectors/tasks';
 
 const getColorForTag = (label: string): string => {
-    switch (label.toLocaleLowerCase()) {
+    switch (label.toLowerCase()) {
         case 'important':
             return '#f5a623';
         case 'do soon':
@@ -17,24 +18,15 @@ const getColorForTag = (label: string): string => {
 };
 
 export interface Props {
-    id: string;
-    title: string;
-    description: string;
-    category: string;
-    importance: number;
-    starred: boolean;
-    completed: boolean;
-    suggested: boolean;
-    tags: string[];
 }
 
 export interface Actions {
-    markTaskAsComplete: () => void;
-    shareTask: () => void;
-    starTask: () => void;
+    readonly markTaskAsComplete: () => void;
+    readonly shareTask: () => void;
+    readonly starTask: () => void;
 }
 
-export const TaskDetail: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
+export const Task: React.StatelessComponent<selector.Task & Actions> = (props: selector.Task & Actions): JSX.Element => (
     <TouchableOpacity onPress={props.starTask}>
         <View style={styles.wrapper}>
             <View style={styles.leftColumn}>
