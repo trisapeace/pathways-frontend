@@ -1,15 +1,13 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import { Task } from './task';
-import * as selector from '../../selectors/tasks';
+import { TaskViewModel } from '../../selectors/tasks';
 
 export interface Props {
-    readonly tasks: ReadonlyArray<selector.Task>;
+    readonly tasks: ReadonlyArray<TaskViewModel>;
 }
 
 export interface Actions {
-//    readonly addToTaskList: () => void;
-//    readonly removeFromTaskList: () => void;
 }
 
 // tslint:disable-next-line:no-any
@@ -25,9 +23,11 @@ const renderTaskDetail = ({item}: any): JSX.Element => {
             completed={item.completed}
             suggested={item.suggested}
             tags={item.tags}
-            markTaskAsComplete={(): void => alert('Marking task as complete')}
-            shareTask={(): void => alert('Sharing task')}
-            starTask={(): void => alert('Starring task')}
+            addToTaskList={item.addToTaskList}
+            removeFromTaskList={item.removeFromTaskList}
+            markTaskAsComplete={item.markTaskAsComplete}
+            shareTask={item.shareTask}
+            starTask={item.starTask}
         />
     );
 };

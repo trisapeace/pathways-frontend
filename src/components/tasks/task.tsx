@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { taskDetail as styles } from './styles';
 import { Tag } from './tag';
-import * as selector from '../../selectors/tasks';
+import { TaskViewModel } from '../../selectors/tasks';
+import { TasksActions } from './actions';
 
 const getColorForTag = (label: string): string => {
     switch (label.toLowerCase()) {
@@ -20,28 +21,24 @@ const getColorForTag = (label: string): string => {
 export interface Props {
 }
 
-export interface Actions {
-    readonly markTaskAsComplete: () => void;
-    readonly shareTask: () => void;
-    readonly starTask: () => void;
-}
+export type Actions = TasksActions;
 
-export const Task: React.StatelessComponent<selector.Task & Actions> = (props: selector.Task & Actions): JSX.Element => (
-    <TouchableOpacity onPress={props.starTask}>
+export const Task: React.StatelessComponent<TaskViewModel & Actions> = (props: TaskViewModel & Actions): JSX.Element => (
+    <TouchableOpacity>
         <View style={styles.wrapper}>
-            <View style={styles.leftColumn}>
+            <View style={styles.sideColumn}>
                 <Text>{props.starred ? 'Starred' : 'Not starred'}</Text>
             </View>
             <View style={styles.centerColumn}>
                 <View style={styles.stackedItems}>
-                    <Text>{props.description}</Text>
+                    <Text>{props.title}</Text>
                     <View style={styles.inlineItems}>
                         {props.tags.map((label: string, index: number) =>
                          <Tag text={label} color={getColorForTag(label)} key={index} />)}
                     </View>
                 </View>
             </View>
-            <View style={styles.rightColumn}>
+            <View style={styles.sideColumn}>
                 <View style={styles.stackedItems}>
                     <Text>{'...'}</Text>
                     <Text>{props.category}</Text>

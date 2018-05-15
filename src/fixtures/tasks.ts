@@ -57,6 +57,14 @@ export const buildTasksFixture = (): Store => {
             'category': 'education',
             'importance': 1,
           },
+          'td4': {
+            'id': 'td4',
+            'title': 'Open a bank account',
+            'description': '',
+            'tags': ['important'],
+            'category': 'finance',
+            'importance': 1,
+          },
         },
         tasks: {
           't1': {
@@ -73,9 +81,16 @@ export const buildTasksFixture = (): Store => {
             'completed': false,
             'suggested': true,
           },
-          'u3': {
+          't3': {
             'id': 't3',
             'taskDefinitionId': 'td3',
+            'starred': false,
+            'completed': false,
+            'suggested': true,
+          },
+          't4': {
+            'id': 't4',
+            'taskDefinitionId': 'td4',
             'starred': false,
             'completed': false,
             'suggested': true,
