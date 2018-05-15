@@ -18,3 +18,5 @@ export namespace Task {
   export const TOGGLE_STARRED = 'TASK:TOGGLE_STARRED';
   export const SHARE = 'TASK:SHARE';
 }
+
+export const PREFERENCES_CURRENT_LOCALE_CODE = 'PREFERENCES:CURRENT_LOCALE_CODE';

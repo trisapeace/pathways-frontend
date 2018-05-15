@@ -1,4 +1,5 @@
 import { I18nManager, AsyncStorage } from 'react-native';
+import { PREFERENCES_CURRENT_LOCALE_CODE } from './constants';
 // Unfortunately we need to load the Intl polyfill for Android. iOS has Intl
 // available natively; we should see it is possibly conditionally load the
 // polyfill only when needed.
@@ -37,30 +38,43 @@ function buildCatalogsMap(withLocales: ReadonlyArray<Locale>): Catalogs {
     return withLocales.reduce(reducer, {});
 }
 
-export async function saveCurrentLocaleCode(code: string): Promise<boolean> {
-    // tslint:disable-next-line:no-expression-statement
-    await AsyncStorage.setItem('@I18N:CURRENT_LOCALE_CODE', code);
-    return true;
-}
-
-export async function loadCurrentLocaleCode(): Promise<string> {
-    const localeCode = await AsyncStorage.getItem('@I18N:CURRENT_LOCALE_CODE');
-    if (localeCode === null) {
-        throw new Error('No current locale found');
-    }
-    return localeCode;
-}
+/**
+ * Persistence helpers:
+ * TODO: Consider putting these side-effect-causing functions somewhere else.
+ */
 
 /**
  * I18nManager.forceRTL() requires application to be restarted for changes to
  * take effect. To ensure that we load correct locale upon application restart,
  * this needs to be called *after* desired locale has been persisted to storage.
+ * @param locale
  */
-export function reloadIfNeeded(locale: Locale): boolean {
+export function setRTLAndReloadIfNeeded(locale: Locale): boolean {
     const reload = I18nManager.isRTL !== locale.isRTL;
     if (reload) {
         I18nManager.forceRTL(locale.isRTL); // tslint:disable-line:no-expression-statement
-        Expo.Util.reload(true); // tslint:disable-line:no-expression-statement
+        Expo.Updates.reloadFromCache(); // tslint:disable-line:no-expression-statement
     }
     return reload;
+}
+
+/**
+ * Stores user's preferred locale code in persistent storage.
+ * Useful to survive application restart.
+ */
+export async function saveCurrentLocaleCode(code: string): Promise<boolean> {
+    // tslint:disable-next-line:no-expression-statement
+    await AsyncStorage.setItem(PREFERENCES_CURRENT_LOCALE_CODE, code);
+    return true;
+}
+
+/**
+ * Fetch user's preferred locale code from persistent storage.
+ */
+export async function loadCurrentLocaleCode(): Promise<string> {
+    const localeCode = await AsyncStorage.getItem(PREFERENCES_CURRENT_LOCALE_CODE);
+    if (localeCode === null) {
+        throw new Error('No current locale found');
+    }
+    return localeCode;
 }
