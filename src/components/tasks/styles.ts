@@ -5,18 +5,16 @@ export const taskDetail = StyleSheet.create({
         borderBottomColor: '#d6d7da',
         borderBottomWidth: 2,
         flexDirection: 'row',
-        paddingVertical: 10,
+        padding: 10,
     },
-    leftColumn: {
+    sideColumn: {
+        alignItems: 'center',
         flex: 1,
         flexDirection: 'row',
+        justifyContent: 'center',
     },
     centerColumn: {
         flex: 4,
-        flexDirection: 'row',
-    },
-    rightColumn: {
-        flex: 1,
         flexDirection: 'row',
     },
     stackedItems: {
