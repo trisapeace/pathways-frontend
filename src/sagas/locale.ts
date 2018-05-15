@@ -1,7 +1,7 @@
 import { takeLatest, call, put, ForkEffect, CallEffect, PutEffect} from 'redux-saga/effects';
 
 import * as constants from '../application/constants';
-import { saveCurrentLocaleCode, reloadIfNeeded, loadCurrentLocaleCode, getLocale } from '../application/locales';
+import { saveCurrentLocaleCode, setRTLAndReloadIfNeeded, loadCurrentLocaleCode, getLocale } from '../application/locales';
 import { SetLocale, LoadCurrentLocale, setLocaleActions, loadCurrentLocaleActions } from '../stores/locale';
 
 export function* watchSetLocale(): IterableIterator<ForkEffect> {
@@ -14,7 +14,7 @@ function* applyLocaleChange(action: SetLocale.Request): IterableIterator<CallEff
         // tslint:disable-next-line:no-expression-statement
         yield call(saveCurrentLocaleCode, action.payload.locale.code);
         // tslint:disable-next-line:no-expression-statement
-        yield call(reloadIfNeeded, action.payload.locale);
+        yield call(setRTLAndReloadIfNeeded, action.payload.locale);
         // tslint:disable-next-line:no-expression-statement
         yield put(setLocaleActions.success(action.payload.locale));
     } catch (e) {
