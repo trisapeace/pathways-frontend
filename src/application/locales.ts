@@ -1,4 +1,4 @@
-import { I18nManager } from 'react-native';
+import { I18nManager, AsyncStorage } from 'react-native';
 // Unfortunately we need to load the Intl polyfill for Android. iOS has Intl
 // available natively; we should see it is possibly conditionally load the
 // polyfill only when needed.
@@ -21,7 +21,11 @@ export const locales: ReadonlyArray<Locale> = [
 ];
 
 export function getLocale(code: string): Locale {
-    return locales.find((locale: Locale): boolean => locale.code === code);
+    const locale = locales.find((aLocale: Locale): boolean => aLocale.code === code);
+    if (locale === null) {
+        throw new Error(`Unknown locale code: ${code}`);
+    }
+    return locale;
 }
 
 export const catalogs = buildCatalogsMap(locales);
@@ -31,4 +35,32 @@ function buildCatalogsMap(withLocales: ReadonlyArray<Locale>): Catalogs {
         return { ...accumulator, [locale.code]: locale.catalog };
     };
     return withLocales.reduce(reducer, {});
+}
+
+export async function saveCurrentLocaleCode(code: string): Promise<boolean> {
+    // tslint:disable-next-line:no-expression-statement
+    await AsyncStorage.setItem('@I18N:CURRENT_LOCALE_CODE', code);
+    return true;
+}
+
+export async function loadCurrentLocaleCode(): Promise<Locale> {
+    const localeCode = await AsyncStorage.getItem('@I18N:CURRENT_LOCALE_CODE');
+    if (localeCode === null) {
+        throw new Error('No current locale found');
+    }
+    return getLocale(localeCode);
+}
+
+/**
+ * I18nManager.forceRTL() requires application to be restarted for changes to
+ * take effect. To ensure that we load correct locale upon application restart,
+ * this needs to be called *after* desired locale has been persisted to storage.
+ */
+export function reloadIfNeeded(locale: Locale): boolean {
+    const reload = I18nManager.isRTL !== locale.isRTL;
+    if (reload) {
+        I18nManager.forceRTL(locale.isRTL); // tslint:disable-line:no-expression-statement
+        Expo.Util.reload(true); // tslint:disable-line:no-expression-statement
+    }
+    return reload;
 }

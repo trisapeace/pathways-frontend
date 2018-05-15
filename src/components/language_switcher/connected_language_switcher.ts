@@ -13,7 +13,7 @@ const mapStateToProps = ({ applicationState: { localeInStore } }: Store): Props 
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
-    setLocale: (locale: Locale): store.SetLocaleAction => dispatch(store.setLocale(locale)),
+    setLocale: (locale: Locale): store.SetLocale.Request => dispatch(store.setLocaleActions.request(locale)),
 });
 
 export const ConnectedLanguageSwitcher = connect(mapStateToProps, mapDispatchToProps)(LanguageSwitcher);
