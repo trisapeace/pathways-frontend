@@ -17,5 +17,5 @@ const reducer = combineReducers({ location: router.reducer, applicationState: re
 const middleware = applyMiddleware(router.middleware, saga.middleware);
 export const store = createStore(reducer, compose(router.enhancer, middleware));
 
-store.dispatch(loadCurrentLocaleActions.request()); // tslint:disable-line:no-expression-statement
 runSaga(saga.middleware); // tslint:disable-line:no-expression-statement
+store.dispatch(loadCurrentLocaleActions.request()); // tslint:disable-line:no-expression-statement

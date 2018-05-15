@@ -43,12 +43,12 @@ export async function saveCurrentLocaleCode(code: string): Promise<boolean> {
     return true;
 }
 
-export async function loadCurrentLocaleCode(): Promise<Locale> {
+export async function loadCurrentLocaleCode(): Promise<string> {
     const localeCode = await AsyncStorage.getItem('@I18N:CURRENT_LOCALE_CODE');
     if (localeCode === null) {
         throw new Error('No current locale found');
     }
-    return getLocale(localeCode);
+    return localeCode;
 }
 
 /**
