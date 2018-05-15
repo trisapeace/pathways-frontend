@@ -1,16 +1,21 @@
-import { Reducer, createStore, compose, applyMiddleware, combineReducers } from 'redux';
+import { Reducer, GenericStoreEnhancer, Middleware } from 'redux';
+import  { LocationState } from 'redux-first-router';
 import * as reduxFirstRouter from 'redux-first-router';
 import createMemoryHistory from 'history/createMemoryHistory';
 import * as constants from '../application/constants';
-import { Store as StoreForApplicationState } from '../stores';
 
 const routesMap = {
     [constants.SET_MAIN_TAB]: '/user/:mainPage',
 };
 
-export const createStoreWithRouter = (reducerForApplicationState: Reducer<StoreForApplicationState>) => {
+interface ApplicationRouter {
+    readonly reducer: Reducer<LocationState<string, any>>; // tslint:disable-line:no-any
+    readonly enhancer: GenericStoreEnhancer;
+    readonly middleware: Middleware;
+}
+
+export function buildRouter(): ApplicationRouter {
     const history = createMemoryHistory();
     const router = reduxFirstRouter.connectRoutes(history, routesMap);
-    const rootReducer = combineReducers({ location: router.reducer, applicationState: reducerForApplicationState });
-    return createStore(rootReducer, compose(router.enhancer, applyMiddleware(router.middleware)));
-};
+    return { reducer: router.reducer, enhancer: router.enhancer, middleware: router.middleware };
+}
