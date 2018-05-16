@@ -3,15 +3,15 @@
 import { Locale } from '../../components/language_switcher/view_model';
 import * as locale from '../locale';
 import * as constants from '../../application/constants';
-import * as helpers from '../helpers/make_action';
-
-const buildStore = (): locale.Store => locale.reducer(undefined, undefined);
 
 const aLocale = { code: 'ar', label: 'Arabic', catalog: {}, isRTL: true };
 
 const buildStoreWithLocale = (theLocale: Locale): locale.Store => {
-    const action = helpers.makeAction(constants.SET_LOCALE_SUCCESS, { locale: theLocale });
-    return locale.reducer(undefined, action);
+    return { ...locale.buildDefaultStore(), code: theLocale.code };
+};
+
+const buildStoreLoadingLocale = (): locale.Store => {
+    return { ...locale.buildDefaultStore(), loading: true };
 };
 
 describe('the setLocaleAction for', () => {
@@ -114,7 +114,7 @@ describe('the reducer', () => {
     });
 
     it('when called with SET_LOCALE_REQUEST should return store with loading flag set', () => {
-        const theStore = buildStore();
+        const theStore = buildStoreLoadingLocale();
         const theAction = {
             type: constants.SET_LOCALE_REQUEST as typeof constants.SET_LOCALE_REQUEST,
             payload: { locale: aLocale },
@@ -124,7 +124,7 @@ describe('the reducer', () => {
     });
 
     it('when called with SET_LOCALE_SUCCESS should return store with locale code from action', () => {
-        const theStore = buildStore();
+        const theStore = buildStoreLoadingLocale();
         const theAction = {
             type: constants.SET_LOCALE_SUCCESS as typeof constants.SET_LOCALE_SUCCESS,
             payload: { locale: aLocale },
@@ -134,15 +134,24 @@ describe('the reducer', () => {
         expect(theNewStore.loading).toBe(false);
     });
 
-    it('when called with SET_LOCALE_FAILURE should return store with default loading flag unset', () => {
+    it('when called with SET_LOCALE_FAILURE should return store with loading flag set false', () => {
         const errorMessage = '[test] Error occurred during setLocale';
-        const theStore = buildStore();
+        const theStore = buildStoreLoadingLocale();
         const theAction = {
             type: constants.SET_LOCALE_FAILURE as typeof constants.SET_LOCALE_FAILURE,
             payload: { message: errorMessage, locale: aLocale },
         };
         const theNewStore = locale.reducer(theStore, theAction);
         expect(theNewStore.loading).toBe(false);
+    });
+
+    it('when called with LOAD_CURRENT_LOCALE_REQUEST should return store with loading flag set', () => {
+        const theStore = locale.buildDefaultStore();
+        const theAction = {
+            type: constants.LOAD_CURRENT_LOCALE_REQUEST as typeof constants.LOAD_CURRENT_LOCALE_REQUEST,
+        };
+        const theNewStore = locale.reducer(theStore, theAction);
+        expect(theNewStore.loading).toBe(true);
     });
 
     it('should return store unchanged if action is undefined', () => {
