@@ -54,7 +54,7 @@
     "ios": "react-native-scripts ios"
   },
   "jest": {
-    "preset": "react-native",
+    "preset": "jest-expo",
     "setupTestFrameworkScriptFile": "<rootDir>/lib/application/__tests__/helpers/setup_tests.js",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
@@ -62,7 +62,10 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|expo|@expo/.*|native-base)/)"
+    ],
+    "testRegex": "/__tests__/[\\w]+\\.(test|spec)\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
