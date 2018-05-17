@@ -9,7 +9,7 @@ export function* watchSetLocale(): IterableIterator<ForkEffect> {
     yield takeLatest(constants.SET_LOCALE_REQUEST, applyLocaleChange);
 }
 
-function* applyLocaleChange(action: SetLocale.Request): IterableIterator<CallEffect | PutEffect<SetLocale.Result>> {
+export function* applyLocaleChange(action: SetLocale.Request): IterableIterator<CallEffect | PutEffect<SetLocale.Result>> {
     try {
         // tslint:disable-next-line:no-expression-statement
         yield call(saveCurrentLocaleCode, action.payload.locale.code);
@@ -25,10 +25,11 @@ function* applyLocaleChange(action: SetLocale.Request): IterableIterator<CallEff
 
 export function* watchLoadLocale(): IterableIterator<ForkEffect> {
     // tslint:disable-next-line:no-expression-statement
-    yield takeLatest(constants.LOAD_CURRENT_LOCALE_REQUEST, loadLocale);
+    yield takeLatest(constants.LOAD_CURRENT_LOCALE_REQUEST, loadCurrentLocale);
 }
 
-function* loadLocale(): IterableIterator<CallEffect | PutEffect<LoadCurrentLocale.Request | LoadCurrentLocale.Result | SetLocale.Request>> {
+type LoadCurrentLocaleActions = LoadCurrentLocale.Request | LoadCurrentLocale.Result | SetLocale.Request;
+export function* loadCurrentLocale(): IterableIterator<CallEffect | PutEffect<LoadCurrentLocaleActions>> {
     try {
         const currentLocaleCode = yield call(loadCurrentLocaleCode);
         const currentLocale = getLocale(currentLocaleCode);
