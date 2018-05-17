@@ -28,15 +28,3 @@ export const taskDetail = StyleSheet.create({
         flexWrap: 'wrap',
     },
 });
-
-export const tag = StyleSheet.create({
-    tag: {
-        borderRadius: 20,
-        margin: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-    },
-    tagText: {
-        color: 'white',
-    },
-});
