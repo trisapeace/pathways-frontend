@@ -16,7 +16,9 @@ const Switcher = (props: LanguageSwitcherProps): JSX.Element => {
                 ))}
             </View>
             <View style={{alignItems: 'flex-start'}}>
-                <Text style={{textAlign: 'left'}}><Trans>This sentence exists to demonstrate the translation functionality that exists in this application.</Trans></Text>
+                <Text style={{textAlign: 'left'}}>
+                    <Trans>This sentence exists to demonstrate the translation functionality that exists in this application.</Trans>
+                </Text>
             </View>
         </View>
     );
