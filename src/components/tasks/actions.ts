@@ -1,9 +1,9 @@
 import * as models from '../../stores/tasks';
 
-export interface TasksActions {
-    readonly addToTaskList: (taskId: models.Id) => void;
-    readonly removeFromTaskList: (taskId: models.Id) => void;
-    readonly markTaskAsComplete: (taskId: models.Id) => void;
-    readonly shareTask: (taskId: models.Id) => void;
-    readonly starTask: (taskId: models.Id) => void;
+export interface TaskActions {
+    readonly addToTaskList: (task: models.Task) => models.AddToTaskListAction;
+    readonly removeFromTaskList: (taskId: models.Id) => models.RemoveFromTaskListAction;
+    readonly toggleTaskCompleted: (taskId: models.Id) => models.ToggleTaskCompletedAction;
+    readonly toggleTaskStarred: (taskId: models.Id) => models.ToggleTaskStarredAction;
+    readonly shareTask: (taskId: models.Id) => models.ShareTaskAction;
 }

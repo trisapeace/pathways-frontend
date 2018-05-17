@@ -6,7 +6,16 @@ export { Id, Store, Task, Tasks, TaskDefinition, TaskDefinitions } from '../fixt
 
 export type AddToTaskListAction = Readonly<ReturnType<typeof addToTaskList>>;
 export type RemoveFromTaskListAction = Readonly<ReturnType<typeof removeFromTaskList>>;
-export type TasksAction = AddToTaskListAction | RemoveFromTaskListAction;
+export type ToggleTaskCompletedAction = Readonly<ReturnType<typeof toggleTaskCompleted>>;
+export type ShareTaskAction = Readonly<ReturnType<typeof shareTask>>;
+export type ToggleTaskStarredAction = Readonly<ReturnType<typeof toggleTaskStarred>>;
+export type ToggleTaskSuggestedAction = Readonly<ReturnType<typeof toggleTaskSuggested>>;
+export type TaskAction = AddToTaskListAction |
+                         RemoveFromTaskListAction |
+                         ToggleTaskCompletedAction |
+                         ToggleTaskStarredAction |
+                         ToggleTaskSuggestedAction |
+                         ShareTaskAction;
 
 // tslint:disable-next-line:typedef
 export const addToTaskList = (task: Task) => (
@@ -18,11 +27,31 @@ export const removeFromTaskList = (taskId: Id) => (
     helpers.makeAction(constants.REMOVE_FROM_TASK_LIST, { taskId })
 );
 
+// tslint:disable-next-line:typedef
+export const toggleTaskCompleted = (taskId: Id) => (
+    helpers.makeAction(constants.TOGGLE_TASK_COMPLETED, { taskId })
+);
+
+// tslint:disable-next-line:typedef
+export const toggleTaskStarred = (taskId: Id) => (
+    helpers.makeAction(constants.TOGGLE_TASK_STARRED, { taskId })
+);
+
+// tslint:disable-next-line:typedef
+export const toggleTaskSuggested = (taskId: Id) => (
+    helpers.makeAction(constants.TOGGLE_TASK_SUGGESTED, { taskId })
+);
+
+// tslint:disable-next-line:typedef
+export const shareTask = (taskId: Id) => (
+    helpers.makeAction(constants.SHARE_TASK, { taskId })
+);
+
 export const buildDefaultStore = (): Store => (
     buildTasksFixture()
 );
 
-export const reducer = (store: Store = buildDefaultStore(), action?: TasksAction): Store => {
+export const reducer = (store: Store = buildDefaultStore(), action?: TaskAction): Store => {
     if (!action) {
         return store;
     }
@@ -40,7 +69,35 @@ export const reducer = (store: Store = buildDefaultStore(), action?: TasksAction
             // tslint:disable-next-line:no-expression-statement
             delete(tasks[action.payload.taskId]);
             return { ...store, tasks };
+        case constants.TOGGLE_TASK_COMPLETED: {
+            const task = store.tasks[action.payload.taskId];
+            return setTaskValue(store, task, 'completed', !task.completed);
+        }
+        case constants.TOGGLE_TASK_STARRED: {
+            const task = store.tasks[action.payload.taskId];
+            return setTaskValue(store, task, 'starred', !task.starred);
+        }
+        case constants.TOGGLE_TASK_SUGGESTED: {
+            const task = store.tasks[action.payload.taskId];
+            return setTaskValue(store, task, 'suggested', !task.suggested);
+        }
+        case constants.SHARE_TASK:
+            // TODO
+            return store;
         default:
             return store;
     }
+};
+
+const setTaskValue = (store: Store, task: Task, property: string, value: string | boolean): Store => {
+    return {
+        ...store,
+        tasks: {
+            ...store.tasks,
+            [task.id]: {
+                ...task,
+                [property]: value,
+            },
+        },
+    };
 };

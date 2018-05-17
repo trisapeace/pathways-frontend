@@ -3,12 +3,12 @@ import { View } from 'react-native';
 import { Text, Button, Icon } from 'native-base';
 import { taskDetail as styles } from './styles';
 import { TaskViewModel } from '../../selectors/tasks';
-import { TasksActions } from './actions';
+import { TaskActions } from './actions';
 
 export interface Props {
 }
 
-export type Actions = TasksActions;
+export type Actions = TaskActions;
 
 export const Task: React.StatelessComponent<TaskViewModel & Actions> = (props: TaskViewModel & Actions): JSX.Element => (
     <View style={styles.wrapper}>

@@ -25,9 +25,9 @@ const renderTaskDetail = ({item}: any): JSX.Element => {
             tags={item.tags}
             addToTaskList={item.addToTaskList}
             removeFromTaskList={item.removeFromTaskList}
-            markTaskAsComplete={item.markTaskAsComplete}
+            toggleTaskCompleted={item.markTaskAsComplete}
+            toggleTaskStarred={item.toggleTaskStarred}
             shareTask={item.shareTask}
-            starTask={item.starTask}
         />
     );
 };
