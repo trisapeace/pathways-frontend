@@ -10,12 +10,12 @@ export type TasksAction = AddToTaskListAction | RemoveFromTaskListAction;
 
 // tslint:disable-next-line:typedef
 export const addToTaskList = (task: Task) => (
-    helpers.makeAction(constants.ADD_TO_TASK_LIST, task)
+    helpers.makeAction(constants.ADD_TO_TASK_LIST, { task })
 );
 
 // tslint:disable-next-line:typedef
 export const removeFromTaskList = (taskId: Id) => (
-    helpers.makeAction(constants.REMOVE_FROM_TASK_LIST, taskId)
+    helpers.makeAction(constants.REMOVE_FROM_TASK_LIST, { taskId })
 );
 
 export const buildDefaultStore = (): Store => (
@@ -32,13 +32,13 @@ export const reducer = (store: Store = buildDefaultStore(), action?: TasksAction
                 ...store,
                 tasks: {
                     ...store.tasks,
-                    [action.payload.id]: action.payload,
+                    [action.payload.task.id]: action.payload.task,
                 },
             };
         case constants.REMOVE_FROM_TASK_LIST:
             const tasks = { ...store.tasks };
             // tslint:disable-next-line:no-expression-statement
-            delete(tasks[action.payload]);
+            delete(tasks[action.payload.taskId]);
             return { ...store, tasks };
         default:
             return store;
