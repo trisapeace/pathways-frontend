@@ -2,23 +2,23 @@ import { buildTasksFixture, Store, Task, Id } from '../fixtures/tasks';
 import * as constants from '../application/constants';
 import * as helpers from './helpers/make_action';
 
-export { Id, Store, Task, TaskDefinition } from '../fixtures/tasks';
+export { Id, Store, Task, Tasks, TaskDefinition, TaskDefinitions } from '../fixtures/tasks';
 
 export type AddToTaskListAction = Readonly<ReturnType<typeof addToTaskList>>;
 export type RemoveFromTaskListAction = Readonly<ReturnType<typeof removeFromTaskList>>;
-export type TasksAction = AddToTaskListAction & RemoveFromTaskListAction;
+export type TasksAction = AddToTaskListAction | RemoveFromTaskListAction;
 
 // tslint:disable-next-line:typedef
-export const addToTaskList = (taskId: Id) => (
-    helpers.makeAction(constants.ADD_TO_TASK_LIST, { taskId })
+export const addToTaskList = (task: Task) => (
+    helpers.makeAction(constants.ADD_TO_TASK_LIST, task)
 );
 
 // tslint:disable-next-line:typedef
 export const removeFromTaskList = (taskId: Id) => (
-    helpers.makeAction(constants.REMOVE_FROM_TASK_LIST, { taskId })
+    helpers.makeAction(constants.REMOVE_FROM_TASK_LIST, taskId)
 );
 
-const buildDefaultStore = (): Store => (
+export const buildDefaultStore = (): Store => (
     buildTasksFixture()
 );
 
@@ -28,21 +28,19 @@ export const reducer = (store: Store = buildDefaultStore(), action?: TasksAction
     }
     switch (action.type) {
         case constants.ADD_TO_TASK_LIST:
+            return {
+                ...store,
+                tasks: {
+                    ...store.tasks,
+                    [action.payload.id]: action.payload,
+                },
+            };
         case constants.REMOVE_FROM_TASK_LIST:
+            const tasks = { ...store.tasks };
+            // tslint:disable-next-line:no-expression-statement
+            delete(tasks[action.payload]);
+            return { ...store, tasks };
         default:
             return store;
     }
-};
-
-const setTaskProperty = (store: Store, task: Task, property: string, value: string | boolean | number): Store => {
-    return {
-        ...store,
-        tasks: {
-            ...store.tasks,
-            [task.id]: {
-                ...task,
-                [property]: value,
-            },
-        },
-    };
 };

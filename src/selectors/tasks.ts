@@ -1,5 +1,4 @@
 import * as models from '../stores/tasks';
-import * as app from '../application/store';
 
 export interface TaskViewModel {
     readonly id: string;
@@ -13,8 +12,7 @@ export interface TaskViewModel {
     readonly tags: ReadonlyArray<string>;
 }
 
-export const selectTasks = (appStore: app.Store): ReadonlyArray<TaskViewModel> => {
-    const { tasks, taskDefinitions }: models.Store = appStore.applicationState.tasksInStore;
+export const selectTasks = ({ tasks, taskDefinitions }: models.Store): ReadonlyArray<TaskViewModel> => {
     return Object.keys(tasks).map((key: string) => {
         const task: models.Task = tasks[key];
         const taskDefinition: models.TaskDefinition = taskDefinitions[task.taskDefinitionId];

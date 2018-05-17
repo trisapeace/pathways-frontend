@@ -5,6 +5,7 @@ import { Store } from '../../application/store';
 import { selectTasks } from '../../selectors/tasks';
 import {
     Id,
+    Task,
     AddToTaskListAction,
     addToTaskList,
     RemoveFromTaskListAction,
@@ -12,11 +13,11 @@ import {
 } from '../../stores/tasks';
 
 const mapStateToProps = (store: Store): Props => ({
-    tasks: selectTasks(store),
+    tasks: selectTasks(store.applicationState.tasksInStore),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
-    addToTaskList: (taskId: Id): AddToTaskListAction => dispatch(addToTaskList(taskId)),
+    addToTaskList: (task: Task): AddToTaskListAction => dispatch(addToTaskList(task)),
     removeFromTaskList: (taskId: Id): RemoveFromTaskListAction => dispatch(removeFromTaskList(taskId)),
 });
 
