@@ -4,6 +4,7 @@ import { Text, Button, Icon } from 'native-base';
 import { taskDetail as styles } from './styles';
 import { TaskViewModel } from '../../selectors/tasks';
 import { TaskActions } from './actions';
+import { Trans } from '@lingui/react';
 
 export interface Props {
 }
@@ -14,12 +15,12 @@ export const Task: React.StatelessComponent<TaskViewModel & Actions> = (props: T
     <View style={styles.wrapper}>
         <View style={styles.sideColumn}>
             <Button rounded success>
-                <Text>Add</Text>
+                <Text><Trans>Add</Trans></Text>
             </Button>
         </View>
         <View style={styles.centerColumn}>
             <View style={styles.stackedItems}>
-                <Text>{props.title}</Text>
+                <Text><Trans>{props.title}</Trans></Text>
             </View>
         </View>
         <View style={styles.sideColumn}>
