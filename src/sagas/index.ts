@@ -1,3 +1,4 @@
+// tslint:disable:no-expression-statement
 import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
 
 import { watchLoadLocale, watchSetLocale } from './locale';
@@ -15,6 +16,6 @@ export function buildSaga(): ApplicationSaga {
 }
 
 export function runSaga(middleware: SagaMiddleware<object>): void {
-    middleware.run(watchLoadLocale); // tslint:disable-line:no-expression-statement
-    middleware.run(watchSetLocale); // tslint:disable-line:no-expression-statement
+    middleware.run(watchLoadLocale);
+    middleware.run(watchSetLocale);
 }

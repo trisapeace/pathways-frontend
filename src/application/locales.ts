@@ -1,5 +1,5 @@
 import { I18nManager, AsyncStorage } from 'react-native';
-import { PREFERENCES_CURRENT_LOCALE_CODE } from './constants';
+import { PREFERENCES_LOCALE_CODE } from './constants';
 // Unfortunately we need to load the Intl polyfill for Android. iOS has Intl
 // available natively; we should see it is possibly conditionally load the
 // polyfill only when needed.
@@ -62,19 +62,18 @@ export function setRTLAndReloadIfNeeded(locale: Locale): boolean {
  * Stores user's preferred locale code in persistent storage.
  * Useful to survive application restart.
  */
-export async function saveCurrentLocaleCode(code: string): Promise<boolean> {
+export async function saveCurrentLocaleCode(code: string): Promise<void> {
     // tslint:disable-next-line:no-expression-statement
-    await AsyncStorage.setItem(PREFERENCES_CURRENT_LOCALE_CODE, code);
-    return true;
+    return await AsyncStorage.setItem(PREFERENCES_LOCALE_CODE, code);
 }
 
 /**
  * Fetch user's preferred locale code from persistent storage.
  */
 export async function loadCurrentLocaleCode(): Promise<string> {
-    const localeCode = await AsyncStorage.getItem(PREFERENCES_CURRENT_LOCALE_CODE);
+    const localeCode = await AsyncStorage.getItem(PREFERENCES_LOCALE_CODE);
     if (localeCode === null) {
-        throw new Error('No current locale found');
+        throw new Error('No locale preference found');
     }
     return localeCode;
 }
