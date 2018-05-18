@@ -114,7 +114,7 @@ describe('the reducer', () => {
     });
 
     it('when called with SET_LOCALE_REQUEST should return store with loading flag set', () => {
-        const theStore = buildStoreLoadingLocale();
+        const theStore = locale.buildDefaultStore();
         const theAction = {
             type: constants.SET_LOCALE_REQUEST as typeof constants.SET_LOCALE_REQUEST,
             payload: { locale: aLocale },
