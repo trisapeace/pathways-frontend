@@ -4,7 +4,7 @@ import { Component, Props, renderTask, renderSuggestedTask } from './task_list';
 import { Actions } from './task';
 import { Store } from '../../application/store';
 import { selectTasks, selectSuggestedTasks } from '../../selectors/tasks';
-import * as models from '../../stores/tasks';
+import * as stores from '../../stores/tasks';
 
 const mapTasksStateToProps = (store: Store): Props => ({
     tasks: selectTasks(store.applicationState.tasksInStore),
@@ -12,10 +12,10 @@ const mapTasksStateToProps = (store: Store): Props => ({
 });
 
 const mapTasksDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
-    removeFromTaskList: (taskId: models.Id): models.RemoveFromTaskListAction => dispatch(models.removeFromTaskList(taskId)),
-    toggleTaskCompleted: (taskId: models.Id): models.ToggleTaskCompletedAction => dispatch(models.toggleTaskCompleted(taskId)),
-    toggleTaskStarred: (taskId: models.Id): models.ToggleTaskStarredAction => dispatch(models.toggleTaskStarred(taskId)),
-    shareTask: (taskId: models.Id): models.ShareTaskAction => dispatch(models.shareTask(taskId)),
+    removeFromTaskList: (taskId: stores.Id): stores.RemoveFromTaskListAction => dispatch(stores.removeFromTaskList(taskId)),
+    toggleTaskCompleted: (taskId: stores.Id): stores.ToggleTaskCompletedAction => dispatch(stores.toggleTaskCompleted(taskId)),
+    toggleTaskStarred: (taskId: stores.Id): stores.ToggleTaskStarredAction => dispatch(stores.toggleTaskStarred(taskId)),
+    shareTask: (taskId: stores.Id): stores.ShareTaskAction => dispatch(stores.shareTask(taskId)),
 });
 
 const mapSuggestedTasksStateToProps = (store: Store): Props => ({
@@ -24,8 +24,8 @@ const mapSuggestedTasksStateToProps = (store: Store): Props => ({
 });
 
 const mapSuggestedTasksDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
-    addToTaskList: (task: models.Task): models.AddToTaskListAction => dispatch(models.addToTaskList(task)),
-    shareTask: (taskId: models.Id): models.ShareTaskAction => dispatch(models.shareTask(taskId)),
+    addToTaskList: (task: stores.Task): stores.AddToTaskListAction => dispatch(stores.addToTaskList(task)),
+    shareTask: (taskId: stores.Id): stores.ShareTaskAction => dispatch(stores.shareTask(taskId)),
 });
 
 export const ConnectedTasks = connect(mapTasksStateToProps, mapTasksDispatchToProps)(Component);

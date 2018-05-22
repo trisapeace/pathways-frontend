@@ -2,12 +2,12 @@
 // tslint:disable:no-let
 // tslint:disable:no-any
 
-import * as models from '../../stores/tasks';
+import * as stores from '../../stores/tasks';
 import * as selector from '../tasks';
 import { buildTasksFixture } from '../../fixtures/tasks';
 
 describe('tasks selector', () => {
-    const store: models.Store = buildTasksFixture();
+    const store: stores.Store = buildTasksFixture();
 
     it('can select tasks', () => {
         const tasksExpectedCount = Object.keys(store.tasks).length;

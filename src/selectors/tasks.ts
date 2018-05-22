@@ -1,4 +1,4 @@
-import * as models from '../stores/tasks';
+import * as stores from '../stores/tasks';
 
 export interface TaskViewModel {
     readonly id: string;
@@ -13,7 +13,7 @@ export interface TaskViewModel {
     readonly tags: ReadonlyArray<string>;
 }
 
-export const taskModelsToView = (task: models.Task, taskDefinition: models.TaskDefinition): TaskViewModel => {
+export const taskModelsToView = (task: stores.Task, taskDefinition: stores.TaskDefinition): TaskViewModel => {
     return {
         id: task.id,
         taskDefinitionId: taskDefinition.id,
@@ -28,7 +28,7 @@ export const taskModelsToView = (task: models.Task, taskDefinition: models.TaskD
     };
 };
 
-export const taskViewToTask = (taskViewModel: TaskViewModel): models.Task => {
+export const taskViewToTask = (taskViewModel: TaskViewModel): stores.Task => {
     return {
         id: taskViewModel.id,
         taskDefinitionId: taskViewModel.taskDefinitionId,
@@ -38,18 +38,18 @@ export const taskViewToTask = (taskViewModel: TaskViewModel): models.Task => {
     };
 };
 
-export const selectTasks = ({ tasks, taskDefinitions }: models.Store): ReadonlyArray<TaskViewModel> => {
+export const selectTasks = ({ tasks, taskDefinitions }: stores.Store): ReadonlyArray<TaskViewModel> => {
     return Object.keys(tasks).map((key: string) => {
-        const task: models.Task = tasks[key];
-        const taskDefinition: models.TaskDefinition = taskDefinitions[task.taskDefinitionId];
+        const task: stores.Task = tasks[key];
+        const taskDefinition: stores.TaskDefinition = taskDefinitions[task.taskDefinitionId];
         return taskModelsToView(task, taskDefinition);
     });
 };
 
-export const selectSuggestedTasks = ({ suggestedTasks, taskDefinitions }: models.Store): ReadonlyArray<TaskViewModel> => {
+export const selectSuggestedTasks = ({ suggestedTasks, taskDefinitions }: stores.Store): ReadonlyArray<TaskViewModel> => {
     return Object.keys(suggestedTasks).map((key: string) => {
-        const task: models.Task = suggestedTasks[key];
-        const taskDefinition: models.TaskDefinition = taskDefinitions[task.taskDefinitionId];
+        const task: stores.Task = suggestedTasks[key];
+        const taskDefinition: stores.TaskDefinition = taskDefinitions[task.taskDefinitionId];
         return taskModelsToView(task, taskDefinition);
     });
 };

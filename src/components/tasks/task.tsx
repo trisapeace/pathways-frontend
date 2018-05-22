@@ -4,7 +4,7 @@ import { Text, Button, Icon } from 'native-base';
 import { taskDetail as styles } from './styles';
 import { TaskViewModel, taskViewToTask } from '../../selectors/tasks';
 import { TaskActions } from './actions';
-import * as models from '../../stores/tasks';
+import * as stores from '../../stores/tasks';
 
 export interface Props {
 }
@@ -16,7 +16,7 @@ export const Task: React.StatelessComponent<TaskViewModel & Actions> = (props: T
         <View style={styles.wrapper}>
             <View style={styles.sideColumn}>
                 {!props.addToTaskList ? undefined : (
-                    <Button rounded success onPress={(): models.AddToTaskListAction => props.addToTaskList(taskViewToTask(props))}>
+                    <Button rounded success onPress={(): stores.AddToTaskListAction => props.addToTaskList(taskViewToTask(props))}>
                         <Text>Add</Text>
                     </Button>
                 )}
