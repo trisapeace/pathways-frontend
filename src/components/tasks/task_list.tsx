@@ -5,8 +5,7 @@ import { TaskActions } from './actions';
 import * as selector from '../../selectors/tasks';
 
 interface TaskRenderer {
-    // tslint:disable-next-line:no-any
-    (item: any, actions: TaskActions): JSX.Element;
+    (item: selector.Task, actions: TaskActions): JSX.Element;
 }
 
 export interface Props {
@@ -17,20 +16,22 @@ export interface Props {
 export interface Actions {
 }
 
-// tslint:disable-next-line:no-any
-const extractKey = (item: any): string => item.id.toString();
+const extractKey = (item: selector.Task): string => item.id.toString();
 
-export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => (
-    <FlatList
-        data={props.tasks}
-        // tslint:disable-next-line:no-any
-        renderItem={({ item }: any): JSX.Element => props.taskRenderer(item, props)}
-        keyExtractor={extractKey}
-    />
-);
+export const Component: React.StatelessComponent<Props & Actions> = (props: Props & Actions): JSX.Element => {
+    const renderItem = ({ item }: { readonly item: selector.Task }): JSX.Element => (
+       props.taskRenderer(item, props)
+    );
+    return (
+        <FlatList
+            data={props.tasks}
+            renderItem={renderItem}
+            keyExtractor={extractKey}
+        />
+    );
+};
 
-// tslint:disable-next-line:no-any
-export const renderTask = (item: any, actions: TaskActions): JSX.Element => {
+export const renderTask = (item: selector.Task, actions: TaskActions): JSX.Element => {
     return (
         <Task
             id={item.id}
@@ -51,8 +52,7 @@ export const renderTask = (item: any, actions: TaskActions): JSX.Element => {
     );
 };
 
-// tslint:disable-next-line:no-any
-export const renderSuggestedTask = (item: any, actions: TaskActions): JSX.Element => {
+export const renderSuggestedTask = (item: selector.Task, actions: TaskActions): JSX.Element => {
     return (
         <Task
             id={item.id}
