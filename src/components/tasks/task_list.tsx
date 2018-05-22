@@ -1,8 +1,8 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import { Task } from './task';
-import { TaskViewModel } from '../../selectors/tasks';
 import { TaskActions } from './actions';
+import * as selector from '../../selectors/tasks';
 
 interface TaskRenderer {
     // tslint:disable-next-line:no-any
@@ -10,7 +10,7 @@ interface TaskRenderer {
 }
 
 export interface Props {
-    readonly tasks: ReadonlyArray<TaskViewModel>;
+    readonly tasks: ReadonlyArray<selector.Task>;
     readonly taskRenderer: TaskRenderer;
 }
 

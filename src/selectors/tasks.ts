@@ -1,6 +1,6 @@
 import * as stores from '../stores/tasks';
 
-export interface TaskViewModel {
+export interface Task {
     readonly id: string;
     readonly taskDefinitionId: string;
     readonly title: string;
@@ -13,7 +13,7 @@ export interface TaskViewModel {
     readonly tags: ReadonlyArray<string>;
 }
 
-export const taskModelsToView = (task: stores.Task, taskDefinition: stores.TaskDefinition): TaskViewModel => {
+export const taskModelsToView = (task: stores.Task, taskDefinition: stores.TaskDefinition): Task => {
     return {
         id: task.id,
         taskDefinitionId: taskDefinition.id,
@@ -28,7 +28,7 @@ export const taskModelsToView = (task: stores.Task, taskDefinition: stores.TaskD
     };
 };
 
-export const taskViewToTask = (taskViewModel: TaskViewModel): stores.Task => {
+export const taskViewToTask = (taskViewModel: Task): stores.Task => {
     return {
         id: taskViewModel.id,
         taskDefinitionId: taskViewModel.taskDefinitionId,
@@ -38,7 +38,7 @@ export const taskViewToTask = (taskViewModel: TaskViewModel): stores.Task => {
     };
 };
 
-export const selectTasks = ({ tasks, taskDefinitions }: stores.Store): ReadonlyArray<TaskViewModel> => {
+export const selectTasks = ({ tasks, taskDefinitions }: stores.Store): ReadonlyArray<Task> => {
     return Object.keys(tasks).map((key: string) => {
         const task: stores.Task = tasks[key];
         const taskDefinition: stores.TaskDefinition = taskDefinitions[task.taskDefinitionId];
@@ -46,7 +46,7 @@ export const selectTasks = ({ tasks, taskDefinitions }: stores.Store): ReadonlyA
     });
 };
 
-export const selectSuggestedTasks = ({ suggestedTasks, taskDefinitions }: stores.Store): ReadonlyArray<TaskViewModel> => {
+export const selectSuggestedTasks = ({ suggestedTasks, taskDefinitions }: stores.Store): ReadonlyArray<Task> => {
     return Object.keys(suggestedTasks).map((key: string) => {
         const task: stores.Task = suggestedTasks[key];
         const taskDefinition: stores.TaskDefinition = taskDefinitions[task.taskDefinitionId];
