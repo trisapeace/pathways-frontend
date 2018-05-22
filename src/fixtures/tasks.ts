@@ -9,7 +9,7 @@ export interface TaskDefinition {
     readonly importance: number;
 }
 
-export interface TaskDefinitions {
+export interface TaskDefinitionsMap {
   readonly [property: string]: TaskDefinition;
 }
 
@@ -21,19 +21,19 @@ export interface Task {
     readonly suggested: boolean;
 }
 
-export interface Tasks {
+export interface TasksMap {
     readonly [property: string]: Task;
 }
 
 export interface Store {
-    readonly taskDefinitions: TaskDefinitions;
-    readonly tasks: Tasks;
-    readonly suggestedTasks: Tasks;
+    readonly taskDefinitionsMap: TaskDefinitionsMap;
+    readonly tasksMap: TasksMap;
+    readonly suggestedTasksMap: TasksMap;
 }
 
 export const buildTasksFixture = (): Store => {
     return {
-        taskDefinitions: {
+        taskDefinitionsMap: {
           'td1': {
             'id': 'td1',
             'title': 'Enroll child in elementary school.',
@@ -75,7 +75,7 @@ export const buildTasksFixture = (): Store => {
             'importance': 1,
           },
         },
-        tasks: {
+        tasksMap: {
           't1': {
             'id': 't1',
             'taskDefinitionId': 'td1',
@@ -98,7 +98,7 @@ export const buildTasksFixture = (): Store => {
             'suggested': false,
           },
         },
-        suggestedTasks: {
+        suggestedTasksMap: {
           't4': {
             'id': 't4',
             'taskDefinitionId': 'td4',

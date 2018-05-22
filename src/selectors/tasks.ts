@@ -38,18 +38,18 @@ export const normalizeTask = (task: Task): stores.Task => {
     };
 };
 
-export const selectTasks = ({ tasks, taskDefinitions }: stores.Store): ReadonlyArray<Task> => {
-    return Object.keys(tasks).map((key: string) => {
-        const task: stores.Task = tasks[key];
-        const taskDefinition: stores.TaskDefinition = taskDefinitions[task.taskDefinitionId];
+export const selectTasks = ({ tasksMap, taskDefinitionsMap }: stores.Store): ReadonlyArray<Task> => {
+    return Object.keys(tasksMap).map((key: string) => {
+        const task: stores.Task = tasksMap[key];
+        const taskDefinition: stores.TaskDefinition = taskDefinitionsMap[task.taskDefinitionId];
         return denormalizeTask(task, taskDefinition);
     });
 };
 
-export const selectSuggestedTasks = ({ suggestedTasks, taskDefinitions }: stores.Store): ReadonlyArray<Task> => {
-    return Object.keys(suggestedTasks).map((key: string) => {
-        const task: stores.Task = suggestedTasks[key];
-        const taskDefinition: stores.TaskDefinition = taskDefinitions[task.taskDefinitionId];
+export const selectSuggestedTasks = ({ suggestedTasksMap, taskDefinitionsMap }: stores.Store): ReadonlyArray<Task> => {
+    return Object.keys(suggestedTasksMap).map((key: string) => {
+        const task: stores.Task = suggestedTasksMap[key];
+        const taskDefinition: stores.TaskDefinition = taskDefinitionsMap[task.taskDefinitionId];
         return denormalizeTask(task, taskDefinition);
     });
 };

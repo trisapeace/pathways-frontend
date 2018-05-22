@@ -10,20 +10,20 @@ describe('tasks selector', () => {
     const store: stores.Store = buildTasksFixture();
 
     it('can select tasks', () => {
-        const tasksExpectedCount = Object.keys(store.tasks).length;
+        const tasksExpectedCount = Object.keys(store.tasksMap).length;
         const tasks = selector.selectTasks(store);
         expect(tasks).toHaveLength(tasksExpectedCount);
     });
 
     it('can select suggested tasks', () => {
-        const tasksExpectedCount = Object.keys(store.suggestedTasks).length;
+        const tasksExpectedCount = Object.keys(store.suggestedTasksMap).length;
         const tasks = selector.selectSuggestedTasks(store);
         expect(tasks).toHaveLength(tasksExpectedCount);
     });
 
     it('can convert normalized task & definition to denormalized task', () => {
-        const task = store.tasks.t1;
-        const taskDefinition = store.taskDefinitions[task.taskDefinitionId];
+        const task = store.tasksMap.t1;
+        const taskDefinition = store.taskDefinitionsMap[task.taskDefinitionId];
         const denormalizedTask = selector.denormalizeTask(task, taskDefinition);
 
         expect(denormalizedTask).toHaveProperty('id');

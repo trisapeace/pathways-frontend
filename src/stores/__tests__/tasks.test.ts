@@ -12,33 +12,33 @@ describe('tasks reducer', () => {
         'suggested': false,
     };
     const initialStore: stores.Store = stores.reducer(
-        {tasks: {}, taskDefinitions: {}, suggestedTasks: {}},
+        {tasksMap: {}, taskDefinitionsMap: {}, suggestedTasksMap: {}},
         stores.addToTaskList(fakeTask),
     );
 
     it('can add tasks to tasks list', () => {
-        expect(initialStore.tasks.fake1).toEqual(fakeTask);
-        expect(Object.keys(initialStore.tasks)).toHaveLength(1);
+        expect(initialStore.tasksMap.fake1).toEqual(fakeTask);
+        expect(Object.keys(initialStore.tasksMap)).toHaveLength(1);
     });
 
     it('can remove tasks from tasks list', () => {
         const finalStore = stores.reducer(initialStore, stores.removeFromTaskList(fakeTask.id));
-        expect(Object.keys(initialStore.tasks)).toHaveLength(1);
-        expect(Object.keys(finalStore.tasks)).toHaveLength(0);
+        expect(Object.keys(initialStore.tasksMap)).toHaveLength(1);
+        expect(Object.keys(finalStore.tasksMap)).toHaveLength(0);
     });
 
     it('can toggle task as complete', () => {
         const finalStore = stores.reducer(initialStore, stores.toggleTaskCompleted(fakeTask.id));
-        expect(finalStore.tasks[fakeTask.id].completed).toEqual(true);
+        expect(finalStore.tasksMap[fakeTask.id].completed).toEqual(true);
     });
 
     it('can toggle task as starred', () => {
         const finalStore = stores.reducer(initialStore, stores.toggleTaskStarred(fakeTask.id));
-        expect(finalStore.tasks[fakeTask.id].starred).toEqual(true);
+        expect(finalStore.tasksMap[fakeTask.id].starred).toEqual(true);
     });
 
     it('can toggle task as suggested', () => {
         const finalStore = stores.reducer(initialStore, stores.toggleTaskSuggested(fakeTask.id));
-        expect(finalStore.tasks[fakeTask.id].suggested).toEqual(true);
+        expect(finalStore.tasksMap[fakeTask.id].suggested).toEqual(true);
     });
 });
