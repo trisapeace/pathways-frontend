@@ -13,7 +13,7 @@ export interface Task {
     readonly tags: ReadonlyArray<string>;
 }
 
-export const taskModelsToView = (task: stores.Task, taskDefinition: stores.TaskDefinition): Task => {
+export const denormalizeTask = (task: stores.Task, taskDefinition: stores.TaskDefinition): Task => {
     return {
         id: task.id,
         taskDefinitionId: taskDefinition.id,
@@ -28,13 +28,13 @@ export const taskModelsToView = (task: stores.Task, taskDefinition: stores.TaskD
     };
 };
 
-export const taskViewToTask = (taskViewModel: Task): stores.Task => {
+export const normalizeTask = (task: Task): stores.Task => {
     return {
-        id: taskViewModel.id,
-        taskDefinitionId: taskViewModel.taskDefinitionId,
-        starred: taskViewModel.starred,
-        completed: taskViewModel.completed,
-        suggested: taskViewModel.suggested,
+        id: task.id,
+        taskDefinitionId: task.taskDefinitionId,
+        starred: task.starred,
+        completed: task.completed,
+        suggested: task.suggested,
     };
 };
 
@@ -42,7 +42,7 @@ export const selectTasks = ({ tasks, taskDefinitions }: stores.Store): ReadonlyA
     return Object.keys(tasks).map((key: string) => {
         const task: stores.Task = tasks[key];
         const taskDefinition: stores.TaskDefinition = taskDefinitions[task.taskDefinitionId];
-        return taskModelsToView(task, taskDefinition);
+        return denormalizeTask(task, taskDefinition);
     });
 };
 
@@ -50,6 +50,6 @@ export const selectSuggestedTasks = ({ suggestedTasks, taskDefinitions }: stores
     return Object.keys(suggestedTasks).map((key: string) => {
         const task: stores.Task = suggestedTasks[key];
         const taskDefinition: stores.TaskDefinition = taskDefinitions[task.taskDefinitionId];
-        return taskModelsToView(task, taskDefinition);
+        return denormalizeTask(task, taskDefinition);
     });
 };

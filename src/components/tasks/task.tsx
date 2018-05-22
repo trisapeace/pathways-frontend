@@ -19,7 +19,7 @@ export const Task: React.StatelessComponent<selector.Task & Actions> = (props: s
                     <Button
                         rounded
                         success
-                        onPress={(): stores.AddToTaskListAction => props.addToTaskList(selector.taskViewToTask(props))}>
+                        onPress={(): stores.AddToTaskListAction => props.addToTaskList(selector.normalizeTask(props))}>
                         <Text>Add</Text>
                     </Button>
                 )}

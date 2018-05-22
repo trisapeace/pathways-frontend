@@ -21,25 +21,25 @@ describe('tasks selector', () => {
         expect(tasks).toHaveLength(tasksExpectedCount);
     });
 
-    it('can convert from normalized task & definition structure to task view model structure', () => {
-        const task1 = store.tasks.t1;
-        const task1Definition = store.taskDefinitions[task1.taskDefinitionId];
-        const taskViewModel = selector.taskModelsToView(task1, task1Definition);
+    it('can convert normalized task & definition to denormalized task', () => {
+        const task = store.tasks.t1;
+        const taskDefinition = store.taskDefinitions[task.taskDefinitionId];
+        const denormalizedTask = selector.denormalizeTask(task, taskDefinition);
 
-        expect(taskViewModel).toHaveProperty('id');
-        expect(taskViewModel).toHaveProperty('title');
-        expect(taskViewModel).toHaveProperty('description');
-        expect(taskViewModel).toHaveProperty('category');
-        expect(taskViewModel).toHaveProperty('importance');
-        expect(taskViewModel).toHaveProperty('starred');
-        expect(taskViewModel).toHaveProperty('completed');
-        expect(taskViewModel).toHaveProperty('suggested');
-        expect(taskViewModel).toHaveProperty('tags');
+        expect(denormalizedTask).toHaveProperty('id');
+        expect(denormalizedTask).toHaveProperty('title');
+        expect(denormalizedTask).toHaveProperty('description');
+        expect(denormalizedTask).toHaveProperty('category');
+        expect(denormalizedTask).toHaveProperty('importance');
+        expect(denormalizedTask).toHaveProperty('starred');
+        expect(denormalizedTask).toHaveProperty('completed');
+        expect(denormalizedTask).toHaveProperty('suggested');
+        expect(denormalizedTask).toHaveProperty('tags');
     });
 
-    it('can convert from task view model structure to normalized task structure', () => {
-        const taskViewModel = selector.selectTasks(store)[0];
-        const task = selector.taskViewToTask(taskViewModel);
+    it('can convert denormalized task to normalized task structure', () => {
+        const denormalizedTask = selector.selectTasks(store)[0];
+        const task = selector.normalizeTask(denormalizedTask);
 
         expect(task).toHaveProperty('id');
         expect(task).toHaveProperty('taskDefinitionId');
