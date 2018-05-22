@@ -28,6 +28,7 @@ export interface Tasks {
 export interface Store {
     readonly taskDefinitions: TaskDefinitions;
     readonly tasks: Tasks;
+    readonly suggestedTasks: Tasks;
 }
 
 export const buildTasksFixture = (): Store => {
@@ -65,6 +66,14 @@ export const buildTasksFixture = (): Store => {
             'category': 'finance',
             'importance': 1,
           },
+          'td5': {
+            'id': 'td5',
+            'title': 'Get social insurance number (SIN)',
+            'description': '',
+            'tags': ['important'],
+            'category': 'employment',
+            'importance': 1,
+          },
         },
         tasks: {
           't1': {
@@ -72,28 +81,37 @@ export const buildTasksFixture = (): Store => {
             'taskDefinitionId': 'td1',
             'starred': false,
             'completed': false,
-            'suggested': true,
+            'suggested': false,
           },
           't2': {
             'id': 't2',
             'taskDefinitionId': 'td2',
             'starred': false,
             'completed': false,
-            'suggested': true,
+            'suggested': false,
           },
           't3': {
             'id': 't3',
             'taskDefinitionId': 'td3',
             'starred': false,
             'completed': false,
-            'suggested': true,
+            'suggested': false,
           },
+        },
+        suggestedTasks: {
           't4': {
             'id': 't4',
             'taskDefinitionId': 'td4',
             'starred': false,
             'completed': false,
-            'suggested': true,
+            'suggested': false,
+          },
+          't5': {
+            'id': 't5',
+            'taskDefinitionId': 'td5',
+            'starred': false,
+            'completed': false,
+            'suggested': false,
           },
         },
     };

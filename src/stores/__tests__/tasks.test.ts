@@ -12,7 +12,7 @@ describe('tasks reducer', () => {
         'suggested': false,
     };
     const initialStore: models.Store = models.reducer(
-        {tasks: {}, taskDefinitions: {}},
+        {tasks: {}, taskDefinitions: {}, suggestedTasks: {}},
         models.addToTaskList(fakeTask),
     );
 
