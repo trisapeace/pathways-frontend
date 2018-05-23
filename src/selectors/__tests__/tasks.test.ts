@@ -2,9 +2,9 @@
 // tslint:disable:no-let
 // tslint:disable:no-any
 
-import * as stores from '../../stores/tasks';
-import * as selector from '../tasks';
 import * as helpers from '../../stores/__tests__/helpers/tasks_helpers';
+import * as selector from '../tasks';
+import * as stores from '../../stores/tasks';
 
 describe('tasks selector', () => {
 
@@ -56,29 +56,19 @@ describe('tasks selector', () => {
         });
     });
 
-    describe('data retreival', ()  => {
-        let taskDefinitions: ReadonlyArray<helpers.TaskDefinitionBuilder>;
-        let tasks: ReadonlyArray<helpers.TaskBuilder>;
-        let suggestedTasks: ReadonlyArray<helpers.TaskBuilder>;
+    describe('data retrieval', ()  => {
         let store: stores.Store;
 
         beforeEach(() => {
-            const firstTaskDefinition = new helpers.TaskDefinitionBuilder();
-            const firstTask = new helpers.TaskBuilder(firstTaskDefinition.id);
-            const secondTaskDefinition = new helpers.TaskDefinitionBuilder();
-            const secondTask = new helpers.TaskBuilder(secondTaskDefinition.id);
-            taskDefinitions = [firstTaskDefinition, secondTaskDefinition];
-            tasks = [firstTask, secondTask];
-            suggestedTasks = [secondTask];
-            store = helpers.buildNormalizedStore(taskDefinitions, tasks, suggestedTasks);
+            store = helpers.buildPopulatedNormalizedStore();
         });
 
         test('returns all tasks', () => {
-            expect(selector.selectTasks(store)).toHaveLength(tasks.length);
+            expect(selector.selectTasks(store)).toHaveLength(2);
         });
 
         test('returns all suggested tasks', () => {
-            expect(selector.selectSuggestedTasks(store)).toHaveLength(suggestedTasks.length);
+            expect(selector.selectSuggestedTasks(store)).toHaveLength(1);
         });
     });
 });
