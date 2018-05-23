@@ -5,12 +5,11 @@ import * as helpers from '../../stores/__tests__/helpers/tasks_helpers';
 import * as stores from '../tasks';
 
 describe('tasks reducer', () => {
-    let taskDefinition: helpers.TaskDefinitionBuilder;
     let task: helpers.TaskBuilder;
     let store: stores.Store;
 
     beforeEach(() => {
-        taskDefinition = new helpers.TaskDefinitionBuilder();
+        const taskDefinition = new helpers.TaskDefinitionBuilder();
         task = new helpers.TaskBuilder(taskDefinition.id);
         store = helpers.buildNormalizedStore([taskDefinition], [task], [task]);
     });
