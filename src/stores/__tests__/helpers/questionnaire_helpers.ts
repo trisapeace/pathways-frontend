@@ -3,6 +3,7 @@
 // tslint:disable:no-expression-statement
 // tslint:disable:readonly-array
 // tslint:disable:no-class
+// tslint:disable:no-let
 
 import * as store from '../../questionnaire';
 import { aString, aBoolean } from '../../../application/__tests__/helpers/random_test_values';

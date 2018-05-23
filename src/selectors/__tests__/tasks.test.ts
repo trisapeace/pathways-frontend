@@ -4,48 +4,81 @@
 
 import * as stores from '../../stores/tasks';
 import * as selector from '../tasks';
-import { buildTasksFixture } from '../../fixtures/tasks';
+import * as helpers from '../../stores/__tests__/helpers/tasks_helpers';
 
 describe('tasks selector', () => {
-    const store: stores.Store = buildTasksFixture();
 
-    it('can select tasks', () => {
-        const tasksExpectedCount = Object.keys(store.tasksMap).length;
-        const tasks = selector.selectTasks(store);
-        expect(tasks).toHaveLength(tasksExpectedCount);
+    describe ('denormalization', () => {
+        let taskDefinition: helpers.TaskDefinitionBuilder;
+        let task: helpers.TaskBuilder;
+        let denormalizedTask: selector.Task;
+
+        beforeEach(() => {
+            taskDefinition = new helpers.TaskDefinitionBuilder();
+            task = new helpers.TaskBuilder(taskDefinition.id);
+            denormalizedTask = selector.denormalizeTask(task, taskDefinition);
+        });
+
+        test('id property', () => {
+            expect(denormalizedTask.id).toBe(task.id);
+        });
+
+        test('completed property', () => {
+            expect(denormalizedTask.completed).toBe(task.completed);
+        });
+
+        test('suggested property', () => {
+            expect(denormalizedTask.suggested).toBe(task.suggested);
+        });
+
+        test('starred property', () => {
+            expect(denormalizedTask.starred).toBe(task.starred);
+        });
+
+        test('title property', () => {
+            expect(denormalizedTask.title).toBe(taskDefinition.title);
+        });
+
+        test('description property', () => {
+            expect(denormalizedTask.description).toBe(taskDefinition.description);
+        });
+
+        test('category property', () => {
+            expect(denormalizedTask.category).toBe(taskDefinition.category);
+        });
+
+        test('importance property', () => {
+            expect(denormalizedTask.importance).toBe(taskDefinition.importance);
+        });
+
+        test('tags property', () => {
+            expect(denormalizedTask.tags).toBe(taskDefinition.tags);
+        });
     });
 
-    it('can select suggested tasks', () => {
-        const tasksExpectedCount = Object.keys(store.suggestedTasksMap).length;
-        const tasks = selector.selectSuggestedTasks(store);
-        expect(tasks).toHaveLength(tasksExpectedCount);
+    describe('data retreival', ()  => {
+        let taskDefinitions: ReadonlyArray<helpers.TaskDefinitionBuilder>;
+        let tasks: ReadonlyArray<helpers.TaskBuilder>;
+        let suggestedTasks: ReadonlyArray<helpers.TaskBuilder>;
+        let store: stores.Store;
+
+        beforeEach(() => {
+            const firstTaskDefinition = new helpers.TaskDefinitionBuilder();
+            const firstTask = new helpers.TaskBuilder(firstTaskDefinition.id);
+            const secondTaskDefinition = new helpers.TaskDefinitionBuilder();
+            const secondTask = new helpers.TaskBuilder(secondTaskDefinition.id);
+            taskDefinitions = [firstTaskDefinition, secondTaskDefinition];
+            tasks = [firstTask, secondTask];
+            suggestedTasks = [secondTask];
+            store = helpers.buildNormalizedStore(taskDefinitions, tasks, suggestedTasks);
+        });
+
+        test('returns all tasks', () => {
+            expect(selector.selectTasks(store)).toHaveLength(tasks.length);
+        });
+
+        test('returns all suggested tasks', () => {
+            expect(selector.selectSuggestedTasks(store)).toHaveLength(suggestedTasks.length);
+        });
     });
-
-    it('can convert normalized task & definition to denormalized task', () => {
-        const task = store.tasksMap.t1;
-        const taskDefinition = store.taskDefinitionsMap[task.taskDefinitionId];
-        const denormalizedTask = selector.denormalizeTask(task, taskDefinition);
-
-        expect(denormalizedTask).toHaveProperty('id');
-        expect(denormalizedTask).toHaveProperty('title');
-        expect(denormalizedTask).toHaveProperty('description');
-        expect(denormalizedTask).toHaveProperty('category');
-        expect(denormalizedTask).toHaveProperty('importance');
-        expect(denormalizedTask).toHaveProperty('starred');
-        expect(denormalizedTask).toHaveProperty('completed');
-        expect(denormalizedTask).toHaveProperty('suggested');
-        expect(denormalizedTask).toHaveProperty('tags');
-    });
-
-    it('can convert denormalized task to normalized task structure', () => {
-        const denormalizedTask = selector.selectTasks(store)[0];
-        const task = selector.normalizeTask(denormalizedTask);
-
-        expect(task).toHaveProperty('id');
-        expect(task).toHaveProperty('taskDefinitionId');
-        expect(task).toHaveProperty('starred');
-        expect(task).toHaveProperty('completed');
-        expect(task).toHaveProperty('suggested');
-    });
-
 });
