@@ -71,15 +71,15 @@ export const reducer = (store: Store = buildDefaultStore(), action?: TaskAction)
             return { ...store, tasksMap };
         case constants.TOGGLE_TASK_COMPLETED: {
             const task = store.tasksMap[action.payload.taskId];
-            return setTaskValue(store, task, 'completed', !task.completed);
+            return toggleTaskValue(store, task, 'completed', !task.completed);
         }
         case constants.TOGGLE_TASK_STARRED: {
             const task = store.tasksMap[action.payload.taskId];
-            return setTaskValue(store, task, 'starred', !task.starred);
+            return toggleTaskValue(store, task, 'starred', !task.starred);
         }
         case constants.TOGGLE_TASK_SUGGESTED: {
             const task = store.tasksMap[action.payload.taskId];
-            return setTaskValue(store, task, 'suggested', !task.suggested);
+            return toggleTaskValue(store, task, 'suggested', !task.suggested);
         }
         case constants.SHARE_TASK:
             // TODO
@@ -89,7 +89,7 @@ export const reducer = (store: Store = buildDefaultStore(), action?: TaskAction)
     }
 };
 
-const setTaskValue = (store: Store, task: Task, property: string, value: string | boolean): Store => {
+const toggleTaskValue = (store: Store, task: Task, property: string, value: boolean): Store => {
     return {
         ...store,
         tasksMap: {
