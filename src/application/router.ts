@@ -11,7 +11,7 @@ const routesMap = {
 
 export const createStoreWithRouter = (reducerForApplicationState: Reducer<StoreForApplicationState>) => {
     const history = createMemoryHistory({
-        initialEntries: [routesMap[constants.SET_MAIN_PAGE].replace(':mainPage', String(initialPage))],
+        initialEntries: ['/page/' + initialPage],
     });
     const router = reduxFirstRouter.connectRoutes(history, routesMap);
     const rootReducer = combineReducers({ location: router.reducer, applicationState: reducerForApplicationState });
