@@ -2,7 +2,9 @@ import * as constants from '../application/constants';
 import * as helpers from './helpers/make_action';
 
 export enum Page {
-    Questionnaire, MyPlan, ExploreAll,
+    Questionnaire = 'questionnaire',
+    MyPlan = 'plan',
+    ExploreAll = 'explore',
 }
 
 export const initialPage = Page.Questionnaire;
@@ -27,29 +29,22 @@ export const reducer = (store: Store = buildDefaultStore(), action?: SetMainPage
     }
     switch (action.type) {
         case constants.SET_MAIN_PAGE:
-            return { ...store, mainPage: validateMainPageId(action.payload.mainPage) };
+            return { ...store, mainPage: getPageFromString(action.payload.mainPage) };
         default:
             return store;
     }
 };
 
-// Using number as a type alias for the Page enum, see
-// https://stackoverflow.com/questions/29706609/typescript-how-to-add-type-guards-for-enums-in-union-types/29706830#29706830
-
-const validateMainPageId = (pageId: number | string): Page => (
-    typeof pageId === 'string' ? toMainPageId(pageId) : pageId
-);
-
-const toMainPageId = (pageId: string): Page => {
+const getPageFromString = (pageId: string): Page => {
     switch (pageId) {
-        case 'Page.Questionnaire': return Page.Questionnaire;
-        case 'Page.MyPlan': return Page.MyPlan;
-        case 'Page.ExploreAll': return Page.ExploreAll;
+        case 'questionnaire': return Page.Questionnaire;
+        case 'plan': return Page.MyPlan;
+        case 'explore': return Page.ExploreAll;
         default: throw invalidPageIdError(pageId);
     }
 };
 
 const invalidPageIdError = (pageId: string): Error => {
-    const message = `${pageId}: Invalid main page id, accepted values are Page.Questionnaire, Page.MyPlan or Page.ExploreAll`;
+    const message = `${pageId}: Invalid main page id, accepted values are "questionnaire", "plan", or "explore"`;
     return new Error(message);
 };

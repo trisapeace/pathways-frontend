@@ -18,7 +18,7 @@ interface ApplicationRouter {
 
 export function buildRouter(): ApplicationRouter {
     const history = createMemoryHistory({
-        initialEntries: [routesMap[constants.SET_MAIN_PAGE].replace(':mainPage', String(initialPage))],
+        initialEntries: ['/page/' + initialPage],
     });
     const router = reduxFirstRouter.connectRoutes(history, routesMap);
     return { reducer: router.reducer, enhancer: router.enhancer, middleware: router.middleware };
