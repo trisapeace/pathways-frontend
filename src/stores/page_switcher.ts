@@ -37,9 +37,9 @@ export const reducer = (store: Store = buildDefaultStore(), action?: SetMainPage
 
 const getPageFromString = (pageId: string): Page => {
     switch (pageId) {
-        case 'questionnaire': return Page.Questionnaire;
-        case 'plan': return Page.MyPlan;
-        case 'explore': return Page.ExploreAll;
+        case Page.Questionnaire: return Page.Questionnaire;
+        case Page.MyPlan: return Page.MyPlan;
+        case Page.ExploreAll: return Page.ExploreAll;
         default: throw invalidPageIdError(pageId);
     }
 };
