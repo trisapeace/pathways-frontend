@@ -7,11 +7,11 @@ export enum Page {
     ExploreAll = 'explore',
 }
 
-export const initialPage = Page.Questionnaire;
-
 export type Store = Readonly<ReturnType<typeof buildDefaultStore>>;
 
 export type SetMainPageAction = Readonly<ReturnType<typeof setMainPage>>;
+
+export const initialPage = Page.Questionnaire;
 
 // tslint:disable-next-line:typedef
 export const setMainPage = (mainPage: Page | string) => (

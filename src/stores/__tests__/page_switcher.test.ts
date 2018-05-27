@@ -13,6 +13,12 @@ const buildStoreWithValue = (mainPage: pageSwitcher.Page): pageSwitcher.Store =>
     return pageSwitcher.reducer(undefined, action);
 };
 
+describe('the initial page', () => {
+    it('should be set to Page.Questionnaire', () => {
+        expect(pageSwitcher.initialPage).toBe(pageSwitcher.Page.Questionnaire);
+    });
+});
+
 describe('setting the main page', () => {
 
     it('should create action with type SET_MAIN_PAGE', () => {
@@ -50,7 +56,7 @@ describe('the reducer', () => {
 
     it('should update the store if the payload contains a valid string', () => {
         const theStore = buildStore();
-        const mainPageAsString = 'Page.MyPlan';
+        const mainPageAsString = 'plan';
         const theAction = {
             type: constants.SET_MAIN_PAGE as typeof constants.SET_MAIN_PAGE,
             payload: { mainPage: mainPageAsString },
@@ -67,7 +73,7 @@ describe('the reducer', () => {
             payload: { mainPage: invalidmainPageAsString },
         };
         expect(() => pageSwitcher.reducer(theStore, theAction)).toThrow(
-            /MainPage.Invalid: Invalid main page id, accepted values are Page.Questionnaire, Page.MyPlan or Page.ExploreAll/,
+            /MainPage.Invalid: Invalid main page id, accepted values are "questionnaire", "plan", or "explore"/,
         );
     });
 });
