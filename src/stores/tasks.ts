@@ -1,50 +1,57 @@
-import { buildTasksFixture, Store, Task, Id } from '../fixtures/tasks';
-import * as constants from '../application/constants';
+import { buildTasksFixture, Store, TaskList, Id, TaskUserSettings } from '../fixtures/tasks';
+import { Task as constants } from '../application/constants';
 import * as helpers from './helpers/make_action';
 
-export { Id, Store, Task, TasksMap, TaskDefinition, TaskDefinitionsMap } from '../fixtures/tasks';
+export { Id, Task, TaskUserSettings, TaskMap, TaskUserSettingsMap, TaskList, Store } from '../fixtures/tasks';
 
-export type AddToTaskListAction = Readonly<ReturnType<typeof addToTaskList>>;
-export type RemoveFromTaskListAction = Readonly<ReturnType<typeof removeFromTaskList>>;
-export type ToggleTaskCompletedAction = Readonly<ReturnType<typeof toggleTaskCompleted>>;
-export type ShareTaskAction = Readonly<ReturnType<typeof shareTask>>;
-export type ToggleTaskStarredAction = Readonly<ReturnType<typeof toggleTaskStarred>>;
-export type ToggleTaskSuggestedAction = Readonly<ReturnType<typeof toggleTaskSuggested>>;
-export type TaskAction = AddToTaskListAction |
-                         RemoveFromTaskListAction |
-                         ToggleTaskCompletedAction |
-                         ToggleTaskStarredAction |
-                         ToggleTaskSuggestedAction |
-                         ShareTaskAction;
+export type AddToSavedListAction = Readonly<ReturnType<typeof addToSavedList>>;
+export type RemoveFromSavedListAction = Readonly<ReturnType<typeof removeFromSavedList>>;
+export type AddToSuggestedListAction = Readonly<ReturnType<typeof addToSuggestedList>>;
+export type RemoveFromSuggestedListAction = Readonly<ReturnType<typeof removeFromSuggestedList>>;
+export type ToggleCompletedAction = Readonly<ReturnType<typeof toggleCompleted>>;
+export type ToggleStarredAction = Readonly<ReturnType<typeof toggleStarred>>;
+export type ShareAction = Readonly<ReturnType<typeof share>>;
+export type TaskAction = AddToSavedListAction |
+                         RemoveFromSavedListAction |
+                         AddToSuggestedListAction |
+                         RemoveFromSuggestedListAction |
+                         ToggleCompletedAction |
+                         ToggleStarredAction |
+                         ShareAction;
 
 // tslint:disable-next-line:typedef
-export const addToTaskList = (task: Task) => (
-    helpers.makeAction(constants.ADD_TO_TASK_LIST, { task })
+export const addToSavedList = (taskId: Id) => (
+    helpers.makeAction(constants.ADD_TO_SAVED_LIST, { taskId })
 );
 
 // tslint:disable-next-line:typedef
-export const removeFromTaskList = (taskId: Id) => (
-    helpers.makeAction(constants.REMOVE_FROM_TASK_LIST, { taskId })
+export const removeFromSavedList = (taskId: Id) => (
+    helpers.makeAction(constants.REMOVE_FROM_SAVED_LIST, { taskId })
 );
 
 // tslint:disable-next-line:typedef
-export const toggleTaskCompleted = (taskId: Id) => (
-    helpers.makeAction(constants.TOGGLE_TASK_COMPLETED, { taskId })
+export const addToSuggestedList = (taskId: Id) => (
+    helpers.makeAction(constants.ADD_TO_SUGGESTED_LIST, { taskId })
 );
 
 // tslint:disable-next-line:typedef
-export const toggleTaskStarred = (taskId: Id) => (
-    helpers.makeAction(constants.TOGGLE_TASK_STARRED, { taskId })
+export const removeFromSuggestedList = (taskId: Id) => (
+    helpers.makeAction(constants.REMOVE_FROM_SUGGESTED_LIST, { taskId })
 );
 
 // tslint:disable-next-line:typedef
-export const toggleTaskSuggested = (taskId: Id) => (
-    helpers.makeAction(constants.TOGGLE_TASK_SUGGESTED, { taskId })
+export const toggleCompleted = (taskUserSettingsId: Id) => (
+    helpers.makeAction(constants.TOGGLE_COMPLETED, { taskUserSettingsId })
 );
 
 // tslint:disable-next-line:typedef
-export const shareTask = (taskId: Id) => (
-    helpers.makeAction(constants.SHARE_TASK, { taskId })
+export const toggleStarred = (taskUserSettingsId: Id) => (
+    helpers.makeAction(constants.TOGGLE_STARRED, { taskUserSettingsId })
+);
+
+// tslint:disable-next-line:typedef
+export const share = () => (
+    helpers.makeAction(constants.SHARE)
 );
 
 export const buildDefaultStore = (): Store => (
@@ -56,47 +63,62 @@ export const reducer = (store: Store = buildDefaultStore(), action?: TaskAction)
         return store;
     }
     switch (action.type) {
-        case constants.ADD_TO_TASK_LIST:
-            return {
-                ...store,
-                tasksMap: {
-                    ...store.tasksMap,
-                    [action.payload.task.id]: action.payload.task,
-                },
-            };
-        case constants.REMOVE_FROM_TASK_LIST:
-            const tasksMap = { ...store.tasksMap };
-            // tslint:disable-next-line:no-expression-statement
-            delete(tasksMap[action.payload.taskId]);
-            return { ...store, tasksMap };
-        case constants.TOGGLE_TASK_COMPLETED: {
-            const task = store.tasksMap[action.payload.taskId];
-            return toggleTaskValue(store, task, 'completed', !task.completed);
-        }
-        case constants.TOGGLE_TASK_STARRED: {
-            const task = store.tasksMap[action.payload.taskId];
-            return toggleTaskValue(store, task, 'starred', !task.starred);
-        }
-        case constants.TOGGLE_TASK_SUGGESTED: {
-            const task = store.tasksMap[action.payload.taskId];
-            return toggleTaskValue(store, task, 'suggested', !task.suggested);
-        }
-        case constants.SHARE_TASK:
-            // TODO
-            return store;
+        case constants.ADD_TO_SAVED_LIST:
+            return addToTaskList(store, 'savedTasksList', store.savedTasksList, action.payload.taskId);
+        case constants.REMOVE_FROM_SAVED_LIST:
+            return removeFromTaskList(store, 'savedTasksList', store.savedTasksList, action.payload.taskId);
+        case constants.ADD_TO_SUGGESTED_LIST:
+            return addToTaskList(store, 'suggestedTasksList', store.suggestedTasksList, action.payload.taskId);
+        case constants.REMOVE_FROM_SUGGESTED_LIST:
+            return removeFromTaskList(store, 'suggestedTasksList', store.suggestedTasksList, action.payload.taskId);
+        case constants.TOGGLE_COMPLETED:
+            return toggleTaskUserSettingsCompletedValue(store, action.payload.taskUserSettingsId);
+        case constants.TOGGLE_STARRED:
+            return toggleTaskUserSettingsStarredValue(store, action.payload.taskUserSettingsId);
+        // TODO
+        case constants.SHARE:
         default:
             return store;
     }
 };
 
-const toggleTaskValue = (store: Store, task: Task, property: string, value: boolean): Store => {
+const addToTaskList = (store: Store, property: keyof(Store), taskList: TaskList, value: Id): Store => {
+    if (taskList.indexOf(value) !== -1) {
+        return store;
+    }
+    return { ...store, [property]: [...taskList, value] };
+};
+
+const removeFromTaskList = (store: Store, property: keyof(Store), taskList: TaskList, value: Id): Store => {
+    if (taskList.indexOf(value) === -1) {
+        return store;
+    }
+    return { ...store, [property]: taskList.filter((id: Id) => id !== value) };
+};
+
+const toggleTaskUserSettingsCompletedValue = (store: Store, taskUserSettingsId: Id): Store => {
+    const taskUserSettings: TaskUserSettings = store.taskUserSettingsMap[taskUserSettingsId];
     return {
         ...store,
-        tasksMap: {
-            ...store.tasksMap,
-            [task.id]: {
-                ...task,
-                [property]: value,
+        taskUserSettingsMap: {
+            ...store.taskUserSettingsMap,
+            [taskUserSettings.id]: {
+                ...taskUserSettings,
+                completed: !taskUserSettings.completed,
+            },
+        },
+    };
+};
+
+const toggleTaskUserSettingsStarredValue = (store: Store, taskUserSettingsId: Id): Store => {
+    const taskUserSettings: TaskUserSettings = store.taskUserSettingsMap[taskUserSettingsId];
+    return {
+        ...store,
+        taskUserSettingsMap: {
+            ...store.taskUserSettingsMap,
+            [taskUserSettings.id]: {
+                ...taskUserSettings,
+                starred: !taskUserSettings.starred,
             },
         },
     };

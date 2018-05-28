@@ -7,100 +7,75 @@ import { aString, aBoolean, aNumber } from '../../application/__tests__/helpers/
 
 describe('tasks test helpers', () => {
 
-    describe('building the task definition', () => {
-
-        let id: string;
-        let title: string;
-        let description: string;
-        let tags: ReadonlyArray<string>;
-        let category: string;
-        let importance: number;
-        let taskDefinition: helpers.TaskDefinitionBuilder;
-
-        beforeEach(() => {
-            id = aString();
-            title = aString();
-            description = aString();
-            tags = [aString(), aString()];
-            category = aString();
-            importance = aNumber();
-            taskDefinition = new helpers.TaskDefinitionBuilder()
-                .withId(id)
-                .withTitle(title)
-                .withDescription(description)
-                .withTags(tags)
-                .withCategory(category)
-                .withImportance(importance)
-                .build();
-        });
+    describe('building the task', () => {
 
         test('id property', () => {
-            expect(taskDefinition.id).toBe(id);
+            const id = aString();
+            const task = new helpers.TaskBuilder().withId(id).build();
+            expect(task.id).toBe(id);
         });
 
         test('title property', () => {
-            expect(taskDefinition.title).toBe(title);
+            const title = aString();
+            const task = new helpers.TaskBuilder().withTitle(title).build();
+            expect(task.title).toBe(title);
         });
 
         test('description property', () => {
-            expect(taskDefinition.description).toBe(description);
+            const description = aString();
+            const task = new helpers.TaskBuilder().withDescription(description).build();
+            expect(task.description).toBe(description);
         });
 
         test('tags property', () => {
-            expect(taskDefinition.tags).toBe(tags);
+            const tags: ReadonlyArray<string> = [aString(), aString()];
+            const task = new helpers.TaskBuilder().withTags(tags).build();
+            expect(task.tags).toBe(tags);
         });
 
         test('category property', () => {
-            expect(taskDefinition.category).toBe(category);
+            const category = aString();
+            const task = new helpers.TaskBuilder().withCategory(category).build();
+            expect(task.category).toBe(category);
         });
 
         test('importance property', () => {
-            expect(taskDefinition.importance).toBe(importance);
+            const importance = aNumber();
+            const task = new helpers.TaskBuilder().withImportance(importance).build();
+            expect(task.importance).toBe(importance);
         });
     });
 
-    describe('building the task', () => {
+    describe('building the task user settings', () => {
 
         describe('with properties', () => {
-            let id: string;
-            let taskDefinitionId: string;
-            let starred: boolean;
-            let completed: boolean;
-            let suggested: boolean;
-            let task: helpers.TaskBuilder;
+            let taskId: string;
 
             beforeEach(() => {
-                id = aString();
-                taskDefinitionId = aString();
-                starred = aBoolean();
-                completed = aBoolean();
-                suggested = aBoolean();
-                task = new helpers.TaskBuilder(taskDefinitionId)
-                    .withId(id)
-                    .withStarred(starred)
-                    .withCompleted(completed)
-                    .withSuggested(suggested)
-                    .build();
+               taskId = aString();
+            });
+
+            test('task id property', () => {
+                const taskUserSettings = new helpers.TaskUserSettingsBuilder(taskId).build();
+                expect(taskUserSettings.taskId).toBe(taskId);
             });
 
             test('id property', () => {
-                expect(task.id).toBe(id);
-            });
-
-            test('task definition id property', () => {
-                expect(task.taskDefinitionId).toBe(taskDefinitionId);
+                const id = aString();
+                const taskUserSettings = new helpers.TaskUserSettingsBuilder(taskId).withId(id).build();
+                expect(taskUserSettings.id).toBe(id);
             });
 
             test('starred property', () => {
-                expect(task.starred).toBe(starred);
+                const starred = aBoolean();
+                const taskUserSettings = new helpers.TaskUserSettingsBuilder(taskId).withStarred(starred).build();
+                expect(taskUserSettings.starred).toBe(starred);
             });
 
             test('completed property', () => {
-                expect(task.completed).toBe(completed);
-            });
-
-            test('suggested property', () => {
-                expect(task.suggested).toBe(suggested);
+                const completed = aBoolean();
+                const taskUserSettings = new helpers.TaskUserSettingsBuilder(taskId).withCompleted(completed).build();
+                expect(taskUserSettings.completed).toBe(completed);
             });
         });
     });
@@ -108,34 +83,51 @@ describe('tasks test helpers', () => {
     describe('the store', () => {
 
         describe('building a normalized store', () => {
-            let taskDefinition: helpers.TaskDefinitionBuilder;
-            let task: helpers.TaskBuilder;
+            let firstTaskBuilder: helpers.TaskBuilder;
+            let secondTaskBuilder: helpers.TaskBuilder;
+            let firstTaskUserSettingsBuilder: helpers.TaskUserSettingsBuilder;
+            let secondTaskUserSettingsBuilder: helpers.TaskUserSettingsBuilder;
             let store: stores.Store;
 
             beforeEach(() => {
-                taskDefinition = new helpers.TaskDefinitionBuilder();
-                task = new helpers.TaskBuilder(taskDefinition.id);
-                store = helpers.buildNormalizedStore([taskDefinition], [task], [task]);
+                firstTaskBuilder = new helpers.TaskBuilder();
+                secondTaskBuilder = new helpers.TaskBuilder();
+                firstTaskUserSettingsBuilder = new helpers.TaskUserSettingsBuilder(firstTaskBuilder.build().id);
+                secondTaskUserSettingsBuilder = new helpers.TaskUserSettingsBuilder(secondTaskBuilder.build().id);
+                store = helpers.buildNormalizedStore(
+                    [firstTaskBuilder, secondTaskBuilder],
+                    [firstTaskUserSettingsBuilder, secondTaskUserSettingsBuilder],
+                    [firstTaskBuilder.build().id],
+                    [secondTaskBuilder.build().id],
+                );
             });
 
-            test('task definitions map property', () => {
-                expect(store).toHaveProperty('taskDefinitionsMap');
+            test('task map property', () => {
+                expect(store).toHaveProperty('taskMap');
             });
 
-            test('tasks map property', () => {
-                expect(store).toHaveProperty('tasksMap');
+            test('task user settings map property', () => {
+                expect(store).toHaveProperty('taskUserSettingsMap');
             });
 
-            test('suggested tasks map property', () => {
-                expect(store).toHaveProperty('suggestedTasksMap');
+            test('saved tasks list property', () => {
+                expect(store).toHaveProperty('savedTasksList');
+            });
+
+            test('suggested tasks list property', () => {
+                expect(store).toHaveProperty('suggestedTasksList');
             });
 
             test('tasks map keys are expected task ids', () => {
-                expect(Object.keys(store.tasksMap)).toEqual([task.id]);
+                expect(Object.keys(store.taskMap)).toEqual([firstTaskBuilder.build().id, secondTaskBuilder.build().id]);
             });
 
-            test('task definitions map keys are expected task definitions ids', () => {
-                expect(Object.keys(store.taskDefinitionsMap)).toEqual([taskDefinition.id]);
+            test('task user settings map keys are expected task user settings ids', () => {
+                const expectedIds: ReadonlyArray<stores.Id> = [
+                    firstTaskUserSettingsBuilder.build().id,
+                    secondTaskUserSettingsBuilder.build().id,
+                ];
+                expect(Object.keys(store.taskUserSettingsMap)).toEqual(expectedIds);
             });
         });
 
@@ -146,16 +138,20 @@ describe('tasks test helpers', () => {
                 store = helpers.buildPopulatedNormalizedStore();
             });
 
-            test('store contains two task definitions', () => {
-                expect(Object.keys(store.taskDefinitionsMap)).toHaveLength(2);
+            test('store contains three tasks', () => {
+                expect(Object.keys(store.taskMap)).toHaveLength(3);
             });
 
-            test('store contains two tasks', () => {
-                expect(Object.keys(store.tasksMap)).toHaveLength(2);
+            test('store contains three task user settings', () => {
+                expect(Object.keys(store.taskUserSettingsMap)).toHaveLength(3);
+            });
+
+            test('store contains two saved tasks', () => {
+                expect(Object.keys(store.savedTasksList)).toHaveLength(2);
             });
 
             test('store contains one suggested task', () => {
-                expect(Object.keys(store.suggestedTasksMap)).toHaveLength(1);
+                expect(Object.keys(store.suggestedTasksList)).toHaveLength(1);
             });
         });
     });

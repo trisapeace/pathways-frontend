@@ -5,44 +5,52 @@ import * as helpers from '../../stores/__tests__/helpers/tasks_helpers';
 import * as stores from '../tasks';
 
 describe('tasks reducer', () => {
-    let task: helpers.TaskBuilder;
-    let store: stores.Store;
 
-    beforeEach(() => {
-        const taskDefinition = new helpers.TaskDefinitionBuilder();
-        task = new helpers.TaskBuilder(taskDefinition.id);
-        store = helpers.buildNormalizedStore([taskDefinition], [task], [task]);
-    });
+    describe('task lists & settings', () => {
+        let store: stores.Store;
 
-    test('can add task to tasks list', () => {
-        const newTaskDefinition = new helpers.TaskDefinitionBuilder();
-        const newTask = new helpers.TaskBuilder(newTaskDefinition.id);
-        const finalStore = stores.reducer(store, stores.addToTaskList(newTask));
-        const expectedLength = Object.keys(store.tasksMap).length + 1;
-        expect(Object.keys(finalStore.tasksMap)).toHaveLength(expectedLength);
-    });
+        beforeEach(() => {
+            store = helpers.buildPopulatedNormalizedStore();
+        });
 
-    test('can remove task from tasks list', () => {
-       const finalStore = stores.reducer(store, stores.removeFromTaskList(task.id));
-       const expectedLength = Object.keys(store.tasksMap).length - 1;
-       expect(Object.keys(finalStore.tasksMap)).toHaveLength(expectedLength);
-    });
+        test('can add task to saved tasks list', () => {
+            const task = new helpers.TaskBuilder().build();
+            const finalStore = stores.reducer(store, stores.addToSavedList(task.id));
+            const expectedLength = Object.keys(store.savedTasksList).length + 1;
+            expect(finalStore.savedTasksList).toHaveLength(expectedLength);
+        });
 
-    test('can toggle task as complete', () => {
-        const finalStore = stores.reducer(store, stores.toggleTaskCompleted(task.id));
-        const expectedValue = !store.tasksMap[task.id].completed;
-        expect(finalStore.tasksMap[task.id].completed).toEqual(expectedValue);
-    });
+        test('can add task to suggested tasks list', () => {
+            const task = new helpers.TaskBuilder().build();
+            const finalStore = stores.reducer(store, stores.addToSuggestedList(task.id));
+            const expectedLength = Object.keys(store.suggestedTasksList).length + 1;
+            expect(finalStore.savedTasksList).toHaveLength(expectedLength);
+        });
 
-    test('can toggle task as starred', () => {
-        const finalStore = stores.reducer(store, stores.toggleTaskStarred(task.id));
-        const expectedValue = !store.tasksMap[task.id].starred;
-        expect(finalStore.tasksMap[task.id].starred).toEqual(expectedValue);
-    });
+        test('can remove task from saved tasks list', () => {
+            const finalStore = stores.reducer(store, stores.removeFromSavedList(store.savedTasksList[0]));
+            const expectedLength = Object.keys(store.savedTasksList).length - 1;
+            expect(finalStore.savedTasksList).toHaveLength(expectedLength);
+        });
 
-    test('can toggle task as suggested', () => {
-        const finalStore = stores.reducer(store, stores.toggleTaskSuggested(task.id));
-        const expectedValue = !store.tasksMap[task.id].suggested;
-        expect(finalStore.tasksMap[task.id].suggested).toEqual(expectedValue);
+        test('can remove task from suggested tasks list', () => {
+            const finalStore = stores.reducer(store, stores.removeFromSuggestedList(store.suggestedTasksList[0]));
+            const expectedLength = Object.keys(store.suggestedTasksList).length - 1;
+            expect(finalStore.suggestedTasksList).toHaveLength(expectedLength);
+        });
+
+        test('can toggle a task completed', () => {
+            const taskUserSettingsId = Object.keys(store.taskUserSettingsMap)[0];
+            const oldValue = store.taskUserSettingsMap[taskUserSettingsId].completed;
+            const finalStore = stores.reducer(store, stores.toggleCompleted(taskUserSettingsId));
+            expect(finalStore.taskUserSettingsMap[taskUserSettingsId].completed).toEqual(!oldValue);
+        });
+
+        test('can toggle a task starred', () => {
+            const taskUserSettingsId = Object.keys(store.taskUserSettingsMap)[0];
+            const oldValue = store.taskUserSettingsMap[taskUserSettingsId].starred;
+            const finalStore = stores.reducer(store, stores.toggleStarred(taskUserSettingsId));
+            expect(finalStore.taskUserSettingsMap[taskUserSettingsId].starred).toEqual(!oldValue);
+        });
     });
 });

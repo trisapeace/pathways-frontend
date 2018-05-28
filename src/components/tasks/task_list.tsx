@@ -31,22 +31,21 @@ export const Component: React.StatelessComponent<Props & Actions> = (props: Prop
     );
 };
 
-export const renderTask = (item: selector.Task, actions: TaskActions): JSX.Element => {
+export const renderSavedTask = (item: selector.Task, actions: TaskActions): JSX.Element => {
     return (
         <Task
             id={item.id}
-            taskDefinitionId={item.taskDefinitionId}
+            taskUserSettingsId={item.taskUserSettingsId}
             title={item.title}
             description={item.description}
             category={item.category}
             importance={item.importance}
             starred={item.starred}
             completed={item.completed}
-            suggested={item.suggested}
             tags={item.tags}
-            removeFromTaskList={actions.removeFromTaskList}
-            toggleTaskCompleted={actions.toggleTaskCompleted}
-            toggleTaskStarred={actions.toggleTaskStarred}
+            removeFromSavedList={actions.removeFromSavedList}
+            toggleCompleted={actions.toggleCompleted}
+            toggleStarred={actions.toggleStarred}
             shareTask={actions.shareTask}
         />
     );
@@ -56,16 +55,15 @@ export const renderSuggestedTask = (item: selector.Task, actions: TaskActions): 
     return (
         <Task
             id={item.id}
-            taskDefinitionId={item.taskDefinitionId}
+            taskUserSettingsId={item.taskUserSettingsId}
             title={item.title}
             description={item.description}
             category={item.category}
             importance={item.importance}
             starred={item.starred}
             completed={item.completed}
-            suggested={item.suggested}
             tags={item.tags}
-            addToTaskList={actions.addToTaskList}
+            addToSavedList={actions.addToSavedList}
             shareTask={actions.shareTask}
         />
     );

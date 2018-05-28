@@ -6,7 +6,7 @@ export const Component: React.StatelessComponent = (): JSX.Element => (
     <Container>
         <Content>
             <Text>Saved Tasks</Text>
-            <tasks.ConnectedTasks />
+            <tasks.ConnectedSavedTasks />
             <Text>Suggested Tasks</Text>
             <tasks.ConnectedSuggestedTasks />
         </Content>

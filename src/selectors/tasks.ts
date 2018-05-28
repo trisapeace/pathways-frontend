@@ -2,54 +2,50 @@ import * as stores from '../stores/tasks';
 
 export interface Task {
     readonly id: string;
-    readonly taskDefinitionId: string;
     readonly title: string;
     readonly description: string;
     readonly category: string;
     readonly importance: number;
+    readonly tags: ReadonlyArray<string>;
+    readonly taskUserSettingsId: string;
     readonly starred: boolean;
     readonly completed: boolean;
-    readonly suggested: boolean;
-    readonly tags: ReadonlyArray<string>;
 }
 
-export const denormalizeTask = (task: stores.Task, taskDefinition: stores.TaskDefinition): Task => {
-    return {
+export const denormalizeTask = (task: stores.Task, taskUserSettings: stores.TaskUserSettings): Task => (
+    {
         id: task.id,
-        taskDefinitionId: taskDefinition.id,
-        title: taskDefinition.title,
-        description: taskDefinition.description,
-        category: taskDefinition.category,
-        importance: taskDefinition.importance,
-        starred: task.starred,
-        completed: task.completed,
-        suggested: task.suggested,
-        tags: taskDefinition.tags,
-    };
-};
+        title: task.title,
+        description: task.description,
+        category: task.category,
+        importance: task.importance,
+        tags: task.tags,
+        taskUserSettingsId: taskUserSettings.id,
+        starred: taskUserSettings.starred,
+        completed: taskUserSettings.completed,
+    }
+);
 
-export const normalizeTask = (task: Task): stores.Task => {
-    return {
-        id: task.id,
-        taskDefinitionId: task.taskDefinitionId,
-        starred: task.starred,
-        completed: task.completed,
-        suggested: task.suggested,
-    };
-};
+export const selectAllSavedTasks = ({ savedTasksList, taskMap, taskUserSettingsMap }: stores.Store): ReadonlyArray<Task> => (
+    savedTasksList.map((id: stores.Id) => {
+        const task: stores.Task = taskMap[id];
+        const taskUserSettingsId = fetchTaskUserSettingsIdByTaskId(taskUserSettingsMap, task.id);
+        const taskUserSettings: stores.TaskUserSettings = taskUserSettingsMap[taskUserSettingsId];
+        return denormalizeTask(task, taskUserSettings);
+    })
+);
 
-export const selectTasks = ({ tasksMap, taskDefinitionsMap }: stores.Store): ReadonlyArray<Task> => {
-    return Object.keys(tasksMap).map((key: string) => {
-        const task: stores.Task = tasksMap[key];
-        const taskDefinition: stores.TaskDefinition = taskDefinitionsMap[task.taskDefinitionId];
-        return denormalizeTask(task, taskDefinition);
-    });
-};
+export const selectAllSuggestedTasks = ({ suggestedTasksList, taskMap, taskUserSettingsMap }: stores.Store): ReadonlyArray<Task> => (
+    suggestedTasksList.map((id: stores.Id) => {
+        const task: stores.Task = taskMap[id];
+        const taskUserSettingsId = fetchTaskUserSettingsIdByTaskId(taskUserSettingsMap, task.id);
+        const taskUserSettings: stores.TaskUserSettings = taskUserSettingsMap[taskUserSettingsId];
+        return denormalizeTask(task, taskUserSettings);
+    })
+);
 
-export const selectSuggestedTasks = ({ suggestedTasksMap, taskDefinitionsMap }: stores.Store): ReadonlyArray<Task> => {
-    return Object.keys(suggestedTasksMap).map((key: string) => {
-        const task: stores.Task = suggestedTasksMap[key];
-        const taskDefinition: stores.TaskDefinition = taskDefinitionsMap[task.taskDefinitionId];
-        return denormalizeTask(task, taskDefinition);
-    });
-};
+export const fetchTaskUserSettingsIdByTaskId = (taskUserSettingsMap: stores.TaskUserSettingsMap, taskId: stores.Id): stores.Id => (
+    Object.keys(taskUserSettingsMap).find((key: string) => (
+        taskUserSettingsMap[key].taskId === taskId
+    ))
+);

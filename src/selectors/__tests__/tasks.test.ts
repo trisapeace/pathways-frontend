@@ -9,14 +9,14 @@ import * as stores from '../../stores/tasks';
 describe('tasks selector', () => {
 
     describe ('denormalization', () => {
-        let taskDefinition: helpers.TaskDefinitionBuilder;
-        let task: helpers.TaskBuilder;
+        let task: stores.Task;
+        let taskUserSettings: stores.TaskUserSettings;
         let denormalizedTask: selector.Task;
 
         beforeEach(() => {
-            taskDefinition = new helpers.TaskDefinitionBuilder();
-            task = new helpers.TaskBuilder(taskDefinition.id);
-            denormalizedTask = selector.denormalizeTask(task, taskDefinition);
+            task = new helpers.TaskBuilder().build();
+            taskUserSettings = new helpers.TaskUserSettingsBuilder(task.id).build();
+            denormalizedTask = selector.denormalizeTask(task, taskUserSettings);
         });
 
         test('id property', () => {
@@ -24,35 +24,31 @@ describe('tasks selector', () => {
         });
 
         test('completed property', () => {
-            expect(denormalizedTask.completed).toBe(task.completed);
-        });
-
-        test('suggested property', () => {
-            expect(denormalizedTask.suggested).toBe(task.suggested);
+            expect(denormalizedTask.completed).toBe(taskUserSettings.completed);
         });
 
         test('starred property', () => {
-            expect(denormalizedTask.starred).toBe(task.starred);
+            expect(denormalizedTask.starred).toBe(taskUserSettings.starred);
         });
 
         test('title property', () => {
-            expect(denormalizedTask.title).toBe(taskDefinition.title);
+            expect(denormalizedTask.title).toBe(task.title);
         });
 
         test('description property', () => {
-            expect(denormalizedTask.description).toBe(taskDefinition.description);
+            expect(denormalizedTask.description).toBe(task.description);
         });
 
         test('category property', () => {
-            expect(denormalizedTask.category).toBe(taskDefinition.category);
+            expect(denormalizedTask.category).toBe(task.category);
         });
 
         test('importance property', () => {
-            expect(denormalizedTask.importance).toBe(taskDefinition.importance);
+            expect(denormalizedTask.importance).toBe(task.importance);
         });
 
         test('tags property', () => {
-            expect(denormalizedTask.tags).toBe(taskDefinition.tags);
+            expect(denormalizedTask.tags).toBe(task.tags);
         });
     });
 
@@ -63,12 +59,12 @@ describe('tasks selector', () => {
             store = helpers.buildPopulatedNormalizedStore();
         });
 
-        test('returns all tasks', () => {
-            expect(selector.selectTasks(store)).toHaveLength(2);
+        test('returns all saved tasks', () => {
+            expect(Object.keys(selector.selectAllSavedTasks(store))).toHaveLength(2);
         });
 
         test('returns all suggested tasks', () => {
-            expect(selector.selectSuggestedTasks(store)).toHaveLength(1);
+            expect(Object.keys(selector.selectAllSuggestedTasks(store))).toHaveLength(1);
         });
     });
 });

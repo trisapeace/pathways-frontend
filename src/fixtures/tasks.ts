@@ -1,6 +1,6 @@
 export type Id = string;
 
-export interface TaskDefinition {
+export interface Task {
     readonly id: Id;
     readonly title: string;
     readonly description: string;
@@ -9,65 +9,67 @@ export interface TaskDefinition {
     readonly importance: number;
 }
 
-export interface TaskDefinitionsMap {
-  readonly [property: string]: TaskDefinition;
-}
-
-export interface Task {
+export interface TaskUserSettings {
     readonly id: Id;
-    readonly taskDefinitionId: Id;
+    readonly taskId: Id;
     readonly starred: boolean;
     readonly completed: boolean;
-    readonly suggested: boolean;
 }
 
-export interface TasksMap {
+export interface TaskMap {
     readonly [property: string]: Task;
 }
 
+export interface TaskUserSettingsMap {
+    readonly [property: string]: TaskUserSettings;
+}
+
+export type TaskList = ReadonlyArray<Id>;
+
 export interface Store {
-    readonly taskDefinitionsMap: TaskDefinitionsMap;
-    readonly tasksMap: TasksMap;
-    readonly suggestedTasksMap: TasksMap;
+    readonly taskMap: TaskMap;
+    readonly taskUserSettingsMap: TaskUserSettingsMap;
+    readonly savedTasksList: TaskList;
+    readonly suggestedTasksList: TaskList;
 }
 
 export const buildTasksFixture = (): Store => {
     return {
-        taskDefinitionsMap: {
-          'td1': {
-            'id': 'td1',
+        taskMap: {
+          't1': {
+            'id': 't1',
             'title': 'Enroll child in elementary school.',
             'description': '',
             'tags': ['important', 'do soon', 'free'],
             'category': 'education',
             'importance': 1,
           },
-          'td2': {
-            'id': 'td2',
+          't2': {
+            'id': 't2',
             'title': 'Register for Language Instruction for Newcomer to Canada (LINC) classes.',
             'description': '',
             'tags': ['important', 'do soon', 'free'],
             'category': 'education',
             'importance': 1,
           },
-          'td3': {
-            'id': 'td3',
+          't3': {
+            'id': 't3',
             'title': 'Get support for English language learning for children.',
             'description': '',
             'tags': ['important', 'do soon', 'free'],
             'category': 'education',
             'importance': 1,
           },
-          'td4': {
-            'id': 'td4',
+          't4': {
+            'id': 't4',
             'title': 'Open a bank account',
             'description': '',
             'tags': ['important'],
             'category': 'finance',
             'importance': 1,
           },
-          'td5': {
-            'id': 'td5',
+          't5': {
+            'id': 't5',
             'title': 'Get social insurance number (SIN)',
             'description': '',
             'tags': ['important'],
@@ -75,44 +77,39 @@ export const buildTasksFixture = (): Store => {
             'importance': 1,
           },
         },
-        tasksMap: {
-          't1': {
-            'id': 't1',
-            'taskDefinitionId': 'td1',
+        taskUserSettingsMap: {
+          'tu1': {
+            'id': 'tu1',
+            'taskId': 't1',
             'starred': false,
             'completed': false,
-            'suggested': false,
           },
-          't2': {
-            'id': 't2',
-            'taskDefinitionId': 'td2',
+          'tu2': {
+            'id': 'tu2',
+            'taskId': 't2',
             'starred': false,
             'completed': false,
-            'suggested': false,
           },
-          't3': {
-            'id': 't3',
-            'taskDefinitionId': 'td3',
+          'tu3': {
+            'id': 'tu3',
+            'taskId': 't3',
             'starred': false,
             'completed': false,
-            'suggested': false,
           },
-        },
-        suggestedTasksMap: {
-          't4': {
-            'id': 't4',
-            'taskDefinitionId': 'td4',
+          'tu4': {
+            'id': 'tu4',
+            'taskId': 't4',
             'starred': false,
             'completed': false,
-            'suggested': false,
           },
-          't5': {
-            'id': 't5',
-            'taskDefinitionId': 'td5',
+          'tu5': {
+            'id': 'tu5',
+            'taskId': 't5',
             'starred': false,
             'completed': false,
-            'suggested': false,
           },
         },
+        savedTasksList: ['t1', 't2', 't3'],
+        suggestedTasksList: ['t4', 't5'],
     };
 };

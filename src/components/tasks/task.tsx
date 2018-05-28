@@ -15,11 +15,11 @@ export const Task: React.StatelessComponent<selector.Task & Actions> = (props: s
     return (
         <View style={styles.wrapper}>
             <View style={styles.sideColumn}>
-                {!props.addToTaskList ? undefined : (
+                {!props.addToSavedList ? undefined : (
                     <Button
                         rounded
                         success
-                        onPress={(): stores.AddToTaskListAction => props.addToTaskList(selector.normalizeTask(props))}>
+                        onPress={(): stores.AddToSavedListAction => props.addToSavedList(props.id)}>
                         <Text>Add</Text>
                     </Button>
                 )}
