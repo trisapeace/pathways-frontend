@@ -1,14 +1,15 @@
 import React from 'react';
 import { Content, Text, Container } from 'native-base';
-import * as tasks from '../tasks/index';
+import { ConnectedSavedTasks } from '../tasks/connected_saved_tasks';
+import { ConnectedSuggestedTasks } from '../tasks/connected_suggested_tasks';
 
 export const Component: React.StatelessComponent = (): JSX.Element => (
     <Container>
         <Content>
             <Text>Saved Tasks</Text>
-            <tasks.ConnectedSavedTasks />
+            <ConnectedSavedTasks />
             <Text>Suggested Tasks</Text>
-            <tasks.ConnectedSuggestedTasks />
+            <ConnectedSuggestedTasks />
         </Content>
     </Container>
 );
