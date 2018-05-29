@@ -18,7 +18,9 @@ export const buildDefaultStore = () => ({
 export const setLocaleActions = setLocale;
 export const loadCurrentLocaleActions = loadCurrentLocale;
 
-export const reducer = (store: Store = buildDefaultStore(), action?: SetLocale.Request | SetLocale.Result | LoadCurrentLocale.Request): Store => {
+type ReducerActions = SetLocale.Request | SetLocale.Result | LoadCurrentLocale.Request;
+
+export const reducer = (store: Store = buildDefaultStore(), action?: ReducerActions): Store => {
     if (!action) {
         return store;
     }

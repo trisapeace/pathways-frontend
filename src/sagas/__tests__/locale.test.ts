@@ -1,8 +1,7 @@
 // tslint:disable:no-expression-statement
-
 import { call, put } from 'redux-saga/effects';
 
-import { loadCurrentLocaleCode, saveCurrentLocaleCode, getLocale, setRTLAndReloadIfNeeded } from '../../application/locales';
+import { loadCurrentLocaleCode, saveCurrentLocaleCode, getLocale, isReloadNeeded, reloadRTL } from '../../application/locale';
 import { loadCurrentLocaleActions, setLocaleActions } from '../../stores/locale';
 import { applyLocaleChange, loadCurrentLocale } from '../locale';
 
@@ -46,8 +45,9 @@ describe('the applyLocaleChange saga', () => {
     it('should dispatch a put effect with a success action upon completion of call effect', () => {
         const saga = applyLocaleChange(setLocaleAction);
         expect(saga.next().value).toEqual(call(saveCurrentLocaleCode, aLocale.code));
-        expect(saga.next().value).toEqual(call(setRTLAndReloadIfNeeded, aLocale));
         expect(saga.next().value).toEqual(put(setLocaleActions.success(aLocale)));
+        expect(saga.next().value).toEqual(call(isReloadNeeded, aLocale));
+        expect(saga.next(true).value).toEqual(call(reloadRTL, aLocale.isRTL));
     });
 
     it('should dispatch a failure action upon failure of call effect', () => {

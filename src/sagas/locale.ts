@@ -2,7 +2,7 @@
 import { takeLatest, call, put, ForkEffect, CallEffect, PutEffect} from 'redux-saga/effects';
 
 import * as constants from '../application/constants';
-import { saveCurrentLocaleCode, setRTLAndReloadIfNeeded, loadCurrentLocaleCode, getLocale } from '../application/locales';
+import { saveCurrentLocaleCode, loadCurrentLocaleCode, isReloadNeeded, reloadRTL, getLocale } from '../application/locale';
 import { SetLocale, LoadCurrentLocale, setLocaleActions, loadCurrentLocaleActions } from '../stores/locale';
 
 export function* watchSetLocale(): IterableIterator<ForkEffect> {
@@ -10,12 +10,15 @@ export function* watchSetLocale(): IterableIterator<ForkEffect> {
 }
 
 export function* applyLocaleChange(action: SetLocale.Request): IterableIterator<CallEffect | PutEffect<SetLocale.Result>> {
+    const locale = action.payload.locale;
     try {
-        yield call(saveCurrentLocaleCode, action.payload.locale.code);
-        yield call(setRTLAndReloadIfNeeded, action.payload.locale);
-        yield put(setLocaleActions.success(action.payload.locale));
+        yield call(saveCurrentLocaleCode, locale.code);
+        yield put(setLocaleActions.success(locale));
+        if (yield call(isReloadNeeded, locale)) {
+            yield call(reloadRTL, locale.isRTL);
+        }
     } catch (e) {
-        yield put(setLocaleActions.failure(e.message, action.payload.locale));
+        yield put(setLocaleActions.failure(e.message, locale));
     }
 }
 
@@ -24,14 +27,19 @@ export function* watchLoadLocale(): IterableIterator<ForkEffect> {
 }
 
 type LoadCurrentLocaleActions = LoadCurrentLocale.Request | LoadCurrentLocale.Result | SetLocale.Request;
+
 export function* loadCurrentLocale(): IterableIterator<CallEffect | PutEffect<LoadCurrentLocaleActions>> {
     try {
         const currentLocaleCode = yield call(loadCurrentLocaleCode);
-        const currentLocale = getLocale(currentLocaleCode);
-        yield put(loadCurrentLocaleActions.success(currentLocale));
-        yield put(setLocaleActions.request(currentLocale));
+        if (currentLocaleCode !== null) {
+            const currentLocale = getLocale(currentLocaleCode);
+            yield put(loadCurrentLocaleActions.success(currentLocale));
+            yield put(setLocaleActions.request(currentLocale));
+        } else {
+            yield put(loadCurrentLocaleActions.failure('No locale preference set'));
+        }
     } catch (e) {
-        console.warn(`Failed to load current locale (${e.message})`);
+        console.error(`Failed to load current locale (${e.message})`);
         yield put(loadCurrentLocaleActions.failure(e.message));
     }
 }

@@ -1,10 +1,11 @@
 // tslint:disable:no-expression-statement
-
-import { Locale } from '../../components/language_switcher/view_model';
+import { Locale } from '../../application/locale';
 import * as locale from '../locale';
 import * as constants from '../../application/constants';
+import * as helpers from './helpers/locale_helpers';
 
-const aLocale = { code: 'ar', label: 'Arabic', catalog: {}, isRTL: true };
+const aLocale = new helpers.LocaleBuilder().build();
+const aRTLLocale = new helpers.LocaleBuilder().withRTL(true).build();
 
 const buildStoreWithLocale = (theLocale: Locale): locale.Store => {
     return { ...locale.buildDefaultStore(), code: theLocale.code };

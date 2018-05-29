@@ -1,6 +1,6 @@
+import { Locale } from '../../application/locale';
 import * as constants from '../../application/constants';
 import * as helpers from '../helpers/make_action';
-import { Locale } from '../../components/language_switcher/view_model';
 
 export namespace LoadCurrentLocale {
     export type Request = Readonly<ReturnType<typeof request>>;

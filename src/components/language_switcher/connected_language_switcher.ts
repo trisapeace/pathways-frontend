@@ -1,19 +1,18 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { LanguageSwitcher } from './language_switcher';
-import { Locale, Props, Actions } from './view_model';
+import { LanguageSwitcher, Props, Actions } from './language_switcher';
 import { Store } from '../../application/store';
-import * as store from '../../stores/locale';
-import { locales } from '../../application/locales';
-import { selectLocale } from './select_locale';
+import { SetLocale, setLocaleActions } from '../../stores/locale';
+import { selectLocale } from '../../selectors/locale';
+import { Locale, locales } from '../../application/locale';
 
-const mapStateToProps = ({ applicationState: { localeInStore } }: Store): Props => ({
-    currentLocale: selectLocale(localeInStore),
+const mapStateToProps = (store: Store): Props => ({
+    currentLocale: selectLocale(store),
     locales,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): Actions => ({
-    setLocale: (locale: Locale): store.SetLocale.Request => dispatch(store.setLocaleActions.request(locale)),
+    setLocale: (locale: Locale): SetLocale.Request => dispatch(setLocaleActions.request(locale)),
 });
 
 export const ConnectedLanguageSwitcher = connect(mapStateToProps, mapDispatchToProps)(LanguageSwitcher);

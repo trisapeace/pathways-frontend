@@ -1,10 +1,21 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import { withI18n, Trans } from '@lingui/react';
-import { Locale, LanguageSwitcherProps } from './view_model';
+import { Trans } from '@lingui/react';
+import { Locale } from '../../application/locale';
 
-const Switcher = (props: LanguageSwitcherProps): JSX.Element => {
-    const {setLocale, currentLocale, locales}: LanguageSwitcherProps = props;
+export interface Props {
+    readonly currentLocale: Locale;
+    readonly locales: ReadonlyArray<Locale>;
+}
+
+export interface Actions {
+    setLocale(locale: Locale): void;
+}
+
+export type LanguageSwitcherProps = Props & Actions;
+
+export const LanguageSwitcher = (props: LanguageSwitcherProps): JSX.Element => {
+    const { currentLocale, locales, setLocale }: LanguageSwitcherProps = props;
     return (
         <View>
             <View style={{ alignItems: 'center' }}>
@@ -23,7 +34,3 @@ const Switcher = (props: LanguageSwitcherProps): JSX.Element => {
         </View>
     );
 };
-
-const I18nLanguageSwitcher = withI18n()(Switcher);
-
-export const LanguageSwitcher = I18nLanguageSwitcher;
