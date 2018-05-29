@@ -11,13 +11,13 @@ export type RemoveFromSuggestedListAction = Readonly<ReturnType<typeof removeFro
 export type ToggleCompletedAction = Readonly<ReturnType<typeof toggleCompleted>>;
 export type ToggleStarredAction = Readonly<ReturnType<typeof toggleStarred>>;
 export type ShareAction = Readonly<ReturnType<typeof share>>;
-export type TaskAction = AddToSavedListAction |
-                         RemoveFromSavedListAction |
-                         AddToSuggestedListAction |
-                         RemoveFromSuggestedListAction |
-                         ToggleCompletedAction |
-                         ToggleStarredAction |
-                         ShareAction;
+type TaskAction = AddToSavedListAction |
+                  RemoveFromSavedListAction |
+                  AddToSuggestedListAction |
+                  RemoveFromSuggestedListAction |
+                  ToggleCompletedAction |
+                  ToggleStarredAction |
+                  ShareAction;
 
 // tslint:disable-next-line:typedef
 export const addToSavedList = (taskId: Id) => (
