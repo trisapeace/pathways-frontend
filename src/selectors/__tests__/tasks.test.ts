@@ -2,7 +2,11 @@
 // tslint:disable:no-let
 // tslint:disable:no-any
 
-import * as helpers from '../../stores/__tests__/helpers/tasks_helpers';
+import {
+    TaskBuilder,
+    TaskUserSettingsBuilder,
+    buildNormalizedStore ,
+} from '../../stores/__tests__/helpers/tasks_helpers';
 import * as selector from '../tasks';
 import * as stores from '../../stores/tasks';
 
@@ -14,8 +18,8 @@ describe('tasks selector', () => {
         let denormalizedTask: selector.Task;
 
         beforeEach(() => {
-            task = new helpers.TaskBuilder().build();
-            taskUserSettings = new helpers.TaskUserSettingsBuilder(task.id).build();
+            task = new TaskBuilder().build();
+            taskUserSettings = new TaskUserSettingsBuilder(task.id).build();
             denormalizedTask = selector.denormalizeTask(task, taskUserSettings);
         });
 
@@ -56,11 +60,18 @@ describe('tasks selector', () => {
         let store: stores.Store;
 
         beforeEach(() => {
-            store = helpers.buildPopulatedNormalizedStore();
+            const taskBuilder = new TaskBuilder();
+            const taskUserSettingsBuilder = new TaskUserSettingsBuilder(taskBuilder.build().id);
+            store = buildNormalizedStore(
+                [taskBuilder],
+                [taskUserSettingsBuilder],
+                [taskBuilder.build().id],
+                [taskBuilder.build().id],
+            );
         });
 
         test('returns all saved tasks', () => {
-            expect(Object.keys(selector.selectAllSavedTasks(store))).toHaveLength(2);
+            expect(Object.keys(selector.selectAllSavedTasks(store))).toHaveLength(1);
         });
 
         test('returns all suggested tasks', () => {

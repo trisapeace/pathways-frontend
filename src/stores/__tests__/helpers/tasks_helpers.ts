@@ -93,22 +93,6 @@ export class TaskUserSettingsBuilder {
     }
 }
 
-export const buildPopulatedNormalizedStore = (): store.Store => {
-    const firstTaskBuilder = new TaskBuilder();
-    const secondTaskBuilder = new TaskBuilder();
-    const thirdTaskBuilder = new TaskBuilder();
-    const taskBuilders = [firstTaskBuilder, secondTaskBuilder, thirdTaskBuilder];
-    const taskUserSettingsBuilders = [
-        new TaskUserSettingsBuilder(firstTaskBuilder.build().id),
-        new TaskUserSettingsBuilder(secondTaskBuilder.build().id),
-        new TaskUserSettingsBuilder(thirdTaskBuilder.build().id),
-    ];
-    const savedTasks = [firstTaskBuilder.build().id, secondTaskBuilder.build().id];
-    const suggestedTasks = [thirdTaskBuilder.build().id];
-
-    return buildNormalizedStore(taskBuilders, taskUserSettingsBuilders, savedTasks, suggestedTasks);
-};
-
 export const buildNormalizedStore = (taskBuilders: ReadonlyArray<TaskBuilder>,
                                      taskUserSettingsBuilders: ReadonlyArray<TaskUserSettingsBuilder>,
                                      savedTasks: ReadonlyArray<store.Id>,

@@ -1,7 +1,11 @@
 // tslint:disable:no-expression-statement
 // tslint:disable:no-let
 
-import * as helpers from '../../stores/__tests__/helpers/tasks_helpers';
+import {
+    TaskBuilder,
+    TaskUserSettingsBuilder,
+    buildNormalizedStore ,
+} from '../../stores/__tests__/helpers/tasks_helpers';
 import * as stores from '../tasks';
 
 describe('tasks reducer', () => {
@@ -10,33 +14,36 @@ describe('tasks reducer', () => {
         let store: stores.Store;
 
         beforeEach(() => {
-            store = helpers.buildPopulatedNormalizedStore();
+            const taskBuilder = new TaskBuilder();
+            const taskUserSettingsBuilder = new TaskUserSettingsBuilder(taskBuilder.build().id);
+            store = buildNormalizedStore(
+                [taskBuilder],
+                [taskUserSettingsBuilder],
+                [taskBuilder.build().id],
+                [taskBuilder.build().id],
+            );
         });
 
         test('can add task to saved tasks list', () => {
-            const task = new helpers.TaskBuilder().build();
+            const task = new TaskBuilder().build();
             const finalStore = stores.reducer(store, stores.addToSavedList(task.id));
-            const expectedLength = Object.keys(store.savedTasksList).length + 1;
-            expect(finalStore.savedTasksList).toHaveLength(expectedLength);
+            expect(finalStore.savedTasksList).toHaveLength(2);
         });
 
         test('can add task to suggested tasks list', () => {
-            const task = new helpers.TaskBuilder().build();
+            const task = new TaskBuilder().build();
             const finalStore = stores.reducer(store, stores.addToSuggestedList(task.id));
-            const expectedLength = Object.keys(store.suggestedTasksList).length + 1;
-            expect(finalStore.savedTasksList).toHaveLength(expectedLength);
+            expect(finalStore.suggestedTasksList).toHaveLength(2);
         });
 
         test('can remove task from saved tasks list', () => {
             const finalStore = stores.reducer(store, stores.removeFromSavedList(store.savedTasksList[0]));
-            const expectedLength = Object.keys(store.savedTasksList).length - 1;
-            expect(finalStore.savedTasksList).toHaveLength(expectedLength);
+            expect(finalStore.savedTasksList).toHaveLength(0);
         });
 
         test('can remove task from suggested tasks list', () => {
             const finalStore = stores.reducer(store, stores.removeFromSuggestedList(store.suggestedTasksList[0]));
-            const expectedLength = Object.keys(store.suggestedTasksList).length - 1;
-            expect(finalStore.suggestedTasksList).toHaveLength(expectedLength);
+            expect(finalStore.suggestedTasksList).toHaveLength(0);
         });
 
         test('can toggle a task completed', () => {
