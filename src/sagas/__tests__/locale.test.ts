@@ -1,13 +1,19 @@
 // tslint:disable:no-expression-statement
 import { call, put } from 'redux-saga/effects';
 
-import { loadCurrentLocaleCode, saveCurrentLocaleCode, getLocale, isReloadNeeded, reloadRTL } from '../../application/locale';
+import { buildLocale } from '../../stores/__tests__/helpers/locale_helpers';
+import { loadCurrentLocaleCode, saveCurrentLocaleCode, isReloadNeeded, reloadRTL, LocaleManager } from '../../application/locale';
 import { loadCurrentLocaleActions, setLocaleActions } from '../../stores/locale';
 import { applyLocaleChange, loadCurrentLocale } from '../locale';
+import { anError } from '../../application/__tests__/helpers/random_test_values';
 
 describe('the loadCurrentLocale saga', () => {
 
-    const aLocale = getLocale('ar');
+    const aLocale = buildLocale().get();
+
+    beforeAll(() => {
+        LocaleManager.registerLocale(aLocale);
+    });
 
     it('should dispatch a call effect with loadCurrentLocaleCode', () => {
         const saga = loadCurrentLocale();
@@ -23,18 +29,18 @@ describe('the loadCurrentLocale saga', () => {
     });
 
     it('should dispatch a failure action upon failure of call effect', () => {
-        const loadCurrentLocaleError = new Error('[test] Could not load current locale');
+        const error = anError();
         const saga = loadCurrentLocale();
         expect(saga.next().value).toEqual(call(loadCurrentLocaleCode));
-        expect(saga.throw(loadCurrentLocaleError).value)
-            .toEqual(put(loadCurrentLocaleActions.failure(loadCurrentLocaleError.message)));
+        expect(saga.throw(error).value)
+            .toEqual(put(loadCurrentLocaleActions.failure(error.message)));
     });
 
 });
 
 describe('the applyLocaleChange saga', () => {
 
-    const aLocale = { code: 'ar', label: 'Arabic', catalog: {}, isRTL: true };
+    const aLocale = buildLocale().get();
     const setLocaleAction = setLocaleActions.request(aLocale);
 
     it('should dispatch a call effect with saveCurrentLocale', () => {
@@ -51,11 +57,11 @@ describe('the applyLocaleChange saga', () => {
     });
 
     it('should dispatch a failure action upon failure of call effect', () => {
-        const saveCurrentLocaleError = new Error('[test] Could not save current locale');
+        const error = anError();
         const saga = applyLocaleChange(setLocaleAction);
         expect(saga.next().value).toEqual(call(saveCurrentLocaleCode, aLocale.code));
-        expect(saga.throw(saveCurrentLocaleError).value)
-            .toEqual(put(setLocaleActions.failure(saveCurrentLocaleError.message, aLocale)));
+        expect(saga.throw(error).value)
+            .toEqual(put(setLocaleActions.failure(error.message, aLocale)));
     });
 
 });

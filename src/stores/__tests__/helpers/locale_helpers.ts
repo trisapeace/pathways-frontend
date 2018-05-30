@@ -6,7 +6,11 @@
 import { Catalog, Locale } from '../../../application/locale';
 import { aString, aBoolean } from '../../../application/__tests__/helpers/random_test_values';
 
-export class LocaleBuilder {
+export function buildLocale(): LocaleBuilder {
+    return new LocaleBuilder();
+}
+
+class LocaleBuilder {
     code: string = aString();
     label: string = aString();
     catalog: Catalog = {};
@@ -32,7 +36,7 @@ export class LocaleBuilder {
         return this;
     }
 
-    build(): Locale {
+    get(): Locale {
         return {
             code: this.code,
             label: this.label,

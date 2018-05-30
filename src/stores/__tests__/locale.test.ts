@@ -4,8 +4,7 @@ import * as locale from '../locale';
 import * as constants from '../../application/constants';
 import * as helpers from './helpers/locale_helpers';
 
-const aLocale = new helpers.LocaleBuilder().build();
-const aRTLLocale = new helpers.LocaleBuilder().withRTL(true).build();
+const aLocale = helpers.buildLocale().get();
 
 const buildStoreWithLocale = (theLocale: Locale): locale.Store => {
     return { ...locale.buildDefaultStore(), code: theLocale.code };

@@ -2,7 +2,7 @@
 import { takeLatest, call, put, ForkEffect, CallEffect, PutEffect} from 'redux-saga/effects';
 
 import * as constants from '../application/constants';
-import { saveCurrentLocaleCode, loadCurrentLocaleCode, isReloadNeeded, reloadRTL, getLocale } from '../application/locale';
+import { saveCurrentLocaleCode, loadCurrentLocaleCode, isReloadNeeded, reloadRTL, LocaleManager } from '../application/locale';
 import { SetLocale, LoadCurrentLocale, setLocaleActions, loadCurrentLocaleActions } from '../stores/locale';
 
 export function* watchSetLocale(): IterableIterator<ForkEffect> {
@@ -32,7 +32,7 @@ export function* loadCurrentLocale(): IterableIterator<CallEffect | PutEffect<Lo
     try {
         const currentLocaleCode = yield call(loadCurrentLocaleCode);
         if (currentLocaleCode !== null) {
-            const currentLocale = getLocale(currentLocaleCode);
+            const currentLocale = LocaleManager.get(currentLocaleCode);
             yield put(loadCurrentLocaleActions.success(currentLocale));
             yield put(setLocaleActions.request(currentLocale));
         } else {

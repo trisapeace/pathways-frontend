@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { I18nProvider } from '@lingui/react';
 import * as app from '../../application/store';
-import { selectLocaleStore, selectLocaleCode } from '../../selectors/locale';
-import { CatalogsMap, catalogsMap } from '../../application/locale';
+import { selectLocale } from '../../selectors/locale';
+import { CatalogsMap, LocaleManager } from '../../application/locale';
 
 interface Props {
     readonly catalogs: CatalogsMap;
@@ -12,8 +12,8 @@ interface Props {
 interface Actions {}
 
 const mapStateToProps = (appStore: app.Store): Props => ({
-    catalogs: catalogsMap,
-    language: selectLocaleCode(selectLocaleStore(appStore)),
+    catalogs: LocaleManager.catalogsMap,
+    language: selectLocale(appStore),
 });
 
 const mapDispatchToProps = (): Actions => ({});
