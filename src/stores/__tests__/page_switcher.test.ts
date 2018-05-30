@@ -56,10 +56,9 @@ describe('the reducer', () => {
 
     it('should update the store if the payload contains a valid string', () => {
         const theStore = buildStore();
-        const mainPageAsString = 'plan';
         const theAction = {
             type: constants.SET_MAIN_PAGE as typeof constants.SET_MAIN_PAGE,
-            payload: { mainPage: mainPageAsString },
+            payload: { mainPage: pageSwitcher.Page.MyPlan },
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
         expect(theNewStore.mainPage).toBe(pageSwitcher.Page.MyPlan);
@@ -67,10 +66,9 @@ describe('the reducer', () => {
 
     it('should throw if the payload contains an invalid string', () => {
         const theStore = buildStore();
-        const invalidmainPageAsString = 'MainPage.Invalid';
         const theAction = {
             type: constants.SET_MAIN_PAGE as typeof constants.SET_MAIN_PAGE,
-            payload: { mainPage: invalidmainPageAsString },
+            payload: { mainPage: null as pageSwitcher.Page },
         };
         expect(() => pageSwitcher.reducer(theStore, theAction)).toThrow(
             /MainPage.Invalid: Invalid main page id, accepted values are "questionnaire", "plan", or "explore"/,
