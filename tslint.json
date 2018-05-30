@@ -1,5 +1,5 @@
 {
-    "rulesDirectory": "node_modules/tslint-immutable/rules/",
+    "rulesDirectory": "tslint-immutable/rules/",
     "rules": {
         "member-access": false,
         "member-ordering": [

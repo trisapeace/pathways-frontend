@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "sdkVersion": "27.0.0",
+    "name": "Pathways",
+    "icon": "./icon.png",
+    "version": "0.0.1",
+    "slug": "pathways",
+    "ios": {
+      "bundleIdentifier": "org.peacegeeks.pathways"
+    },
+    "android": {
+      "package": "org.peacegeeks.pathways"
+    }
   }
 }

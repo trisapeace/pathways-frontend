@@ -17,3 +17,7 @@ export const aString = (): string => {
 export const aBoolean = (): boolean => {
     return Math.random() > 0.5;
 };
+
+export function anError(): Error {
+    return new Error(aString());
+}

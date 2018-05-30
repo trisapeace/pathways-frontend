@@ -1,53 +1,163 @@
 // tslint:disable:no-expression-statement
-
+import { Locale } from '../../application/locale';
 import * as locale from '../locale';
 import * as constants from '../../application/constants';
-import * as helpers from '../helpers/make_action';
+import * as helpers from './helpers/locale_helpers';
 
-const buildStore = (): locale.Store => locale.reducer(undefined, undefined);
+const aLocale = helpers.buildLocale().get();
 
-const buildStoreWithLocale = (code: string): locale.Store => {
-    const action = helpers.makeAction(constants.SET_LOCALE, { code });
-    return locale.reducer(undefined, action);
+const buildStoreWithLocale = (theLocale: Locale): locale.Store => {
+    return { ...locale.buildDefaultStore(), code: theLocale.code };
 };
 
-describe('the action for', () => {
+const buildStoreLoadingLocale = (): locale.Store => {
+    return { ...locale.buildDefaultStore(), loading: true };
+};
 
-    describe('setLocale', () => {
+describe('the setLocaleAction for', () => {
 
-        it('should create action with type SET_LOCALE', () => {
-            const code = 'ar';
-            const theSetLangAction = locale.setLocale(code);
-            expect(theSetLangAction.type).toBe(constants.SET_LOCALE);
+    describe('request', () => {
+
+        it('should create action with type SET_LOCALE_REQUEST', () => {
+            const theSetLangAction = locale.setLocaleActions.request(aLocale);
+            expect(theSetLangAction.type).toBe(constants.SET_LOCALE_REQUEST);
         });
 
-        it('should create action with payload containing locale code', () => {
-            const code = 'ar';
-            const theSetLangAction = locale.setLocale(code);
-            expect(theSetLangAction.payload.code).toBe(code);
+        it('should create action with payload containing the locale', () => {
+            const theSetLangAction = locale.setLocaleActions.request(aLocale);
+            expect(theSetLangAction.payload.locale).toBe(aLocale);
         });
+
     });
+
+    describe('success', () => {
+
+        it('should create action with type SET_LOCALE_SUCCESS', () => {
+            const theSetLangAction = locale.setLocaleActions.success(aLocale);
+            expect(theSetLangAction.type).toBe(constants.SET_LOCALE_SUCCESS);
+        });
+
+        it('should create action with payload containing the locale', () => {
+            const theSetLangAction = locale.setLocaleActions.success(aLocale);
+            expect(theSetLangAction.payload.locale).toBe(aLocale);
+        });
+
+    });
+
+    describe('failure', () => {
+
+        const errorMessage = '[test] Error occurred during setLocale';
+
+        it('should create action with type SET_LOCALE_FAILURE', () => {
+            const theSetLangAction = locale.setLocaleActions.failure(errorMessage, aLocale);
+            expect(theSetLangAction.type).toBe(constants.SET_LOCALE_FAILURE);
+        });
+
+        it('should create action with payload containing an error message and the locale', () => {
+            const theSetLangAction = locale.setLocaleActions.failure(errorMessage, aLocale);
+            expect(theSetLangAction.payload.message).toBe(errorMessage);
+            expect(theSetLangAction.payload.locale).toBe(aLocale);
+        });
+
+    });
+
+});
+
+describe('the loadCurrentLocaleAction for', () => {
+
+    describe('request', () => {
+
+        it('should create action with type LOAD_CURRENT_LOCALE_REQUEST', () => {
+            const theLoadCurrentLocaleAction = locale.loadCurrentLocaleActions.request();
+            expect(theLoadCurrentLocaleAction.type).toBe(constants.LOAD_CURRENT_LOCALE_REQUEST);
+        });
+
+    });
+
+    describe('success', () => {
+
+        it('should create action with type LOAD_CURRENT_LOCALE_REQUEST', () => {
+            const theLoadCurrentLocaleAction = locale.loadCurrentLocaleActions.success(aLocale);
+            expect(theLoadCurrentLocaleAction.type).toBe(constants.LOAD_CURRENT_LOCALE_SUCCESS);
+        });
+
+        it('should create action with payload containing the locale', () => {
+            const theLoadCurrentLocaleAction = locale.loadCurrentLocaleActions.success(aLocale);
+            expect(theLoadCurrentLocaleAction.payload.locale).toBe(aLocale);
+        });
+
+    });
+
+    describe('failure', () => {
+
+        const errorMessage = '[test] Error occurred during loadCurrentLocale';
+
+        it('should create action with type SET_LOCALE_FAILURE', () => {
+            const theLoadCurrentLocaleAction = locale.loadCurrentLocaleActions.failure(errorMessage);
+            expect(theLoadCurrentLocaleAction.type).toBe(constants.LOAD_CURRENT_LOCALE_FAILURE);
+        });
+
+        it('should create action with payload containing an error message', () => {
+            const theLoadCurrentLocaleAction = locale.loadCurrentLocaleActions.failure(errorMessage);
+            expect(theLoadCurrentLocaleAction.payload.message).toBe(errorMessage);
+        });
+
+    });
+
 });
 
 describe('the reducer', () => {
+
     it('should default to build a store with default locale code `en`', () => {
         const theStore = locale.reducer();
         expect(theStore.code).toBe('en');
     });
 
-    it('when called with SET_LOCALE should return store with locale code from action', () => {
-        const theStore = buildStore();
+    it('when called with SET_LOCALE_REQUEST should return store with loading flag set', () => {
+        const theStore = locale.buildDefaultStore();
         const theAction = {
-            type: constants.SET_LOCALE as typeof constants.SET_LOCALE,
-            payload: { code: 'ar' },
+            type: constants.SET_LOCALE_REQUEST as typeof constants.SET_LOCALE_REQUEST,
+            payload: { locale: aLocale },
         };
         const theNewStore = locale.reducer(theStore, theAction);
-        expect(theNewStore.code).toBe(theAction.payload.code);
+        expect(theNewStore.loading).toBe(true);
+    });
+
+    it('when called with SET_LOCALE_SUCCESS should return store with locale code from action', () => {
+        const theStore = buildStoreLoadingLocale();
+        const theAction = {
+            type: constants.SET_LOCALE_SUCCESS as typeof constants.SET_LOCALE_SUCCESS,
+            payload: { locale: aLocale },
+        };
+        const theNewStore = locale.reducer(theStore, theAction);
+        expect(theNewStore.code).toBe(theAction.payload.locale.code);
+        expect(theNewStore.loading).toBe(false);
+    });
+
+    it('when called with SET_LOCALE_FAILURE should return store with loading flag set false', () => {
+        const errorMessage = '[test] Error occurred during setLocale';
+        const theStore = buildStoreLoadingLocale();
+        const theAction = {
+            type: constants.SET_LOCALE_FAILURE as typeof constants.SET_LOCALE_FAILURE,
+            payload: { message: errorMessage, locale: aLocale },
+        };
+        const theNewStore = locale.reducer(theStore, theAction);
+        expect(theNewStore.loading).toBe(false);
+    });
+
+    it('when called with LOAD_CURRENT_LOCALE_REQUEST should return store with loading flag set', () => {
+        const theStore = locale.buildDefaultStore();
+        const theAction = {
+            type: constants.LOAD_CURRENT_LOCALE_REQUEST as typeof constants.LOAD_CURRENT_LOCALE_REQUEST,
+        };
+        const theNewStore = locale.reducer(theStore, theAction);
+        expect(theNewStore.loading).toBe(true);
     });
 
     it('should return store unchanged if action is undefined', () => {
-        const theOriginalStore = buildStoreWithLocale('ar');
+        const theOriginalStore = buildStoreWithLocale(aLocale);
         const theNewStore = locale.reducer(theOriginalStore, undefined);
         expect(theNewStore.code).toBe(theOriginalStore.code);
     });
+
 });
