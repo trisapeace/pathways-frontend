@@ -17,10 +17,11 @@ export const Task: React.StatelessComponent<selector.Task & Actions> = (props: s
             <View style={styles.sideColumn}>
                 {!props.addToSavedList ? undefined : (
                     <Button
-                        rounded
-                        success
-                        onPress={(): stores.AddToSavedListAction => props.addToSavedList(props.id)}>
-                        <Text>Add</Text>
+                        onPress={(): stores.AddToSavedListAction => props.addToSavedList(props.id)}
+                        dark
+                        transparent
+                    >
+                        <Icon name='add' />
                     </Button>
                 )}
             </View>
@@ -31,7 +32,10 @@ export const Task: React.StatelessComponent<selector.Task & Actions> = (props: s
             </View>
             <View style={styles.sideColumn}>
                 <View style={styles.stackedItems}>
-                    <Button>
+                    <Button
+                        dark
+                        transparent
+                    >
                         <Icon name='arrow-forward' />
                     </Button>
                 </View>
