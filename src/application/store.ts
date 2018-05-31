@@ -1,6 +1,5 @@
-import { Platform } from 'react-native';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { composeWithDevTools } from 'remote-redux-devtools';
+import { composeWithDevTools as compose } from 'remote-redux-devtools';
 
 import { reducer as reducerForApplicationState, Store as StoreForApplicationState } from '../stores';
 import { buildSaga, runSaga } from '../sagas';
@@ -16,8 +15,7 @@ const router = buildRouter();
 const saga = buildSaga();
 const middleware = applyMiddleware(router.middleware, saga.middleware);
 
-const composeEnhancers = composeWithDevTools;
-const enhancers = composeEnhancers(router.enhancer, middleware);
+const enhancers = compose(router.enhancer, middleware);
 const reducer = combineReducers({ location: router.reducer, applicationState: reducerForApplicationState });
 
 export const store = createStore(reducer, enhancers);
