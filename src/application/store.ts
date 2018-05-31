@@ -16,10 +16,7 @@ const router = buildRouter();
 const saga = buildSaga();
 const middleware = applyMiddleware(router.middleware, saga.middleware);
 
-const composeEnhancers = composeWithDevTools({
-    hostname: 'localhost', port: 5678,
-    name: Platform.OS,
-});
+const composeEnhancers = composeWithDevTools;
 const enhancers = composeEnhancers(router.enhancer, middleware);
 const reducer = combineReducers({ location: router.reducer, applicationState: reducerForApplicationState });
 

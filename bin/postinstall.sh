@@ -10,4 +10,3 @@
 # https://github.com/aws/aws-sdk-js/issues/1926
 
 sed -i -e "s/\(^declare var require: NodeRequire;\)/\/\/\1/g" node_modules/\@types/node/index.d.ts
-yarn remotedev-debugger --hostname localhost --port 5678 --injectserver
