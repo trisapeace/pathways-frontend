@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { back, canGoBack } from 'redux-first-router';
 import { Store } from '../../application/store';
 import * as main from './main';
-import * as pageSwitcher from '../../stores/page_switcher';
 import { LoaderProps, withLoader } from './loader';
 import { isApplicationLoading } from '../../selectors/application_loading';
+import * as constants from '../../application/constants';
+import * as helpers from '../../stores/helpers/make_action';
 
 const mapStateToProps = (store: Store): LoaderProps & main.Props => ({
     loading: isApplicationLoading(store),
@@ -14,9 +15,9 @@ const mapStateToProps = (store: Store): LoaderProps & main.Props => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Store>): main.Actions => ({
-    goToQuestionnaire: (): pageSwitcher.SetMainPageAction => dispatch(pageSwitcher.setMainPage(pageSwitcher.Page.Questionnaire)),
-    goToPlan: (): pageSwitcher.SetMainPageAction => dispatch(pageSwitcher.setMainPage(pageSwitcher.Page.MyPlan)),
-    goToExplore: (): pageSwitcher.SetMainPageAction => dispatch(pageSwitcher.setMainPage(pageSwitcher.Page.ExploreAll)),
+    goToQuestionnaire: () => dispatch(helpers.makeAction(constants.SET_QUESTIONNAIRE_PAGE)),
+    goToPlan: () => dispatch(helpers.makeAction(constants.SET_PLAN_PAGE)),
+    goToExplore: () => dispatch(helpers.makeAction(constants.SET_EXPLORE_PAGE)),
     goBack: (): void => back(),
 });
 

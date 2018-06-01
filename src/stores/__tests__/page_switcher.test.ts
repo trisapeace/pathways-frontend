@@ -2,33 +2,14 @@
 
 import * as pageSwitcher from '../page_switcher';
 import * as constants from '../../application/constants';
-import * as helpers from '../helpers/make_action';
 
 const buildStore = (): pageSwitcher.Store => (
     pageSwitcher.reducer(undefined, undefined)
 );
 
-const buildStoreWithValue = (mainPage: pageSwitcher.Page): pageSwitcher.Store => {
-    const action = helpers.makeAction(constants.SET_MAIN_PAGE, { mainPage });
-    return pageSwitcher.reducer(undefined, action);
-};
-
 describe('the initial page', () => {
     it('should be set to Page.Questionnaire', () => {
         expect(pageSwitcher.initialPage).toBe(pageSwitcher.Page.Questionnaire);
-    });
-});
-
-describe('setting the main page', () => {
-
-    it('should create action with type SET_MAIN_PAGE', () => {
-        const theAction = pageSwitcher.setMainPage(pageSwitcher.Page.ExploreAll);
-        expect(theAction.type).toBe(constants.SET_MAIN_PAGE);
-    });
-
-    it('should create action with page id as passed to the action creator', () => {
-        const theAction = pageSwitcher.setMainPage(pageSwitcher.Page.ExploreAll);
-        expect(theAction.payload.mainPage).toBe(pageSwitcher.Page.ExploreAll);
     });
 });
 
@@ -38,42 +19,36 @@ describe('the reducer', () => {
         expect(theStore.mainPage).toBe(pageSwitcher.Page.Questionnaire);
     });
 
-    it('when called with SET_MAIN_PAGE should return store with value from action', () => {
+    it('when called with SET_QUESTIONNAIRE_PAGE should return store with mainPage = Page.Questionnaire', () => {
         const theStore = buildStore();
         const theAction = {
-            type: constants.SET_MAIN_PAGE as typeof constants.SET_MAIN_PAGE,
-            payload: { mainPage: pageSwitcher.Page.MyPlan },
+            type: constants.SET_QUESTIONNAIRE_PAGE as typeof constants.SET_QUESTIONNAIRE_PAGE,
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
-        expect(theNewStore.mainPage).toBe(theAction.payload.mainPage);
+        expect(theNewStore.mainPage).toBe(pageSwitcher.Page.Questionnaire);
     });
 
-    it('should return store unchanged if action is undefined', () => {
-        const theOriginalStore = buildStoreWithValue(pageSwitcher.Page.MyPlan);
-        const theNewStore = pageSwitcher.reducer(theOriginalStore, undefined);
-        expect(theNewStore.mainPage).toBe(theOriginalStore.mainPage);
-    });
-
-    it('should update the store if the payload contains a valid string', () => {
+    it('when called with SET_PLAN_PAGE should return store with mainPage = Page.MyPlan', () => {
         const theStore = buildStore();
-        const mainPageAsString = 'plan';
         const theAction = {
-            type: constants.SET_MAIN_PAGE as typeof constants.SET_MAIN_PAGE,
-            payload: { mainPage: mainPageAsString },
+            type: constants.SET_PLAN_PAGE as typeof constants.SET_PLAN_PAGE,
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
         expect(theNewStore.mainPage).toBe(pageSwitcher.Page.MyPlan);
     });
 
-    it('should throw if the payload contains an invalid string', () => {
+    it('when called with SET_EXPLORE_PAGE should return store with mainPage = Page.ExploreAll', () => {
         const theStore = buildStore();
-        const invalidmainPageAsString = 'MainPage.Invalid';
         const theAction = {
-            type: constants.SET_MAIN_PAGE as typeof constants.SET_MAIN_PAGE,
-            payload: { mainPage: invalidmainPageAsString },
+            type: constants.SET_EXPLORE_PAGE as typeof constants.SET_EXPLORE_PAGE,
         };
-        expect(() => pageSwitcher.reducer(theStore, theAction)).toThrow(
-            /MainPage.Invalid: Invalid main page id, accepted values are "questionnaire", "plan", or "explore"/,
-        );
+        const theNewStore = pageSwitcher.reducer(theStore, theAction);
+        expect(theNewStore.mainPage).toBe(pageSwitcher.Page.ExploreAll);
+    });
+
+    it('should return store unchanged if action is undefined', () => {
+        const theOriginalStore = buildStore();
+        const theNewStore = pageSwitcher.reducer(theOriginalStore, undefined);
+        expect(theNewStore.mainPage).toBe(theOriginalStore.mainPage);
     });
 });
