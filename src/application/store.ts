@@ -1,4 +1,5 @@
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { composeWithDevTools as compose } from 'remote-redux-devtools';
 
 import { reducer as reducerForApplicationState, Store as StoreForApplicationState } from '../stores';
 import { buildSaga, runSaga } from '../sagas';
@@ -12,10 +13,12 @@ export type Store = {
 
 const router = buildRouter();
 const saga = buildSaga();
-
-const reducer = combineReducers({ location: router.reducer, applicationState: reducerForApplicationState });
 const middleware = applyMiddleware(router.middleware, saga.middleware);
-export const store = createStore(reducer, compose(router.enhancer, middleware));
+
+const enhancers = compose(router.enhancer, middleware);
+const reducer = combineReducers({ location: router.reducer, applicationState: reducerForApplicationState });
+
+export const store = createStore(reducer, enhancers);
 
 runSaga(saga.middleware); // tslint:disable-line:no-expression-statement
 store.dispatch(loadCurrentLocaleActions.request()); // tslint:disable-line:no-expression-statement
