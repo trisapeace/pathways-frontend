@@ -3,9 +3,11 @@ import  { LocationState } from 'redux-first-router';
 import * as reduxFirstRouter from 'redux-first-router';
 import createMemoryHistory from 'history/createMemoryHistory';
 import * as constants from '../application/constants';
+import { Store as StoreForApplicationState } from '../stores';
+import { initialPage } from '../stores/page_switcher';
 
 const routesMap = {
-    [constants.SET_MAIN_TAB]: '/user/:mainPage',
+    [constants.SET_MAIN_PAGE]: '/page/:mainPage',
 };
 
 interface ApplicationRouter {
@@ -15,7 +17,9 @@ interface ApplicationRouter {
 }
 
 export function buildRouter(): ApplicationRouter {
-    const history = createMemoryHistory();
+    const history = createMemoryHistory({
+        initialEntries: [routesMap[constants.SET_MAIN_PAGE].replace(':mainPage', String(initialPage))],
+    });
     const router = reduxFirstRouter.connectRoutes(history, routesMap);
     return { reducer: router.reducer, enhancer: router.enhancer, middleware: router.middleware };
 }
