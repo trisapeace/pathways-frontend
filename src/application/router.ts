@@ -7,13 +7,13 @@ import { initialPage, Page } from '../stores/page_switcher';
 
 const getRouteFromPage = (page: Page): string => {
     switch (page) {
-        case Page.Questionnaire: 
+        case Page.Questionnaire:
             return '/questionnaire';
-        case Page.MyPlan: 
+        case Page.MyPlan:
             return '/plan';
-        case Page.ExploreAll: 
+        case Page.ExploreAll:
             return '/explore';
-        default: 
+        default:
             return getRouteFromPage(initialPage);
     };
 };
