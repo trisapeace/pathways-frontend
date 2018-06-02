@@ -1,27 +1,24 @@
-import React, { ComponentType, ReactElement } from 'react';
+import React from 'react';
 import { Text } from 'native-base';
 
 export interface LoaderProps {
     readonly loading: boolean;
 }
 
-export function withLoader<
-    Props extends LoaderProps,
-    ChildProps extends Omit<Props, LoaderProps>
->(ChildComponent: ComponentType<ChildProps>): ComponentType<Props> {
+export const withLoader = <ChildProps extends object>(ChildComponent: React.ComponentType<ChildProps>):
+    React.ComponentType<ChildProps & LoaderProps> => (
+        class LoaderComponent extends React.Component<ChildProps & LoaderProps> {
+            render() {
+                const { loading, ...props } = this.props as LoaderProps;
+                return loading ? this.renderLoading() : this.renderLoaded(props as ChildProps);
+            }
 
-    const LoaderComponent: ComponentType<Props> = (props: Props): ReactElement<ChildProps> => {
-        const { loading, ...wrappedProps }: LoaderProps & object = props;
-        return loading ? renderLoading() : renderLoaded(wrappedProps as ChildProps);
-    };
+            renderLoading(): JSX.Element {
+                return <Text>Loading...</Text>;
+            }
 
-    function renderLoading(): JSX.Element {
-        return <Text>Loading...</Text>;
-    }
-
-    function renderLoaded(props: ChildProps): JSX.Element {
-        return <ChildComponent { ...props } />;
-    }
-
-    return LoaderComponent;
-}
+            renderLoaded(props: ChildProps): JSX.Element {
+                return <ChildComponent {...props} />;
+            }
+        }
+    );

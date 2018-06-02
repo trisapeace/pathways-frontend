@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch: Dispatch<Store>): main.Actions => ({
 });
 
 type MainComponentProps = main.Props & main.Actions;
-const MainComponent = withLoader<LoaderProps & MainComponentProps, MainComponentProps>(main.Component);
+const MainComponent = withLoader<MainComponentProps>(main.Component);
 const connector = connect(mapStateToProps, mapDispatchToProps);
 export const ConnectedComponent = connector(MainComponent);
