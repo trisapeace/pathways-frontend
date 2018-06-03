@@ -15,7 +15,7 @@ const getRouteFromPage = (page: Page): string => {
             return '/explore';
         default:
             return getRouteFromPage(initialPage);
-    };
+    }
 };
 
 const routesMap = {
