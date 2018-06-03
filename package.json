@@ -64,7 +64,7 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(react-native|expo|@expo/.*|native-base)/)"
     ],
-    "testRegex": "/__tests__/[\\w]+\\.(test|spec)\\.tsx?$",
+    "testRegex": "/__tests__/.+\\.(test|spec)\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
