@@ -7,11 +7,11 @@ import * as helpers from './helpers/locale_helpers';
 const aLocale = helpers.buildLocale().get();
 
 const buildStoreWithLocale = (theLocale: Locale): locale.Store => {
-    return { ...locale.buildDefaultStore(), code: theLocale.code };
+    return { code: theLocale.code, loading: false };
 };
 
 const buildStoreLoadingLocale = (): locale.Store => {
-    return { ...locale.buildDefaultStore(), loading: true };
+    return { code: aLocale.code, loading: true };
 };
 
 describe('the setLocaleAction for', () => {

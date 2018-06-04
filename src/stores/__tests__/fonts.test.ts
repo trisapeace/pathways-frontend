@@ -1,14 +1,10 @@
 // tslint:disable:no-expression-statement
-
+import { aString } from '../../application/__tests__/helpers/random_test_values';
 import * as fonts from '../fonts';
 import * as constants from '../../application/constants';
 
 const someFonts = {
     MyFont: {},
-};
-
-const buildStoreLoading = (): fonts.Store => {
-    return { ...fonts.buildDefaultStore(), loading: true };
 };
 
 describe('the setLocaleAction for', () => {
@@ -43,7 +39,7 @@ describe('the setLocaleAction for', () => {
 
     describe('failure', () => {
 
-        const errorMessage = '[test] Error occurred during loadFonts';
+        const errorMessage = aString();
 
         it('should create action with type LOAD_FONTS_FAILURE', () => {
             const theLoadFontsAction = fonts.loadFontsActions.failure(errorMessage, someFonts);
@@ -78,7 +74,7 @@ describe('the reducer', () => {
     });
 
     it('when called with LOAD_FONTS_SUCCESS should return store with loading flag set to false', () => {
-        const theStore = buildStoreLoading();
+        const theStore = { loading: true };
         const theAction = {
             type: constants.LOAD_FONTS_SUCCESS as typeof constants.LOAD_FONTS_SUCCESS,
             payload: { fonts: someFonts },
@@ -88,8 +84,8 @@ describe('the reducer', () => {
     });
 
     it('when called with LOAD_FONTS_FAILURE should return store with loading flag set false', () => {
-        const errorMessage = '[test] Error occurred during loadFonts';
-        const theStore = buildStoreLoading();
+        const errorMessage = aString();
+        const theStore = { loading: true };
         const theAction = {
             type: constants.LOAD_FONTS_FAILURE as typeof constants.LOAD_FONTS_FAILURE,
             payload: { message: errorMessage, fonts: someFonts },
@@ -99,7 +95,7 @@ describe('the reducer', () => {
     });
 
     it('should return store unchanged if action is undefined', () => {
-        const theOriginalStore = buildStoreLoading();
+        const theOriginalStore = { loading: true };
         const theNewStore = fonts.reducer(theOriginalStore, undefined);
         expect(theNewStore.loading).toBe(theOriginalStore.loading);
     });
