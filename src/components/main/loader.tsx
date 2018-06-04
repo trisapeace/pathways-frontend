@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Text } from 'native-base';
 
 export interface LoaderProps {
@@ -8,6 +8,6 @@ export interface LoaderProps {
 export const withLoader =
     <ChildProps extends object>
         (ChildComponent: React.ComponentType<ChildProps>): React.SFC<ChildProps & LoaderProps> =>
-        ({ loading, ...props }: LoaderProps) => (
+        ({ loading, ...props }: LoaderProps): ReactElement<ChildProps> => (
             loading ? <Text>Loading...</Text> : <ChildComponent {...props} />
         );
