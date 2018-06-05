@@ -1,4 +1,4 @@
-# Pathways backend
+# Pathways frontend
 
 This repository contains the client for providing access to data about services for refugees and immigrants to BC.
 
