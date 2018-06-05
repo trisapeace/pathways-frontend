@@ -1,3 +1,4 @@
+// tslint:disable:no-class no-this no-expression-statement
 import React from 'react';
 import { View, Text } from 'react-native';
 
