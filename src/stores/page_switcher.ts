@@ -12,7 +12,7 @@ export const initialPage = Page.Questionnaire;
 
 // tslint:disable-next-line:typedef
 const buildDefaultStore = () => (
-    { mainPage: initialPage }
+    { currentPage: initialPage }
 );
 
 export const reducer = (store: Store = buildDefaultStore(), action?: any): Store => {
@@ -21,11 +21,11 @@ export const reducer = (store: Store = buildDefaultStore(), action?: any): Store
     }
     switch (action.type) {
         case constants.SET_QUESTIONNAIRE_PAGE:
-            return { ...store, mainPage: Page.Questionnaire };
+            return { ...store, currentPage: Page.Questionnaire };
         case constants.SET_PLAN_PAGE:
-            return { ...store, mainPage: Page.MyPlan };
+            return { ...store, currentPage: Page.MyPlan };
         case constants.SET_EXPLORE_PAGE:
-            return { ...store, mainPage: Page.ExploreAll };
+            return { ...store, currentPage: Page.ExploreAll };
         default:
             return store;
     }

@@ -16,39 +16,39 @@ describe('the initial page', () => {
 describe('the reducer', () => {
     it('should default to build a store with Page.Questionnaire', () => {
         const theStore = pageSwitcher.reducer();
-        expect(theStore.mainPage).toBe(pageSwitcher.Page.Questionnaire);
+        expect(theStore.currentPage).toBe(pageSwitcher.Page.Questionnaire);
     });
 
-    it('when called with SET_QUESTIONNAIRE_PAGE should return store with mainPage = Page.Questionnaire', () => {
+    it('when called with SET_QUESTIONNAIRE_PAGE should return store with currentPage = Page.Questionnaire', () => {
         const theStore = buildStore();
         const theAction = {
             type: constants.SET_QUESTIONNAIRE_PAGE as typeof constants.SET_QUESTIONNAIRE_PAGE,
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
-        expect(theNewStore.mainPage).toBe(pageSwitcher.Page.Questionnaire);
+        expect(theNewStore.currentPage).toBe(pageSwitcher.Page.Questionnaire);
     });
 
-    it('when called with SET_PLAN_PAGE should return store with mainPage = Page.MyPlan', () => {
+    it('when called with SET_PLAN_PAGE should return store with currentPage = Page.MyPlan', () => {
         const theStore = buildStore();
         const theAction = {
             type: constants.SET_PLAN_PAGE as typeof constants.SET_PLAN_PAGE,
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
-        expect(theNewStore.mainPage).toBe(pageSwitcher.Page.MyPlan);
+        expect(theNewStore.currentPage).toBe(pageSwitcher.Page.MyPlan);
     });
 
-    it('when called with SET_EXPLORE_PAGE should return store with mainPage = Page.ExploreAll', () => {
+    it('when called with SET_EXPLORE_PAGE should return store with currentPage = Page.ExploreAll', () => {
         const theStore = buildStore();
         const theAction = {
             type: constants.SET_EXPLORE_PAGE as typeof constants.SET_EXPLORE_PAGE,
         };
         const theNewStore = pageSwitcher.reducer(theStore, theAction);
-        expect(theNewStore.mainPage).toBe(pageSwitcher.Page.ExploreAll);
+        expect(theNewStore.currentPage).toBe(pageSwitcher.Page.ExploreAll);
     });
 
     it('should return store unchanged if action is undefined', () => {
         const theOriginalStore = buildStore();
         const theNewStore = pageSwitcher.reducer(theOriginalStore, undefined);
-        expect(theNewStore.mainPage).toBe(theOriginalStore.mainPage);
+        expect(theNewStore.currentPage).toBe(theOriginalStore.currentPage);
     });
 });

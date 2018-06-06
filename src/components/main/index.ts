@@ -10,7 +10,7 @@ import * as helpers from '../../stores/helpers/make_action';
 
 const mapStateToProps = (store: Store): LoaderProps & main.Props => ({
     loading: isApplicationLoading(store),
-    mainPageInProps: store.applicationState.mainPageInStore.mainPage,
+    currentPageInProps: store.applicationState.currentPageInStore.currentPage,
     canGoBack: canGoBack(),
 });
 
