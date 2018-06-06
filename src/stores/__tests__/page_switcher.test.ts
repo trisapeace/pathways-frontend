@@ -13,6 +13,27 @@ describe('the initial page', () => {
     });
 });
 
+describe('setting the questionnaire page', () => {
+    it('should create action with type SET_QUESTIONNAIRE_PAGE', () => {
+        const theAction = pageSwitcher.setQuestionnairePage();
+        expect(theAction.type).toBe(constants.SET_QUESTIONNAIRE_PAGE);
+    });
+});
+
+describe('setting the plan page', () => {
+    it('should create action with type SET_PLAN_PAGE', () => {
+        const theAction = pageSwitcher.setPlanPage();
+        expect(theAction.type).toBe(constants.SET_PLAN_PAGE);
+    });
+});
+
+describe('setting the explore page', () => {
+    it('should create action with type SET_EXPLORE_PAGE', () => {
+        const theAction = pageSwitcher.setExplorePage();
+        expect(theAction.type).toBe(constants.SET_EXPLORE_PAGE);
+    });
+});
+
 describe('the reducer', () => {
     it('should default to build a store with Page.Questionnaire', () => {
         const theStore = pageSwitcher.reducer();
