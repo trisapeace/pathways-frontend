@@ -3,7 +3,7 @@ import  { LocationState } from 'redux-first-router';
 import * as reduxFirstRouter from 'redux-first-router';
 import createMemoryHistory from 'history/createMemoryHistory';
 import * as constants from '../application/constants';
-import { initialPage, Page } from '../stores/page_switcher';
+import { initialPage, Page, unsupportedPageError } from '../stores/page_switcher';
 
 const getRouteFromPage = (page: Page): string => {
     switch (page) {
@@ -14,7 +14,7 @@ const getRouteFromPage = (page: Page): string => {
         case Page.ExploreAll:
             return '/explore';
         default:
-            return getRouteFromPage(initialPage);
+            throw unsupportedPageError(page);
     }
 };
 

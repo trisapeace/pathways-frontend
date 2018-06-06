@@ -52,3 +52,15 @@ describe('the reducer', () => {
         expect(theNewStore.currentPage).toBe(theOriginalStore.currentPage);
     });
 });
+
+describe('the unsupportedPageError', () => {
+    it('should create an Error', () => {
+        const result = pageSwitcher.unsupportedPageError(pageSwitcher.Page.ExploreAll);
+        expect(result.name).toBe('Error');
+    });
+
+    it('should create an Error with the message [Error: 2: Unsupported Page]', () => {
+        const result = pageSwitcher.unsupportedPageError(pageSwitcher.Page.ExploreAll);
+        expect(result.message).toBe('2: Unsupported Page');
+    });
+});

@@ -30,3 +30,8 @@ export const reducer = (store: Store = buildDefaultStore(), action?: any): Store
             return store;
     }
 };
+
+export const unsupportedPageError = (page: Page): Error => {
+    const message = `${page}: Unsupported Page`;
+    return new Error(message);
+};
